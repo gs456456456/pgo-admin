@@ -1,0 +1,36 @@
+.left{
+    min-width: 550px;
+    width: 550px;
+    .prompt{
+        font-size: 14px;
+        color:rgb(102,102,102);
+        width: 320px;
+        margin-left:7em;
+    }
+    .form-item{
+        span{
+            width: 5em;
+        }
+        .input{
+            width: 320px;
+            text-align: center
+        }
+        .btn{
+            width: 110px;
+            color:rgb(96,98,102)!important
+        }
+    }
+    .last-form-item{
+        margin-top: 50px;
+        padding-bottom: 65px;
+        border-bottom:1px solid $common-border;
+    }
+    .submit{
+        margin-top: 17px;
+        color: white;
+        text-align: center; 
+        .btn{
+            background: $common-blue!important;
+        }
+    }
+}

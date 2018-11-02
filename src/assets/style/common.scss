@@ -1,0 +1,112 @@
+$bg-white:white;
+$bg-common:rgb(247,249,252);
+$common-blue:rgb(69,119,199);
+$common-border:rgb(229,229,229);
+
+
+//块级元素居中
+@mixin center-block($extend: true) {
+    @if $extend {
+        @extend %center-block;
+    }
+    @else {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+%center-block {
+    @include center-block(false);
+}
+
+// clearfix
+@mixin clearfix($extend: true) {
+    @if $extend {
+        @extend %clearfix;
+    }
+    @else {
+        &::before,
+        &::after {
+            content: "";
+            display: table;
+        }
+        &::after {
+            clear: both;
+        }
+    }
+}
+
+%clearfix {
+    @include clearfix(false);
+}
+
+// Hide only visually, but have it available for screenreaders
+// 只隐藏于视觉，屏幕浏览器可以阅读
+@mixin hidden-clip($extend: true) {
+    @if $extend {
+        @extend %hidden-clip;
+    }
+    @else {
+        position: absolute;
+        clip: rect(1px, 1px, 1px, 1px);
+    }
+}
+
+
+
+//padding margin
+@mixin paddingLR($size){
+    padding-left:$size;
+    padding-right:$size;
+}
+@mixin paddingTB($size){
+    padding-top:$size;
+    padding-bottom:$size;
+}
+@mixin marginLR($size){
+    margin-left:$size;
+    margin-right:$size;
+}
+@mixin marginTB($size){
+    margin-top:$size;
+    margin-bottom:$size;
+}
+
+.clearfix{
+    clear: both;
+}
+
+//flex 相关
+.fl{
+    display: flex
+}
+.fl-col{
+    display: flex;
+    flex-flow: column;
+}
+.fl-row{
+    display: flex;
+    flex-flow: row wrap;
+}
+.xbetween{
+    justify-content: space-between
+}
+.ycenter{
+    align-items: center
+}
+.fl-row-xbtw{
+    @extend .fl-row;
+    @extend .xbetween;
+}
+.fl-row-yctr{
+    @extend .fl-row;
+    @extend .ycenter;
+}
+.fl-row-xbtw-yctr{
+    @extend .fl-row;
+    @extend .xbetween;
+    @extend .ycenter;
+}
+
+
+

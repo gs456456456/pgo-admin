@@ -1,0 +1,23 @@
+@import '@/assets/style/common.scss';
+.marketing-inner{
+    width: 100%;
+    background: white;
+    border: 1px solid rgb(245,245,245);
+    margin-top: 90px;
+    .marketing-inner-inner{
+        padding: 42px 29px;
+    }
+    .content{
+        margin-top: 18px;
+        .content-title{
+            font-size: 14px;
+            color:rgb(186,186,186)
+        }
+        .content-inner{
+            width: 380px;
+            height: 96px;
+            margin-right: 26px;
+            border:1px solid rgb(244,244,244)
+        }
+    }
+}
