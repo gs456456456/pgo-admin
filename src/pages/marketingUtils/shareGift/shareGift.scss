@@ -1,0 +1,101 @@
+@import '@/assets/style/common.scss';
+.shareGiftContent{
+    width: 100%;
+    background-color: white;
+    border: 1px solid rgb(245,245,245);
+    border-radius: 6px;
+    .shareGiftView{
+        margin: 42px 33px 36px 29px;
+        .shareGiftHead{
+            width: 100%;
+            height: 56px;
+            border-radius: 4px;
+            background-color: rgb(250,251,253);
+            display:flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-left: 18px;
+            box-sizing: border-box;
+            margin-bottom: 36px;
+        }
+    }
+}
+.shareGiftTitle{
+    font-size: 14px;
+}
+.shareGiftButton{
+    min-width: 94px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-right: 18px;
+    .el-button{
+        width: 94px;
+        height: 32px;
+        padding:0;
+        text-align: center;
+        line-height: 32px;
+        border: 1px solid rgb(165, 165, 165);
+        box-sizing: border-box;
+        font-weight: 400;
+        color: rgb(0, 0, 0);
+        &:first-child{
+            color: white;
+            background-color: $common-blue;
+            margin-right: 14px;
+        }
+        &:last-child{
+            margin: 0;
+        }
+    }
+}
+.shareGiftInfo{
+    width: 100%;
+    display:flex;
+    &>div{
+        &:first-child{
+            width: 316px;
+            height: 563px;
+            border: 1px solid #ccc;
+        }
+       &:last-child{
+        margin-left: 37px;
+        flex:1;
+        display:flex;
+        flex-direction: column;
+       }
+    }
+}
+.shareGiftActivtyTitle{
+    line-height: 20px;
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+.shareGiftState,.shareGiftType{
+    display:flex;
+    height: 20px;
+    >div{
+        line-height: 20px;
+        font-size: 14px;
+        &:first-child{
+            color: rgb(186, 186, 186);
+        }
+        &:nth-child(2){
+            color: rgb(88, 88, 88);
+            margin-left: 54px;
+        }
+    }
+}
+.shareGiftState{
+    margin-bottom: 22px;
+}
+.shareGiftType{
+    margin-bottom: 40px;
+}
+.shareGiftCheck{
+    line-height: 20px;
+    font-size: 13px;
+    color: rgb(80, 124, 252);
+    margin-left: 12px;
+    cursor: pointer;
+}

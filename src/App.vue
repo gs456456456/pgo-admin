@@ -20,4 +20,7 @@ export default {
   #app{
     width: 100%
   }
+  .router-link-active {
+    text-decoration: none;
+  }
 </style>

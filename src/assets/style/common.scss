@@ -78,7 +78,10 @@ $common-border:rgb(229,229,229);
 
 //flex 相关
 .fl{
-    display: flex
+    display: flex;
+}
+.wrap{
+    flex-flow: wrap;
 }
 .fl-col{
     display: flex;
@@ -90,6 +93,9 @@ $common-border:rgb(229,229,229);
 }
 .xbetween{
     justify-content: space-between
+}
+.xcenter{
+    justify-content: center
 }
 .ycenter{
     align-items: center

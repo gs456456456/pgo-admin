@@ -11,7 +11,11 @@ export default new Router({
       component: marketingUtils.parent,
       children: [
         { path: 'marketing', component: marketingUtils.marketing },
-        { path: 'coupon', component: marketingUtils.coupon }
+        { path: 'coupon', component: marketingUtils.coupon },
+        { path: 'previewShare', component: marketingUtils.previewShare },
+        { path: 'previewCard', component: marketingUtils.previewCard },
+        { path: 'shareGift', component: marketingUtils.shareGift}
+        // { path: 'shareGift', component: marketingUtils.shareGift }
       ]
     },
     {
