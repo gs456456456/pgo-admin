@@ -13,6 +13,14 @@
     components: {
       leftBarNavMixin: leftBarNavMixin
     },
+    beforeRouteUpdate (to, from, next) {
+      this.judgeNavStatus(to.path)
+      next()
+    },
+    beforeRouteLeave (to, from, next) {
+      this.judgeNavStatus(to.path)
+      next()
+    },
     data () {
       return {
         innerNavTitle: [
@@ -24,6 +32,10 @@
           {name: '微主页', url: '/', active: false, open: false},
           {name: '公众号', url: '/', active: false, open: false}
         ],
+        noNavUrl: [
+          '/marketingUtils/personNewGiftConfig',
+          '/marketingUtils/shareGiftConfig'
+        ],
         modulesTitle: '营销',
         showNav: true
       }
@@ -31,10 +43,12 @@
     computed: {
     },
     methods: {
-      judgeNavStatus () {
-        // if (this.$router.currentRoute.path === '/marketingUtils/shareGift') {
-        //   this.showNav = false
-        // }
+      judgeNavStatus (path) {
+        if (this.noNavUrl.indexOf(path) > -1) {
+          this.showNav = false
+        } else {
+          this.showNav = true
+        }
       }
     },
     created () {

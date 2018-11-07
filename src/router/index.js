@@ -5,7 +5,7 @@ import register from '@/pages/register'
 import loginVerify from '@/pages/loginVerify/index.vue'
 Vue.use(Router)
 export default new Router({
-  mode: 'history',
+  // mode: 'history',
   routes: [
     {
       path: '/loginVerify',
@@ -16,12 +16,13 @@ export default new Router({
       path: '/marketingUtils',
       name: 'marketingUtils',
       component: marketingUtils.parent,
+      redirect: '/marketingUtils/marketing',
       children: [
         { path: 'marketing', component: marketingUtils.marketing },
-        { path: 'coupon', component: marketingUtils.coupon },
-        { path: 'previewShare', component: marketingUtils.previewShare },
-        { path: 'previewCard', component: marketingUtils.previewCard }
-        // { path: 'shareGift', component: marketingUtils.shareGift }
+        { path: 'shareGift', component: marketingUtils.shareGift },
+        { path: 'personNewGift', component: marketingUtils.personNewGift },
+        { path: 'personNewGiftConfig', component: marketingUtils.personNewGiftConfig },
+        { path: 'shareGiftConfig', component: marketingUtils.shareGiftConfig }
       ]
     },
     {

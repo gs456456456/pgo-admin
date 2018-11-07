@@ -1,17 +1,17 @@
 import parent from '@/pages/marketingUtils/page'
 import marketing from '@/pages/marketingUtils/marketing'
-import coupon from '@/pages/marketingUtils/coupon'
-import previewShare from '@/pages/marketingUtils/previewShare'
-import previewCard from '@/pages/marketingUtils/previewCard'
-import shareGift from '@/pages/marketingUtils/shareGift'
+import shareGift from '@/pages/marketingUtils/marketing/shareGift'
+import personNewGift from '@/pages/marketingUtils/marketing/personNewGift'
+import personNewGiftConfig from '@/pages/marketingUtils/marketing/personNewGiftConfig'
+import shareGiftConfig from '@/pages/marketingUtils/marketing/shareGiftConfig'
 
 const marketingUtils = {
   parent: parent,
   marketing: marketing,
-  coupon: coupon,
-  previewShare: previewShare,
-  previewCard: previewCard,
-  shareGift: shareGift
+  shareGift: shareGift,
+  personNewGift: personNewGift,
+  personNewGiftConfig: personNewGiftConfig,
+  shareGiftConfig: shareGiftConfig
 }
-
+console.log(marketingUtils)
 export default marketingUtils

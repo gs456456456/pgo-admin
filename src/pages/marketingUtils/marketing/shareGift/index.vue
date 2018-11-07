@@ -5,8 +5,10 @@
             <div class="content-title">
                 <p>转发享好礼 - 未开启</p>
                 <div class="btns">
-                    <el-button type="primary">开启活动</el-button>
-                    <el-button>修改</el-button>
+                    <div class="shareGiftButton">
+                        <el-button>开启活动</el-button>
+                        <el-button @click="goUrl('/marketingUtils/shareGiftConfig')">修改</el-button>
+                    </div>
                 </div>
             </div>
             <div class="content-content">
@@ -51,5 +53,5 @@
 </script>
 
 <style lang='scss' scoped>
-    @import './previewShare.scss'
+    @import './shareGift.scss'
 </style>

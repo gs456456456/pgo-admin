@@ -5,6 +5,7 @@
   p {
       margin: 0;
   }
+  
   .previewShare-inner {
     font-size: 14px;
     color: $common-blue;
@@ -99,4 +100,30 @@
       }
     }
   }
+  .shareGiftButton{
+    min-width: 94px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-right: 18px;
+    .el-button{
+        width: 94px;
+        height: 32px;
+        padding:0;
+        text-align: center;
+        line-height: 32px;
+        border: 1px solid rgb(165, 165, 165);
+        box-sizing: border-box;
+        font-weight: 400;
+        color: rgb(0, 0, 0);
+        &:first-child{
+            color: white;
+            background-color: $common-blue;
+            margin-right: 14px;
+        }
+        &:last-child{
+            margin: 0;
+        }
+    }
+}
 }

@@ -7,7 +7,7 @@
                 <div class="btns">
                     <div class="shareGiftButton">
                         <el-button>开启活动</el-button>
-                        <el-button>修改</el-button>
+                        <el-button @click="goUrl('/marketingUtils/personNewGiftConfig')">修改</el-button>
                     </div>
                 </div>
             </div>
@@ -58,5 +58,5 @@
 </script>
 
 <style lang='scss' scoped>
-    @import './previewCard.scss'
+    @import './personNewGift.scss'
 </style>
