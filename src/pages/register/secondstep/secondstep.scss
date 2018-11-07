@@ -1,39 +1,51 @@
-.left{
-    min-width: 550px;
-    width: 550px;
-    .prompt{
-        font-size: 14px;
-        color:rgb(102,102,102);
-        width: 320px;
-        margin-left:7em;
-        margin-bottom: 38px
-    }
-    .form-item{
-        span{
-            width: 5em;
+.register-container-s{
+    height: 550px;
+    .title {
+        background: white;
+        margin: 0 auto 36px;
+        width: 30%;
+        font-weight: 400;
+        min-width: 330px;
+        .now-step {
+            font-size: 16px;
+            color: $common-blue !important
         }
-        .input{
-            width: 320px;
-            text-align: center
+        .el-step__title.is-finish{
+            color: $common-blue !important
         }
-        .btn{
-            width: 110px;
-            color:rgb(96,98,102)!important
+        .el-icon-circle-check-outline{
+            font-size: 25px!important;
+            color: $common-blue !important
         }
-        &:not(:first-child) {
-            margin-bottom: 38px
+        .is-text{
+            width: 22px;
+            height: 22px;
         }
     }
-    .last-form-item{
-        padding-bottom: 65px;
-        border-bottom:1px solid $common-border;
+    .down-container{
+        font-size: 16px;
+        text-align: center;
+        padding-top: 75px;
+        border-top:1px solid $common-border;
     }
     .submit{
-        margin-top: 17px;
+        margin-top: 66px;
         color: white;
         text-align: center; 
         .btn{
             background: $common-blue!important;
         }
     }
+    .el-step__head.is-process {
+        color: $common-blue!important;
+        border-color: $common-blue!important;
+    }
+    .el-step__title.is-process{
+        color:$common-blue!important;
+    }
+    .el-icon-circle-check-outline{
+        font-size: 25px!important;
+        color: $common-blue!important
+    }
 }
+

@@ -7,40 +7,5 @@
         background: white;
         margin: 36px auto 0;
         padding: 44px 160px;
-        .title {
-            background: white;
-            margin: 0 auto 36px;
-            width: 30%;
-            font-weight: 400;
-            min-width: 330px;
-            .now-step {
-                font-size: 16px;
-                color: $common-blue !important
-            }
-            .el-step__title.is-finish{
-                color: $common-blue !important
-            }
-            .el-icon-circle-check-outline{
-                font-size: 25px!important;
-                color: $common-blue !important
-            }
-            .is-text{
-                width: 22px;
-                height: 22px;
-            }
-        }
-        .down-container{
-            padding-top: 65px;
-            border-top:1px solid $common-border;
-            .right{
-                width: 90%;
-                margin-left: 10%;
-                text-align: center;
-                span{
-                    color: $common-blue
-                }
-            }
-        }
-
     }
 }

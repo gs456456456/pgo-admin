@@ -5,8 +5,10 @@
             <div class="content-title">
                 <p>新人送礼 - 未开启</p>
                 <div class="btns">
-                    <el-button type="primary">开启活动</el-button>
-                    <el-button>修改</el-button>
+                    <div class="shareGiftButton">
+                        <el-button>开启活动</el-button>
+                        <el-button>修改</el-button>
+                    </div>
                 </div>
             </div>
             <div class="content-content">

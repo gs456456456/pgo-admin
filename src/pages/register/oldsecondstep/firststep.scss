@@ -37,6 +37,7 @@
 
 
 
+
 .left{
     min-width: 550px;
     width: 550px;
@@ -45,7 +46,6 @@
         color:rgb(102,102,102);
         width: 320px;
         margin-left:7em;
-        margin-bottom: 38px
     }
     .form-item{
         span{
@@ -59,11 +59,9 @@
             width: 110px;
             color:rgb(96,98,102)!important
         }
-        &:not(:first-child) {
-            margin-bottom: 38px
-        }
     }
     .last-form-item{
+        margin-top: 50px;
         padding-bottom: 65px;
         border-bottom:1px solid $common-border;
     }

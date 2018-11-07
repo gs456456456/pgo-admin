@@ -32,9 +32,9 @@
     },
     methods: {
       judgeNavStatus () {
-        if (this.$router.currentRoute.path === '/marketingUtils/shareGift') {
-          this.showNav = false
-        }
+        // if (this.$router.currentRoute.path === '/marketingUtils/shareGift') {
+        //   this.showNav = false
+        // }
       }
     },
     created () {
