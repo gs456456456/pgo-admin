@@ -5,6 +5,11 @@
     .el-form-item__label{
         font-size: 16px;
         color: black;
+        padding: 0;
+        margin-right: 35px;
+        width: 64px;
+        text-align: left;
+        min-width: 80px;
     }
     .el-form-item{
         margin-bottom: 0
@@ -57,20 +62,22 @@
         font-size: 14px;
         color:rgb(102,102,102);
         width: 320px;
-        margin-left:7em;
+        margin-left:8em;
         margin-bottom: 38px
     }
     .form-item{
+        display:flex;
         span{
             width: 5em;
         }
         .input{
-            width: 320px;
-            text-align: center
+            width: 240px;
+            text-align: center;
+             margin-right: 20px;
         }
         .btn{
             width: 110px;
-            color:rgb(96,98,102)!important
+            color:rgb(96,98,102)!important;
         }
         &:not(:first-child) {
             margin-bottom: 38px

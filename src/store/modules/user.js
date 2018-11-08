@@ -3,26 +3,44 @@ export default {
     state: {
       islogin:false,
       userInfo:{
+        token:'',
+        phone:''
       }
     },
     getters: {
       getLoginState(state){
         return state.islogin
+      },
+      getUserInfo(state){
+        return state.userInfo
       }
     },
     actions: {
-      userFetch: async (ctx) => {
-        console.log(http)
+      userRegisterFetch: async (ctx,parms) => {
         let res = await http({
-          url: '/info',
-          method: 'GET',
+          url: '/market/register/confirmRegister',
+          method: 'POST',
+          body:parms
+        },'formData')
+        return res
+      },
+      userPhoneCaptchaFetch: async (ctx,phone) => {
+        let res = await http({
+          url: '/market/register/sendValidCode',
+          method: 'POST',
+          body:{
+            phoneNumber:phone
+          }
         })
-        return res.data;
+        return res
       }
     },
     mutations: {
       setLoginState(state,ifLogin){
         state.islogin = ifLogin
+      },
+      setUserInfo(state,info){
+        state.userInfo = info
       }
     }
   }

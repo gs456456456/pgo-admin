@@ -3,13 +3,13 @@ import axios from 'axios'
 // import utils from '@/assets/js/utils.js'
 // var msgpack = require("msgpack-lite");
 let config = {
-  'BASEURL': 'http://localhost:8080'
+  'BASEURL': 'http://guirong.private.icepointcloud.com/api'
 }
-const http = async (param) => {
+const http = async (param, type) => {
   return new Promise(async (resolve, reject) => {
     let res = null
     let requestUrl = (param.BASEURL || config.BASEURL) + param.url
-
+    let paramFormat = {}
     let requestMethod = param.method || 'GET'
     let requestHeaders = {
     // "Content-type": "text/plain;charset=UTF-8",
@@ -25,40 +25,32 @@ const http = async (param) => {
     if (param.withCredentials === false) {
       axios.defaults.withCredentials = param.withCredentials
     }
-
-  // JSON or FormData
-    if (param.type === 'payload') {
-      param.body = JSON.stringify(param.body)
+    //
+    paramFormat = {
+      method: requestMethod,
+      url: requestUrl,
+      headers: requestHeaders
+    }
+    // JSON or FormData
+    if (type) {
+      paramFormat['data'] = param.body
     } else {
-    // data数据转换成formdata
-      axios.defaults.transformRequest = [function (data) {
-        if (data !== null && typeof data === 'object') {
-          let newData = ''
-          for (let k in data) {
-            newData += encodeURIComponent(k) + '=' + encodeURIComponent(data[k]) + '&'
-          }
-          newData = newData.slice(0, -1)
-          return newData
-        }
-        return data
-      }]
+      paramFormat['params'] = param.body
     }
     // 异常处理
     try {
-      res = await axios({
-        method: requestMethod,
-        url: requestUrl,
-        headers: requestHeaders,
-        params: param.body
-      })
-      if (res.retCode === 1) {
-        resolve(res)
-      } else if (res.retCode === 0) {
-        reject(res)
+      res = await axios(paramFormat)
+      if (res.data.retCode === 1) {
+        reject(res.data.retMsg)
+      } else if (res.data.retCode === 0) {
+        resolve(res.data, res)
+      } else {
+        reject(res.data.retMsg)
       }
     } catch (e) {
       reject(e)
     }
   })
 }
+
 export default http
