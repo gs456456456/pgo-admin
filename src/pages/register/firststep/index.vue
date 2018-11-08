@@ -7,32 +7,31 @@
         <div></div>
         <div class="down-container fl">
             <template>
-                <div class="left">
-                    <div class="form-item fl-row-xbtw-yctr">
-                        <span>注册邮箱</span>
-                        <el-input class="input" placeholder="Email"></el-input>
-                        <el-button class="btn">发送验证码</el-button>
-                    </div>
-                    <p class="prompt">每个邮箱只能注册一次。</p>
-                    <div class="form-item fl-row-xbtw-yctr clearfix">
-                        <span>邮箱验证码</span>
-                        <el-input class="input" placeholder="请输入内容"></el-input>
-                        <div class="btn"></div>
-                    </div>
-                    <div class="form-item fl-row-xbtw-yctr">
-                        <span>密码</span>
-                        <el-input class="input" placeholder="请输入内容"></el-input>
-                        <div class="btn"></div>
-                    </div>
-                    <div class="form-item fl-row-xbtw-yctr last-form-item">
-                        <span>确认密码</span>
-                        <el-input class="input" placeholder="请输入内容"></el-input>
-                        <div class="btn"></div>
-                    </div>
-                    <div class="submit">
-                        <el-button type="primary" class="btn">验证并继续</el-button>
-                    </div>
-                </div>
+                <!-- <div class="left"> -->
+                    <el-form class="left" ref="form">
+                        <el-form-item label="注册手机" class="form-item fl-row-xbtw-yctr">
+                            <!-- <span>注册手机</span> -->
+                            <el-input class="input" placeholder="手机号"></el-input>
+                            <el-button class="btn">发送验证码</el-button>
+                        </el-form-item>
+                        <p class="prompt">每个手机只能注册一次。</p>
+                        <el-form-item label="验证码" class="form-item fl-row-xbtw-yctr">
+                            <el-input class="input" placeholder="请输入内容"></el-input>
+                            <div class="btn"></div>
+                        </el-form-item>
+                        <el-form-item label="密码" class="form-item fl-row-xbtw-yctr">
+                            <el-input class="input" placeholder="请输入内容"></el-input>
+                            <div class="btn"></div>
+                        </el-form-item>
+                        <el-form-item label="确认密码" class="form-item fl-row-xbtw-yctr last-form-item">
+                            <el-input class="input" placeholder="请输入内容"></el-input>
+                            <div class="btn"></div>
+                        </el-form-item >
+                        <div class="submit">
+                            <el-button type="primary" class="btn">验证并继续</el-button>
+                        </div>
+                    </el-form>
+                <!-- </div> -->
             </template>
             <div class="right">
                 <p>已有账号?<span>立即登录</span></p>

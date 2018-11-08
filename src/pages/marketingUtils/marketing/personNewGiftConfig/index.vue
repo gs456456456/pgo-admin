@@ -18,7 +18,7 @@
                     </div>
                     <div>
                         <div class="activeSetting">积分额</div>
-                        <el-input placeholder="请输入内容"></el-input>
+                        <el-input placeholder="请输入内容" type='number' onkeyup="this.value=this.value.replace(/[^\d]/g,'');" ></el-input>
                     </div>
                     <div>
                         <div class="activeSetting">优惠券</div>

@@ -52,7 +52,7 @@
       }
     },
     created () {
-      this.judgeNavStatus()
+      this.judgeNavStatus(this.$router.currentRoute.path)
     },
     mounted () {
       console.log(this.$router)

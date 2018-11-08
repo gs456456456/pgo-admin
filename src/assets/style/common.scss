@@ -72,6 +72,12 @@ $common-border:rgb(229,229,229);
     margin-bottom:$size;
 }
 
+
+.el-button--primary{
+    background-color: $common-blue;
+    border-color: $common-blue;
+}
+
 .clearfix{
     clear: both;
 }

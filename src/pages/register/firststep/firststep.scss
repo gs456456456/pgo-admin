@@ -1,4 +1,17 @@
 .register-container-s{
+    .el-form-item__content{
+        margin-left: 0
+    }
+    .el-form-item__label{
+        font-size: 16px;
+        color: black;
+    }
+    .el-form-item{
+        margin-bottom: 0
+    }
+    .el-form-item::after, .el-form-item::before{
+        content: none
+    }
     .title {
         background: white;
         margin: 0 auto 36px;

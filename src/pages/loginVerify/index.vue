@@ -3,7 +3,7 @@
         <div class="register-container">
             <p class="title">当前帐号待验证</p>
             <p class="content">
-                <p>邮箱 eddie@wisenable.com 已成功注册 ”予能科技公司” 运营后台。</p>
+                <p>手机 eddie@wisenable.com 已成功注册 ”予能科技公司” 运营后台。</p>
                 <p>当前帐号待验证，请管理员至 wisenable.com 后台通过验证后，</p>
                 <p>可正常使用所有功能。</p>
         </div>

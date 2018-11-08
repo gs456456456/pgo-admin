@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import marketingUtils from './modules/marketingUtils'
-import adminInfo from './modules/adminInfo'
+import user from './modules/user'
 
 Vue.use(Vuex)
 export default new Vuex.Store({
   modules: {
-    adminInfo,
+    user,
     marketingUtils
   }
 })
