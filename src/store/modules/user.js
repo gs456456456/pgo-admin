@@ -24,6 +24,21 @@ export default {
         },'formData')
         return res
       },
+      userLoginFetch: async (ctx,vueObj,parms,type) => {
+        debugger
+        let res = await http(vueObj,{
+          url: '/market/auth/login',
+          method: 'POST',
+          body:parms
+        },'formData')
+        return res
+      },
+      userInfoFetch: async (ctx,vueObj) => {
+        let res = await http(vueObj,{
+          url: '/market/user/info',
+        })
+        return res
+      },
       userPhoneCaptchaFetch: async (ctx,vueObj,phone) => {
         let res = await http(vueObj,{
           url: '/market/register/sendValidCode',

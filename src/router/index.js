@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import marketingUtils from '@/pages/marketingUtils'
 import register from '@/pages/register'
 import loginVerify from '@/pages/loginVerify/index.vue'
+import login from '@/pages/login/index.vue'
 Vue.use(Router)
 export default new Router({
   // mode: 'history',
@@ -11,6 +12,11 @@ export default new Router({
       path: '/loginVerify',
       name: 'loginVerify',
       component: loginVerify
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: login
     },
     {
       path: '/marketingUtils',

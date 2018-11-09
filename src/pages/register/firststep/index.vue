@@ -6,7 +6,6 @@
         </el-steps>
         <div></div>
         <div class="down-container fl">
-            <template>
                 <!-- <div class="left"> -->
                     <el-form class="left" :model="registerParms" ref="registerForm">
                         <el-form-item label="注册手机" class="form-item" prop="phoneNumber" :rules="rules.phone">
@@ -33,7 +32,6 @@
                         </div>
                     </el-form>
                 <!-- </div> -->
-            </template>
             <div class="right">
                 <p>已有账号?<span>立即登录</span></p>
             </div>
@@ -88,35 +86,24 @@
       methods: {
         ...mapMutations(['setUserInfo']),
         ...mapActions(['userRegisterFetch']),
-        phoneFormat () {
-          return (rule, value, callback) => {
-            const TEL_REGEXP = /^1([38]\d|5[0-35-9]|7[3678])\d{8}$/
-            if (TEL_REGEXP.test(value)) {
-              callback()
-            } else {
-              callback(new Error('请输入正确的手机格式'))
-            }
-          }
-        },
         submit () {
           let that = this
-          this.goUrl('/register/secondstep')
-        //   this.$refs.registerForm.validate(async function (result) {
-        //     if (result) {
-        //       let res = await this.userRegisterFetch(
-        //         that, this.registerParms
-        //         )
-        //       if (res) {
-        //         this.setUserInfo({
-        //           phone: this.registerParms.phoneNumber,
-        //           token: this.registerParms.token
-        //         })
-        //         this.goUrl('/register/secondstep')
-        //       }
-        //     } else {
-        //       console.log('表达验证不合法')
-        //     }
-        //   }.bind(this))
+          this.$refs.registerForm.validate(async function (result) {
+            if (result) {
+              let res = await this.userRegisterFetch(
+                that, this.registerParms
+                )
+              if (res) {
+                this.setUserInfo({
+                  phone: this.registerParms.phoneNumber,
+                  token: this.registerParms.token
+                })
+                this.goUrl('/register/secondstep')
+              }
+            } else {
+              console.log('表达验证不合法')
+            }
+          }.bind(this))
         }
       },
       created () {
