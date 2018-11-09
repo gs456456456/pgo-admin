@@ -1,11 +1,12 @@
 import axios from 'axios'
+import main from '@/main.js'
 
 let config = {
   'BASEURL': 'http://guirong.private.icepointcloud.com/api'
 }
 
-const http = async (vm, param, type) => {
-  vm.$store.commit('closeError')
+const http = async (param, type) => {
+  main.$store.commit('closeError')
   return new Promise(async (resolve, reject) => {
     let res = null
     let requestUrl = (param.BASEURL || config.BASEURL) + param.url
@@ -38,22 +39,19 @@ const http = async (vm, param, type) => {
       paramFormat['params'] = param.body
     }
     // 异常处理
-    // todo 401 --redirect login
     try {
       res = await axios(paramFormat)
       if (res.data.retCode === 1) {
-        vm.$store.commit('setError', res.data.retMsg)
+        main.$store.commit('setError', res.data.retMsg)
         reject(res.data.retMsg)
       } else if (res.data.retCode === 0) {
         resolve(res.data, res)
-      } else if (res.data.retCode === 2) {
-        vm.$router.push('/login')
       } else {
-        vm.$store.commit('setError', res.data.retMsg)
+        main.$store.commit('setError', res.data.retMsg)
         reject(res.data.retMsg)
       }
     } catch (e) {
-      vm.$store.commit('setError', e)
+      main.$store.commit('setError', e)
       reject(e)
     }
   })

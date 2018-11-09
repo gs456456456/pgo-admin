@@ -33,92 +33,95 @@
                     </el-form>
                 <!-- </div> -->
             <div class="right">
-                <p>已有账号?<span>立即登录</span></p>
+                <p>已有账号?<span @click="goUrl('/login')" style="cursor:pointer">立即登录</span></p>
             </div>
         </div>
     </div>
 </template>
 <script>
-    import { mapActions, mapMutations } from 'vuex'
-    import smsBtn from '@/components/smsBtn'
-    export default {
-      name: 'firststep',
-      components: {
-        smsBtn: smsBtn
-      },
-      data () {
-        let phoneVerify = (rule, value, callback) => {
-          const TEL_REGEXP = /^1([38]\d|5[0-35-9]|7[3678])\d{8}$/
-          if (TEL_REGEXP.test(value)) {
-            callback()
-          } else {
-            callback(new Error('请输入正确的手机格式'))
-          }
-        }
-        // let passwordVerify = ()
-        return {
-          registerParms: {
-            token: '',
-            phoneNumber: '',
-            password: '',
-            repassword: '',
-            validCode: ''
-          },
-          rules: {
-            phone: [
-                { required: true, message: '请输入手机号', trigger: 'blur' },
-                { validator: phoneVerify, message: '请输入正确的手机格式', trigger: ['blur', 'change'] }
-            ],
-            validCode: [
-                { required: true, message: '请输入验证码', trigger: 'blur' }
-            ],
-            password: [
-                { required: true, message: '请输入密码', trigger: 'blur' }
-            ],
-            repassword: [
-                { required: true, message: '请输入密码', trigger: 'blur' }
-            ]
-          }
-        }
-      },
-      computed: {
-      },
-      methods: {
-        ...mapMutations(['setUserInfo']),
-        ...mapActions(['userRegisterFetch']),
-        submit () {
-          let that = this
-          this.$refs.registerForm.validate(async function (result) {
-            if (result) {
-              let res = await this.userRegisterFetch(
-                that, this.registerParms
-                )
-              if (res) {
-                this.setUserInfo({
-                  phone: this.registerParms.phoneNumber,
-                  token: this.registerParms.token
-                })
-                this.goUrl('/register/secondstep')
-              }
-            } else {
-              console.log('表达验证不合法')
-            }
-          }.bind(this))
-        }
-      },
-      created () {
-        if (this.$router.currentRoute.query.token) {
-          this.registerParms.token = this.$router.currentRoute.query.token
-        }
-      },
-      mounted () {
-      },
-      watch: {
-
+import { mapActions, mapMutations } from 'vuex'
+import smsBtn from '@/components/smsBtn'
+import { error } from 'util'
+export default {
+  name: 'firststep',
+  components: {
+    smsBtn: smsBtn
+  },
+  data () {
+    let phoneVerify = (rule, value, callback) => {
+      const TEL_REGEXP = /^1([38]\d|5[0-35-9]|7[3678])\d{8}$/
+      if (TEL_REGEXP.test(value)) {
+        callback()
+      } else {
+        callback(new Error('请输入正确的手机格式'))
       }
     }
+    let repasswordVerify = (rule, value, callback) => {
+      if (this.registerParms.password != this.registerParms.repassword) {
+        callback(new Error('密码不一致'))
+      } else {
+        callback()
+      }
+    }
+    return {
+      registerParms: {
+        token: '',
+        phoneNumber: '',
+        password: '',
+        repassword: '',
+        validCode: ''
+      },
+      rules: {
+        phone: [
+          { required: true, message: '请输入手机号', trigger: 'blur' },
+          {
+            validator: phoneVerify,
+            message: '请输入正确的手机格式',
+            trigger: ['blur', 'change']
+          }
+        ],
+        validCode: [
+          { required: true, message: '请输入验证码', trigger: 'blur' }
+        ],
+        password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
+        repassword: [
+          { required: true, message: '请输入密码', trigger: 'blur' },
+          { validator: repasswordVerify, message: '密码不一致', trigger: ['blur', 'change'] }
+        ]
+      }
+    }
+  },
+  computed: {},
+  methods: {
+    ...mapMutations(['setUserInfo']),
+    ...mapActions(['userRegisterFetch']),
+    submit () {
+      this.$refs.registerForm.validate(async function (result) {
+        if (result) {
+          let res = await this.userRegisterFetch(this.registerParms)
+          if (res) {
+            this.setUserInfo({
+              phone: this.registerParms.phoneNumber,
+              token: this.registerParms.token
+            })
+            this.goUrl('/register/secondstep')
+          }
+        } else {
+          console.log('表达验证不合法')
+        }
+      }.bind(this))
+    }
+  },
+  created () {
+    if (this.$router.currentRoute.query.token) {
+      this.registerParms.token = this.$router.currentRoute.query.token
+    }
+  },
+  mounted () {},
+  watch: {}
+}
 </script>
 <style lang="scss">
-    @import '@/assets/style/common.scss';
-    @import './firststep.scss'
+@import "@/assets/style/common.scss";
+@import "./firststep.scss";
 </style>

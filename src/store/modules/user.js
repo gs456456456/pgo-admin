@@ -1,46 +1,49 @@
 import http from '@/utils/http.js'
 export default {
     state: {
-      islogin:false,
       userInfo:{
         token:'',
         phone:''
-      }
+      },
+      //0-未注册 1-待审核 2-成功
+      registerStatus:0
     },
     getters: {
       getLoginState(state){
-        return state.islogin
+        return localStorage.getItem('islogin')==='true'?true:false
       },
       getUserInfo(state){
         return state.userInfo
+      },
+      getRegisterStatus(state){
+        return state.registerStatus
       }
     },
     actions: {
-      userRegisterFetch: async (ctx,vueObj,parms,type) => {
-        let res = await http(vueObj,{
+      userRegisterFetch: async (ctx,parms) => {
+        let res = await http({
           url: '/market/register/confirmRegister',
           method: 'POST',
           body:parms
         },'formData')
         return res
       },
-      userLoginFetch: async (ctx,vueObj,parms,type) => {
-        debugger
-        let res = await http(vueObj,{
+      userLoginFetch: async (ctx,parms) => {
+        let res = await http({
           url: '/market/auth/login',
           method: 'POST',
           body:parms
         },'formData')
         return res
       },
-      userInfoFetch: async (ctx,vueObj) => {
-        let res = await http(vueObj,{
+      userInfoFetch: async (ctx) => {
+        let res = await http({
           url: '/market/user/info',
         })
         return res
       },
-      userPhoneCaptchaFetch: async (ctx,vueObj,phone) => {
-        let res = await http(vueObj,{
+      userPhoneCaptchaFetch: async (ctx,phone) => {
+        let res = await http({
           url: '/market/register/sendValidCode',
           method: 'POST',
           body:{
@@ -52,10 +55,13 @@ export default {
     },
     mutations: {
       setLoginState(state,ifLogin){
-        state.islogin = ifLogin
+        localStorage.setItem('islogin',ifLogin)
       },
       setUserInfo(state,info){
         state.userInfo = info
+      },
+      setRegisterStatus(state,status){
+        state.registerStatus = status
       }
     }
   }

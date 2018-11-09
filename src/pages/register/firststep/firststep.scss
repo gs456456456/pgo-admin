@@ -88,11 +88,13 @@
         border-bottom:1px solid $common-border;
     }
     .submit{
-        margin-top: 17px;
         color: white;
         text-align: center; 
         .btn{
             background: $common-blue!important;
         }
     }
+}
+.prompt{
+    text-align: left;
 }

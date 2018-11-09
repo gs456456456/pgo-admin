@@ -4,8 +4,9 @@ import marketingUtils from '@/pages/marketingUtils'
 import register from '@/pages/register'
 import loginVerify from '@/pages/loginVerify/index.vue'
 import login from '@/pages/login/index.vue'
+import main from '@/main.js'
 Vue.use(Router)
-export default new Router({
+const router = new Router({
   // mode: 'history',
   routes: [
     {
@@ -29,12 +30,16 @@ export default new Router({
         { path: 'personNewGift', component: marketingUtils.personNewGift },
         { path: 'personNewGiftConfig', component: marketingUtils.personNewGiftConfig },
         { path: 'shareGiftConfig', component: marketingUtils.shareGiftConfig }
-      ]
+      ],
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/register',
       name: 'register',
       component: register.parent,
+      redirect: '/register/firststep',
       children: [
         { path: 'firststep', component: register.firststep },
         { path: 'secondstep', component: register.secondstep }
@@ -42,7 +47,29 @@ export default new Router({
     },
     {
       path: '*',
-      redirect: '/register/firststep'
+      redirect: '/login'
     }
   ]
 })
+
+// 判断是否需要登录权限 以及是否登录
+router.beforeEach((to, from, next) => {
+  // 清除错误提示
+  if (main) {
+    main.$store.commit('closeError')
+  }
+  if (to.matched.some(res => res.meta.requireAuth)) { // 判断是否需要登录权限
+    if (localStorage.getItem('islogin') === 'true') { // 判断是否登录
+      next()
+    } else {
+      next({
+        path: '/login',
+        query: {redirect: to.fullPath}
+      })
+    }
+  } else {
+    next()
+  }
+})
+
+export default router

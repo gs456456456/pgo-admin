@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
+import { mapState, mapGetters, mapMutations } from 'vuex'
 import navTop from '@/components/navTop'
 export default {
   name: 'App',
@@ -22,6 +22,7 @@ export default {
     ...mapGetters(['getError'])
   },
   methods: {
+    ...mapMutations(['closeError'])
   }
 }
 </script>

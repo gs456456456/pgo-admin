@@ -9,7 +9,7 @@
                 <p>已完成注册，请管理员至 wisenable.com后台通过验证。</p>
             </div>
             <div class="submit">
-                <el-button type="primary" class="btn">进入后台</el-button>
+                <el-button type="primary" class="btn" @click="goUrl('/login')">进入后台</el-button>
             </div>
         </div>
     </template>

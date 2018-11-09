@@ -28,20 +28,26 @@ export default {
   },
   methods: {
       ...mapActions(['userLoginFetch','userInfoFetch']),
+      ...mapMutations(['setLoginState']),
       hasLoginFunc(v){
           if(v){
               this.goUrl('/marketingUtils')
           }
       },
       async submit(){
-          //await this.userInfoFetch(this)
-        let res =  await this.userLoginFetch(this,this.loginForm)
+          //await this.userInfoFetch()
+        let res =  await this.userLoginFetch(this.loginForm)
+        if(res){
+            this.setLoginState(true)
+            this.goUrl('/marketingUtils')
+        }
       }
   },
   created(){
     this.hasLoginFunc(this.getLoginState)
   },
   watch:{
+      //监听是否登陆,登陆后则跳转
       getLoginState(currentV,pastV){
           this.hasLoginFunc(currentV)
       }
