@@ -21,6 +21,9 @@ const error = {
     setError (state, errorText) {
       state.showError = true
       state.errorText = errorText
+    },
+    closeError (state) {
+      state.showError = false
     }
   }
 }

@@ -5,6 +5,7 @@ let config = {
 }
 
 const http = async (vm, param, type) => {
+  vm.$store.commit('closeError')
   return new Promise(async (resolve, reject) => {
     let res = null
     let requestUrl = (param.BASEURL || config.BASEURL) + param.url
