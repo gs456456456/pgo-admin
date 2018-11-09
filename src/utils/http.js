@@ -1,11 +1,10 @@
 import axios from 'axios'
-// import config from '@/config'
-// import utils from '@/assets/js/utils.js'
-// var msgpack = require("msgpack-lite");
+
 let config = {
   'BASEURL': 'http://guirong.private.icepointcloud.com/api'
 }
-const http = async (param, type) => {
+
+const http = async (vm, param, type) => {
   return new Promise(async (resolve, reject) => {
     let res = null
     let requestUrl = (param.BASEURL || config.BASEURL) + param.url
@@ -41,13 +40,16 @@ const http = async (param, type) => {
     try {
       res = await axios(paramFormat)
       if (res.data.retCode === 1) {
+        vm.$store.commit('setError', res.data.retMsg)
         reject(res.data.retMsg)
       } else if (res.data.retCode === 0) {
         resolve(res.data, res)
       } else {
+        vm.$store.commit('setError', res.data.retMsg)
         reject(res.data.retMsg)
       }
     } catch (e) {
+      vm.$store.commit('setError', e)
       reject(e)
     }
   })

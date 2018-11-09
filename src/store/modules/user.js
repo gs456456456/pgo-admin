@@ -16,16 +16,16 @@ export default {
       }
     },
     actions: {
-      userRegisterFetch: async (ctx,parms) => {
-        let res = await http({
+      userRegisterFetch: async (ctx,vueObj,parms,type) => {
+        let res = await http(vueObj,{
           url: '/market/register/confirmRegister',
           method: 'POST',
           body:parms
         },'formData')
         return res
       },
-      userPhoneCaptchaFetch: async (ctx,phone) => {
-        let res = await http({
+      userPhoneCaptchaFetch: async (ctx,vueObj,phone) => {
+        let res = await http(vueObj,{
           url: '/market/register/sendValidCode',
           method: 'POST',
           body:{

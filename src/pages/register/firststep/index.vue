@@ -8,27 +8,24 @@
         <div class="down-container fl">
             <template>
                 <!-- <div class="left"> -->
-                    <el-form class="left" ref="form">
-                        <el-form-item label="注册手机" class="form-item" prop="phone" :rules="[
-                            { required: true, message: '请输入手机号', trigger: 'blur' },
-                            { validator: phoneFormat, message: '请输入正确的手机格式', trigger: ['blur', 'change'] }
-                        ]">
+                    <el-form class="left" :model="registerParms" ref="registerForm">
+                        <el-form-item label="注册手机" class="form-item" prop="phoneNumber" :rules="rules.phone">
                             <!-- <span>注册手机</span> -->
                             <el-input class="input" v-model='registerParms.phoneNumber' placeholder="手机号"></el-input>
                             <sms-btn :phone='registerParms.phoneNumber'></sms-btn>
                             <!-- <el-button class="btn" @click='sendPhoneCaptcha'>{{intervalText}}</el-button> -->
                         </el-form-item>
                         <p class="prompt">每个手机只能注册一次。</p>
-                        <el-form-item label="验证码" class="form-item">
-                            <el-input class="input" placeholder="请输入内容" v-model='registerParms.validCode'></el-input>
+                        <el-form-item label="验证码" class="form-item" prop="validCode" :rules="rules.validCode">
+                            <el-input class="input" placeholder="请输入验证码" v-model='registerParms.validCode'></el-input>
                             <div class="btn"></div>
                         </el-form-item>
-                        <el-form-item label="密码" class="form-item ">
-                            <el-input class="input" placeholder="请输入内容" v-model='registerParms.password'></el-input>
+                        <el-form-item label="密码" class="form-item" prop="password" :rules="rules.password">
+                            <el-input class="input" placeholder="请输入密码" type='password' v-model='registerParms.password'></el-input>
                             <div class="btn"></div>
                         </el-form-item>
-                        <el-form-item label="确认密码" class="form-item last-form-item">
-                            <el-input class="input" placeholder="请输入内容"></el-input>
+                        <el-form-item label="确认密码" class="form-item last-form-item" prop="repassword" :rules="rules.repassword">
+                            <el-input class="input" placeholder="请输入密码" type='password' v-model='registerParms.repassword'></el-input>
                             <div class="btn"></div>
                         </el-form-item >
                         <div class="submit">
@@ -52,6 +49,15 @@
         smsBtn: smsBtn
       },
       data () {
+        let phoneVerify = (rule, value, callback) => {
+          const TEL_REGEXP = /^1([38]\d|5[0-35-9]|7[3678])\d{8}$/
+          if (TEL_REGEXP.test(value)) {
+            callback()
+          } else {
+            callback(new Error('请输入正确的手机格式'))
+          }
+        }
+        // let passwordVerify = ()
         return {
           registerParms: {
             token: '',
@@ -59,6 +65,21 @@
             password: '',
             repassword: '',
             validCode: ''
+          },
+          rules: {
+            phone: [
+                { required: true, message: '请输入手机号', trigger: 'blur' },
+                { validator: phoneVerify, message: '请输入正确的手机格式', trigger: ['blur', 'change'] }
+            ],
+            validCode: [
+                { required: true, message: '请输入验证码', trigger: 'blur' }
+            ],
+            password: [
+                { required: true, message: '请输入密码', trigger: 'blur' }
+            ],
+            repassword: [
+                { required: true, message: '请输入密码', trigger: 'blur' }
+            ]
           }
         }
       },
@@ -78,17 +99,24 @@
           }
         },
         submit () {
-        //   let res = this.userRegisterFetch(
-        //     this.registerParms
-        //   )
-        //   if (res) {
-    
-          this.setUserInfo({
-            phone: this.registerParms.phoneNumber,
-            token: this.registerParms.token
-          })
-          this.goUrl('/loginVerify')
-        //   }
+          let that = this
+          this.goUrl('/register/secondstep')
+        //   this.$refs.registerForm.validate(async function (result) {
+        //     if (result) {
+        //       let res = await this.userRegisterFetch(
+        //         that, this.registerParms
+        //         )
+        //       if (res) {
+        //         this.setUserInfo({
+        //           phone: this.registerParms.phoneNumber,
+        //           token: this.registerParms.token
+        //         })
+        //         this.goUrl('/register/secondstep')
+        //       }
+        //     } else {
+        //       console.log('表达验证不合法')
+        //     }
+        //   }.bind(this))
         }
       },
       created () {

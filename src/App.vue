@@ -1,16 +1,27 @@
 <template>
   <div id="app">
     <nav-top></nav-top>
+    <el-alert v-if='showError'
+      :title='getError'
+      type="error">
+    </el-alert>
     <router-view/>
   </div>
 </template>
 
 <script>
+import { mapState, mapGetters } from 'vuex'
 import navTop from '@/components/navTop'
 export default {
   name: 'App',
   components: {
     navTop: navTop
+  },
+  computed: {
+    ...mapState({showError: state => state.error.showError}),
+    ...mapGetters(['getError'])
+  },
+  methods: {
   }
 }
 </script>

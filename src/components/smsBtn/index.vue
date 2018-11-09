@@ -16,7 +16,7 @@ export default {
   methods: {
     ...mapActions(['userPhoneCaptchaFetch']),
     async sendPhoneCaptcha () {
-      let res = await this.userPhoneCaptchaFetch(this.phone)
+      let res = await this.userPhoneCaptchaFetch(this, this.phone)
       if (res) {
         this.sendMsg()
       }
