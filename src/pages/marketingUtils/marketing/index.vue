@@ -19,23 +19,38 @@
       </div>
 </template>
 <script>
+  import { mapActions } from 'vuex'
   export default {
     name: 'marketing',
     data () {
       return {
         activityConfig: [
-          {text: '新人有礼', open: true, url: '/marketingUtils/personNewGift'},
-          {text: '买单有礼', open: true, url: '/marketingUtils/openCardGift'},
-          {text: '转发享好礼活动', open: true, url: '/marketingUtils/openCardGift'},
-          {text: '分享有礼', open: true, url: '/marketingUtils/shareGift'}
+          {text: '新人有礼', open: false, url: '/marketingUtils/personNewGift'},
+          {text: '买单有礼', open: false, url: '/marketingUtils/openCardGift'},
+          {text: '转发享好礼活动', open: false, url: '/marketingUtils/openCardGift'},
+          {text: '分享有礼', open: false, url: '/marketingUtils/shareGift'}
         ]
       }
     },
     computed: {
     },
     methods: {
+      ...mapActions(['marketActivityFetch']),
       pageInit () {
+        this.marketActivityFunc()
+      },
+      async marketActivityFunc () {
+        let res = await this.marketActivityFetch()
+        if (res.result.length > 0) {
+          res.result.forEach(element => {
+            if (element.activityType === 'ACTIVE_CARD_GIFT' && element.enable) {
+  
+  
+            } else if (element.activityType === 'SHARE_GIFT' && element.enable) {
 
+            }
+          })
+        }
       }
     },
     created () {

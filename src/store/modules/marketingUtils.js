@@ -1,4 +1,5 @@
-export default{
+import http from '@/utils/http.js'
+export default {
   state: {
 
   },
@@ -6,7 +7,12 @@ export default{
 
   },
   actions: {
-
+    marketActivityFetch: async (ctx) => {
+      let res = await http({
+        url: '/market/activity/marketActivity'
+      })
+      return res
+    }
   },
   mutations: {
 

@@ -36,6 +36,12 @@ export default {
         },'formData')
         return res
       },
+      userExitLoginFetch:async (ctx) => {
+        let res = await http({
+          url: '/market/auth/logout'
+        })
+        return res
+      },
       userInfoFetch: async (ctx) => {
         let res = await http({
           url: '/market/user/info',

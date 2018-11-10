@@ -2,11 +2,13 @@ import axios from 'axios'
 import main from '@/main.js'
 
 let config = {
-  'BASEURL': 'http://guirong.private.icepointcloud.com/api'
+  'BASEURL': 'https://dev.wisenable.com/api'
 }
 
 const http = async (param, type) => {
-  main.$store.commit('closeError')
+  if (main) {
+    main.$store.commit('closeError')
+  }
   return new Promise(async (resolve, reject) => {
     let res = null
     let requestUrl = (param.BASEURL || config.BASEURL) + param.url
@@ -46,6 +48,9 @@ const http = async (param, type) => {
         reject(res.data.retMsg)
       } else if (res.data.retCode === 0) {
         resolve(res.data, res)
+      } else if (res.data.retCode === 2) {
+        localStorage.setItem('islogin', false)
+        main.$router.push('/login')
       } else {
         main.$store.commit('setError', res.data.retMsg)
         reject(res.data.retMsg)

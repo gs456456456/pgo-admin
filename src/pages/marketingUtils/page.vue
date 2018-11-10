@@ -25,7 +25,7 @@
       return {
         innerNavTitle: [
           {name: '营销', url: '/marketingUtils/marketing', active: true, open: true},
-          {name: '卡劵', url: '/', active: false, open: false},
+          {name: '卡券', url: '/', active: false, open: false},
           {name: '会员', url: '/', active: false, open: false},
           {name: '礼品卡', url: '/', active: false, open: false},
           {name: '微信推送', url: '/', active: false, open: false},
@@ -55,7 +55,6 @@
       this.judgeNavStatus(this.$router.currentRoute.path)
     },
     mounted () {
-      console.log(this.$router)
     },
     watch: {
 
