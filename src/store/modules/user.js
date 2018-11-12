@@ -1,17 +1,15 @@
 import http from '@/utils/http.js'
 export default {
     state: {
-      userInfo:{
-        token:'',
-        phone:''
-      },
+      userInfo:null,
       //0-未注册 1-待审核 2-成功
       registerStatus:0
     },
     getters: {
-      getLoginState(state){
-        return localStorage.getItem('islogin')==='true'?true:false
-      },
+      // getLoginState(state){
+      //   let a = state.userInfo?true:false;
+      //   return a
+      // },
       getUserInfo(state){
         return state.userInfo
       },
@@ -60,11 +58,13 @@ export default {
       }
     },
     mutations: {
-      setLoginState(state,ifLogin){
-        localStorage.setItem('islogin',ifLogin)
-      },
       setUserInfo(state,info){
-        state.userInfo = info
+        state.userInfo = info;
+        localStorage.setItem('userInfo',JSON.stringify(info))
+      },
+      clearUserInfo(state,info){
+        state.userInfo = null;
+        localStorage.removeItem('userInfo')
       },
       setRegisterStatus(state,status){
         state.registerStatus = status

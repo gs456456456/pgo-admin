@@ -45,7 +45,6 @@
           res.result.forEach(element => {
             if (element.activityType === 'ACTIVE_CARD_GIFT' && element.enable) {
   
-  
             } else if (element.activityType === 'SHARE_GIFT' && element.enable) {
 
             }

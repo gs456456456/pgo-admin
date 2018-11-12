@@ -49,7 +49,7 @@ const http = async (param, type) => {
       } else if (res.data.retCode === 0) {
         resolve(res.data, res)
       } else if (res.data.retCode === 2) {
-        localStorage.setItem('islogin', false)
+        main.$store.commit('clearUserInfo')
         main.$router.push('/login')
       } else {
         main.$store.commit('setError', res.data.retMsg)

@@ -2,18 +2,18 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import marketingUtils from '@/pages/marketingUtils'
 import register from '@/pages/register'
-import loginVerify from '@/pages/loginVerify/index.vue'
+// import loginVerify from '@/pages/loginVerify/index.vue'
 import login from '@/pages/login/index.vue'
 import main from '@/main.js'
 Vue.use(Router)
 const router = new Router({
   // mode: 'history',
   routes: [
-    {
-      path: '/loginVerify',
-      name: 'loginVerify',
-      component: loginVerify
-    },
+    // {
+    //   path: '/loginVerify',
+    //   name: 'loginVerify',
+    //   component: loginVerify
+    // },
     {
       path: '/login',
       name: 'login',
@@ -59,7 +59,7 @@ router.beforeEach((to, from, next) => {
     main.$store.commit('closeError')
   }
   if (to.matched.some(res => res.meta.requireAuth)) { // 判断是否需要登录权限
-    if (localStorage.getItem('islogin') === 'true') { // 判断是否登录
+    if (localStorage.getItem('userInfo')) { // 判断是否登录
       next()
     } else {
       next({

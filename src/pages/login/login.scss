@@ -1,0 +1,51 @@
+.login-container{
+    width: 618px;
+    // height: 564px;
+    margin:36px auto 0;
+    background: white;
+    overflow-x: scroll;
+    .inner-box{
+        overflow:unset;
+        padding: 56px 130px;
+        .title{
+            font-size: 24px;
+            color:rgb(48,49,51);
+            text-align: center;
+            margin-bottom: 45px;
+        }
+        .loginForm{
+            border-top: 1px solid rgb(229,229,229);
+            padding: 65px 0 0;
+            text-align: left;
+            label{
+                text-align: left;
+            }
+            .el-checkbox__input.is-checked+.el-checkbox__label{
+                color:rgb(25,137,250);
+            }
+            .el-checkbox__input.is-checked .el-checkbox__inner, .el-checkbox__input.is-indeterminate .el-checkbox__inner{
+                background-color: rgb(25,137,250);
+                border-color: rgb(25,137,250);
+            }
+            .login-select{
+                font-size: 14px;
+                color:rgb(25,137,250);
+                margin-top:43px;
+                padding-bottom: 40px;
+                border-bottom: 1px solid rgb(229,229,229);
+            }
+            .login-btn-container{
+                .el-form-item__content{
+                    margin-left: 0!important;
+                    text-align: center!important
+                }
+                .submit{
+                    margin-top: 43px;
+                    width: 128px;
+                    background:$common-blue;
+                    text-align: center;
+                }
+            }
+        }
+    }
+}
