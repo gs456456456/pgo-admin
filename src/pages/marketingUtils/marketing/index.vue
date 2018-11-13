@@ -4,7 +4,7 @@
           <div class="content-title">开启以下活动，帮助拉新客户、转化付费</div>
           <div class="content fl wrap">
             <div class="content-inner fl" v-for='item in activityConfig' 
-                                          @click='goUrl(item.url)'>
+                                          @click='goDetailActivity(item)'>
               <div class="img-container"></div>
               <div class="text-container">
                 <div class="name">{{item.text}}</div>
@@ -19,35 +19,53 @@
       </div>
 </template>
 <script>
-  import { mapActions } from 'vuex'
+  import { mapActions, mapGetters } from 'vuex'
   export default {
     name: 'marketing',
     data () {
       return {
         activityConfig: [
-          {text: '新人有礼', open: false, url: '/marketingUtils/personNewGift'},
-          {text: '买单有礼', open: false, url: '/marketingUtils/openCardGift'},
-          {text: '转发享好礼活动', open: false, url: '/marketingUtils/openCardGift'},
-          {text: '分享有礼', open: false, url: '/marketingUtils/shareGift'}
+          {text: '新人有礼', open: false, url: '/marketingUtils/personNewGift', symbol: 'ACTIVE_CARD_GIFT', id: null},
+          {text: '分享有礼', open: false, url: '/marketingUtils/shareGift', symbol: 'SHARE_GIFT', id: null},
+          {text: '买单有礼', open: false, url: '/marketingUtils/openCardGift', symbol: 'test', id: null},
+          {text: '转发享好礼活动', open: false, url: '/marketingUtils/openCardGift', symbol: 'test', id: null}
         ]
       }
     },
     computed: {
+      ...mapGetters(['getUserInfo'])
     },
     methods: {
       ...mapActions(['marketActivityFetch']),
+      goDetailActivity (item) {
+        if (!item.id) {
+          this.goUrl(item.url + 'Config?id=null')
+        } else {
+          this.goUrl(item.url + `?id=${item.id}`)
+        }
+      },
+      formatObj (item) {
+        return item[Object.keys(item)[0]]
+      },
       pageInit () {
         this.marketActivityFunc()
       },
       async marketActivityFunc () {
-        let res = await this.marketActivityFetch()
+        let res = await this.marketActivityFetch(this.getUserInfo.companyId)
         if (res.result.length > 0) {
           res.result.forEach(element => {
-            if (element.activityType === 'ACTIVE_CARD_GIFT' && element.enable) {
-  
-            } else if (element.activityType === 'SHARE_GIFT' && element.enable) {
-
+            if (element.enable) {
+              this.activityConfig.forEach(ele2 => {
+                if (ele2.symbol === element.activityType) {
+                  ele2.open = true
+                }
+              })
             }
+            this.activityConfig.forEach(ele2 => {
+              if (ele2.symbol === element.activityType) {
+                ele2.id = element.id
+              }
+            })
           })
         }
       }

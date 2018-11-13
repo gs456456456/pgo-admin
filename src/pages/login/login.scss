@@ -7,6 +7,16 @@
     .inner-box{
         overflow:unset;
         padding: 56px 130px;
+        .send-sms{
+            float: right;
+            width: 112px;
+            text-align: center;
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+        }
+        .sms-input{
+            width: 52%
+        }
         .title{
             font-size: 24px;
             color:rgb(48,49,51);

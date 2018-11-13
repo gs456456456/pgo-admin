@@ -1,127 +1,127 @@
 <template>
-    <div class="register-container-s">
-        <el-steps :active="1" simple class="title">
-            <el-step title="验证公司邮箱" class="now-step" icon='el-icon-circle-check-outline'></el-step>
-            <el-step title="注册账号" ref='stepNumber'></el-step>
-        </el-steps>
-        <div></div>
-        <div class="down-container fl">
-                <!-- <div class="left"> -->
-                    <el-form class="left" :model="registerParms" ref="registerForm">
-                        <el-form-item label="注册手机" class="form-item" prop="phoneNumber" :rules="rules.phone">
-                            <!-- <span>注册手机</span> -->
-                            <el-input class="input" v-model='registerParms.phoneNumber' placeholder="手机号"></el-input>
-                            <sms-btn :phone='registerParms.phoneNumber'></sms-btn>
-                            <!-- <el-button class="btn" @click='sendPhoneCaptcha'>{{intervalText}}</el-button> -->
-                        </el-form-item>
-                        <p class="prompt">每个手机只能注册一次。</p>
-                        <el-form-item label="验证码" class="form-item" prop="validCode" :rules="rules.validCode">
-                            <el-input class="input" placeholder="请输入验证码" v-model='registerParms.validCode'></el-input>
-                            <div class="btn"></div>
-                        </el-form-item>
-                        <el-form-item label="密码" class="form-item" prop="password" :rules="rules.password">
-                            <el-input class="input" placeholder="请输入密码" type='password' v-model='registerParms.password'></el-input>
-                            <div class="btn"></div>
-                        </el-form-item>
-                        <el-form-item label="确认密码" class="form-item last-form-item" prop="repassword" :rules="rules.repassword">
-                            <el-input class="input" placeholder="请输入密码" type='password' v-model='registerParms.repassword'></el-input>
-                            <div class="btn"></div>
-                        </el-form-item >
-                        <div class="submit">
-                            <el-button type="primary" class="btn" @click='submit'>验证并继续</el-button>
-                        </div>
-                    </el-form>
-                <!-- </div> -->
-            <div class="right">
-                <p>已有账号?<span @click="goUrl('/login')" style="cursor:pointer">立即登录</span></p>
-            </div>
+  <div class="register-container-s">
+    <el-steps :active="1" simple class="title">
+      <el-step title="验证公司邮箱" class="now-step" icon='el-icon-circle-check-outline'></el-step>
+      <el-step title="注册账号" ref='stepNumber'></el-step>
+    </el-steps>
+    <div></div>
+    <div class="down-container fl">
+      <!-- <div class="left"> -->
+      <el-form class="left" :model="registerParms" ref="registerForm">
+        <el-form-item label="注册手机" class="form-item" prop="phoneNumber" :rules="rules.phone">
+          <!-- <span>注册手机</span> -->
+          <el-input class="input" v-model='registerParms.phoneNumber' placeholder="手机号"></el-input>
+          <sms-btn :phone='registerParms.phoneNumber' type='register'></sms-btn>
+          <!-- <el-button class="btn" @click='sendPhoneCaptcha'>{{intervalText}}</el-button> -->
+        </el-form-item>
+        <p class="prompt">每个手机只能注册一次。</p>
+        <el-form-item label="验证码" class="form-item" prop="validCode" :rules="rules.validCode">
+          <el-input class="input" placeholder="请输入验证码" v-model='registerParms.validCode'></el-input>
+          <div class="btn"></div>
+        </el-form-item>
+        <el-form-item label="密码" class="form-item" prop="password" :rules="rules.password">
+          <el-input class="input" placeholder="请输入密码" type='password' v-model='registerParms.password'></el-input>
+          <div class="btn"></div>
+        </el-form-item>
+        <el-form-item label="确认密码" class="form-item last-form-item" prop="repassword" :rules="rules.repassword">
+          <el-input class="input" placeholder="请输入密码" type='password' v-model='registerParms.repassword'></el-input>
+          <div class="btn"></div>
+        </el-form-item>
+        <div class="submit">
+          <el-button type="primary" class="btn" @click='submit'>验证并继续</el-button>
         </div>
+      </el-form>
+      <!-- </div> -->
+      <div class="right">
+        <p>已有账号?<span @click="goUrl('/login')" style="cursor:pointer">立即登录</span></p>
+      </div>
     </div>
+  </div>
 </template>
 <script>
-import { mapActions, mapMutations } from 'vuex'
-import smsBtn from '@/components/smsBtn'
-import { error } from 'util'
-export default {
-  name: 'firststep',
-  components: {
-    smsBtn: smsBtn
-  },
-  data () {
-    let phoneVerify = (rule, value, callback) => {
-      const TEL_REGEXP = /^1([38]\d|5[0-35-9]|7[3678])\d{8}$/
-      if (TEL_REGEXP.test(value)) {
-        callback()
-      } else {
-        callback(new Error('请输入正确的手机格式'))
-      }
-    }
-    let repasswordVerify = (rule, value, callback) => {
-      if (this.registerParms.password != this.registerParms.repassword) {
-        callback(new Error('密码不一致'))
-      } else {
-        callback()
-      }
-    }
-    return {
-      registerParms: {
-        token: '',
-        phoneNumber: '',
-        password: '',
-        repassword: '',
-        validCode: ''
-      },
-      rules: {
-        phone: [
-          { required: true, message: '请输入手机号', trigger: 'blur' },
-          {
-            validator: phoneVerify,
-            message: '请输入正确的手机格式',
-            trigger: ['blur', 'change']
-          }
-        ],
-        validCode: [
-          { required: true, message: '请输入验证码', trigger: 'blur' }
-        ],
-        password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
-        repassword: [
-          { required: true, message: '请输入密码', trigger: 'blur' },
-          { validator: repasswordVerify, message: '密码不一致', trigger: ['blur', 'change'] }
-        ]
-      }
-    }
-  },
-  computed: {},
-  methods: {
-    ...mapMutations(['setUserInfo']),
-    ...mapActions(['userRegisterFetch']),
-    submit () {
-      this.$refs.registerForm.validate(async function (result) {
-        if (result) {
-          let res = await this.userRegisterFetch(this.registerParms)
-          if (res) {
-            this.setUserInfo({
-              phone: this.registerParms.phoneNumber,
-              token: this.registerParms.token
-            })
-            this.goUrl('/register/secondstep')
-          }
+  import { mapActions, mapMutations } from 'vuex'
+  import smsBtn from '@/components/smsBtn'
+  import { error } from 'util'
+  export default {
+    name: 'firststep',
+    components: {
+      smsBtn: smsBtn
+    },
+    data () {
+      let phoneVerify = (rule, value, callback) => {
+        const TEL_REGEXP = /^1([38]\d|5[0-35-9]|7[3678])\d{8}$/
+        if (TEL_REGEXP.test(value)) {
+          callback()
         } else {
-          console.log('表达验证不合法')
+          callback(new Error('请输入正确的手机格式'))
         }
-      }.bind(this))
-    }
-  },
-  created () {
-    if (this.$router.currentRoute.query.token) {
-      this.registerParms.token = this.$router.currentRoute.query.token
-    }
-  },
-  mounted () {},
-  watch: {}
-}
+      }
+      let repasswordVerify = (rule, value, callback) => {
+        if (this.registerParms.password != this.registerParms.repassword) {
+          callback(new Error('密码不一致'))
+        } else {
+          callback()
+        }
+      }
+      return {
+        registerParms: {
+          token: '',
+          phoneNumber: '',
+          password: '',
+          repassword: '',
+          validCode: ''
+        },
+        rules: {
+          phone: [
+            { required: true, message: '请输入手机号', trigger: 'blur' },
+            {
+              validator: phoneVerify,
+              message: '请输入正确的手机格式',
+              trigger: ['blur', 'change']
+            }
+          ],
+          validCode: [
+            { required: true, message: '请输入验证码', trigger: 'blur' }
+          ],
+          password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
+          repassword: [
+            { required: true, message: '请输入密码', trigger: 'blur' },
+            { validator: repasswordVerify, message: '密码不一致', trigger: ['blur', 'change'] }
+          ]
+        }
+      }
+    },
+    computed: {},
+    methods: {
+      ...mapMutations(['setUserInfo']),
+      ...mapActions(['userRegisterFetch']),
+      submit () {
+        this.$refs.registerForm.validate(async function (result) {
+          if (result) {
+            let res = await this.userRegisterFetch(this.registerParms)
+            if (res) {
+              this.setUserInfo({
+                phone: this.registerParms.phoneNumber,
+                token: this.registerParms.token
+              })
+              this.goUrl('/register/secondstep')
+            }
+          } else {
+            console.log('表达验证不合法')
+          }
+        }.bind(this))
+      }
+    },
+    created () {
+      if (this.$router.currentRoute.query.token) {
+        this.registerParms.token = this.$router.currentRoute.query.token
+      }
+    },
+    mounted () { },
+    watch: {}
+  }
 </script>
 <style lang="scss">
-@import "@/assets/style/common.scss";
-@import "./firststep.scss";
+  @import "@/assets/style/common.scss";
+  @import "./firststep.scss";
 </style>

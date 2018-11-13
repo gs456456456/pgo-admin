@@ -3,10 +3,10 @@
     <nav>
       <div class="inner-box fl-row-xbtw-yctr">
         <div class="img"></div>
-        <div class="select" v-if='getUserInfo'>
-          <el-dropdown @command="handleCommand">
+        <div class="select">
+          <el-dropdown @command="handleCommand" v-if='!hideDrop'>
             <span class="el-dropdown-link">
-              下拉菜单<i class="el-icon-arrow-down el-icon--right"></i>
+              {{getUserInfo.companyName}}<i class="el-icon-arrow-down el-icon--right"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item command='exitLogin'>退出登录</el-dropdown-item>
@@ -21,11 +21,15 @@
   import { mapActions, mapGetters, mapMutations } from 'vuex'
   export default {
     name: 'navTop',
-    //   data () {
-    //       return {}
-    //     },
+    data () {
+      return {
+        elNotList: ['/login', '/register'],
+        hideDrop: true
+      }
+    },
     created () {
-
+      // console.log(this.$router)
+      this.judgeShowDrop(this.$router.currentRoute)
     },
     mounted () {
     },
@@ -39,6 +43,12 @@
             break
         }
       },
+      judgeShowDrop (val) {
+        let arr = this.elNotList.filter((v, i, a) => {
+          return v === val.path
+        })
+        this.hideDrop = arr.length > 0
+      },
       exitLogin () {
         let res = this.userExitLoginFetch()
         if (res) {
@@ -51,6 +61,11 @@
       ...mapGetters([
         'getUserInfo'
       ])
+    },
+    watch: {
+      '$route' (currentV, pastV) {
+        this.judgeShowDrop(currentV)
+      }
     }
   }
 </script>

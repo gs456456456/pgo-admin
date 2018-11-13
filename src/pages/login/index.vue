@@ -5,18 +5,28 @@
         <div class="title">登录 WiStore 营销后台</div>
         <el-form :model="loginForm" status-icon ref="loginForm" label-width="100px" class="loginForm">
           <div>
-              <el-form-item label="账号" prop="username" class="form-item">
-                  <el-input v-model="loginForm.userAccount" placeholder="手机号"></el-input>
-              </el-form-item>
-              <el-form-item label="密码" prop="password" class="form-item">
-                <el-input type="password" v-model="loginForm.userPassword" autocomplete="off" placeholder="密码"></el-input>
-              </el-form-item>
+                  <el-form-item label="账号" prop="username" class="form-item">
+                      <el-input v-model="loginForm.userAccount" placeholder="手机号"></el-input>
+                  </el-form-item>
+              <div v-if="loginMethod==='username'">                
+                  <el-form-item label="密码" prop="password" class="form-item">
+                    <el-input type="password" v-model="loginForm.userPassword" autocomplete="off" placeholder="密码"></el-input>
+                  </el-form-item>
+              </div>
+              <div v-else>
+                  <el-form-item label="验证码" class="form-item" prop="validCode">
+                      <el-input class="input sms-input" placeholder="请输入验证码" v-model='loginForm.validCode'></el-input>
+                      <sms-btn :phone='loginForm.userAccount' type='login' class="send-sms"></sms-btn>
+                      <div class="btn"></div>
+                  </el-form-item>
+              </div>
               <div class="login-select fl-row-xbtw-yctr">
-                <div class="left">
+                <div>
                     <el-checkbox v-model="checked">记住账号</el-checkbox>
                 </div>
-                <div class="right">
-                  手机验证码登录
+                <div @click='changeLoginMethod' style="cursor:pointer">
+                  <span v-if="loginMethod==='username'">手机验证码登录</span>
+                  <span v-else>用户名密码登录</span>
                 </div>
               </div>
           </div>
@@ -31,16 +41,23 @@
 </template>
 <script>
   import { mapGetters, mapMutations, mapActions } from 'vuex'
+  import smsBtn from '@/components/smsBtn'
   export default {
     name: 'login',
+    components: {
+      smsBtn: smsBtn
+    },
     data () {
       return {
         loginForm: {
           userAccount: '',
-          userPassword: ''
+          userPassword: '',
+          loginType: 'ACCOUNT',
+          validCode: ''
         },
         checked: true,
-        loading: false
+        loading: false,
+        loginMethod: 'username'
       }
     },
     computed: {
@@ -50,8 +67,17 @@
       ...mapActions(['userLoginFetch', 'userInfoFetch']),
       ...mapMutations(['setUserInfo']),
       hasLoginFunc (v) {
-        if (v) {
+        if (v && v !== 'null') {
           this.goUrl('/marketingUtils')
+        }
+      },
+      changeLoginMethod () {
+        if (this.loginMethod === 'username') {
+          this.loginMethod = 'phoneCaptcha'
+          this.loginForm.loginType = 'PHONE_VALID_CODE'
+        } else {
+          this.loginMethod = 'username'
+          this.loginForm.loginType = 'ACCOUNT'
         }
       },
       remeberUserName () {
@@ -65,9 +91,9 @@
         // await this.userInfoFetch()
         let res = await this.userLoginFetch(this.loginForm)
         if (res) {
-          let res = await this.userInfoFetch()
-          if (res) {
-            this.setUserInfo(res.result)
+          let userInfo = await this.userInfoFetch()
+          if (userInfo) {
+            this.setUserInfo(userInfo.result)
             this.remeberUserName()
             this.goUrl('/marketingUtils')
           }
@@ -80,13 +106,13 @@
       }
     },
     created () {
-      this.hasLoginFunc(this.getUserInfo)
+      this.hasLoginFunc(localStorage.getItem('userInfo'))
     },
     watch: {
       // 监听是否登陆,登陆后则跳转
-      getUserInfo (currentV, pastV) {
-        this.hasLoginFunc(currentV)
-      }
+      // getUserInfo (currentV, pastV) {
+      //   this.hasLoginFunc(currentV)
+      // }
     }
   }
 </script>

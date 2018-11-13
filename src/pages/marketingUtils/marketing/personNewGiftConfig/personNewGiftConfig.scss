@@ -8,6 +8,10 @@
     font-weight: 400;
     margin-bottom: 36px;
 }
+.pagination{
+    text-align: center;
+    margin-top: 17px;
+}
 .activeSettingContent{
     width: 100%;
     min-height: 649px;
@@ -55,7 +59,7 @@
                     padding-left: 10px;
                 }
                 &:nth-child(2){
-                    width: 108px;
+                    width: 90px;
                 }
                 &:nth-child(3){
                     width: 123px;

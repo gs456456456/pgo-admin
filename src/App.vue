@@ -22,7 +22,12 @@ export default {
     ...mapGetters(['getError'])
   },
   methods: {
-    ...mapMutations(['closeError'])
+    ...mapMutations(['closeError', 'setUserInfo'])
+  },
+  created () {
+    if (localStorage.getItem('userInfo')) {
+      this.setUserInfo(JSON.parse(localStorage.getItem('userInfo')))
+    }
   }
 }
 </script>

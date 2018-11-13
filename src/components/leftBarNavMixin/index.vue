@@ -18,6 +18,7 @@
 <script>
     import leftBar from '@/components/leftBar'
     import innerNavTop from '@/components/innerNavTop'
+    import { mapActions, mapMutations } from 'vuex'
     export default {
       name: 'leftBarNavMixin',
       components: {
@@ -30,6 +31,19 @@
       },
       mounted () {
 
+      },
+      methods: {
+        // ...mapMutations(['setUserInfo']),
+        // ...mapActions(['userInfoFetch'])
+      },
+      computed: {
+      },
+      created () {
+        // let res = await this.userInfoFetch()
+        // if (res) {
+        //   console.log(res)
+        //   this.setUserInfo(res.result)
+        // }
       }
     }
 </script>

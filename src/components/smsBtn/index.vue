@@ -12,11 +12,16 @@ export default {
       time: 60
     }
   },
-  props: ['phone'],
+  props: ['phone', 'type'],
   methods: {
-    ...mapActions(['userPhoneCaptchaFetch']),
+    ...mapActions(['userRegisterPhoneCaptchaFetch', 'userLoginPhoneCaptchaFetch']),
     async sendPhoneCaptcha () {
-      let res = await this.userPhoneCaptchaFetch(this.phone)
+      let res = null
+      if (this.type === 'register') {
+        res = await this.userRegisterPhoneCaptchaFetch(this.phone)
+      } else {
+        res = await this.userLoginPhoneCaptchaFetch(this.phone)
+      }
       if (res) {
         this.sendMsg()
       }
@@ -25,7 +30,7 @@ export default {
       let me = this
       me.isDisabled = true
       let interval = window.setInterval(() => {
-        me.buttonName = '（' + me.time + '秒）后重发'
+        me.buttonName = '（' + me.time + '秒）重发'
         --me.time
         if (me.time < 0) {
           me.buttonName = '重新发送'

@@ -1,6 +1,12 @@
 <template>
     <div class="previewShare">
-        <div class="previewShare-inner">营销活动 <span>/转发享好礼活动</span></div>
+        <div class="previewShare-inner">
+            <el-breadcrumb separator="/">
+                <el-breadcrumb-item :to="{ path: '/' }">营销活动</el-breadcrumb-item>
+                <el-breadcrumb-item><a href="/">新人礼活动</a></el-breadcrumb-item>
+            </el-breadcrumb>
+            <!-- 营销活动 <span>/转发享好礼活动</span> -->
+        </div>
         <div class="previewShare-content">
             <div class="content-title">
                 <p>转发享好礼 - 未开启</p>

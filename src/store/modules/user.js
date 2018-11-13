@@ -15,6 +15,9 @@ export default {
       },
       getRegisterStatus(state){
         return state.registerStatus
+      },
+      getStorageUserInfo(state){
+        return JSON.parse(localStorage.getItem('userInfo'))
       }
     },
     actions: {
@@ -46,9 +49,19 @@ export default {
         })
         return res
       },
-      userPhoneCaptchaFetch: async (ctx,phone) => {
+      userRegisterPhoneCaptchaFetch: async (ctx,phone) => {
         let res = await http({
           url: '/market/register/sendValidCode',
+          method: 'POST',
+          body:{
+            phoneNumber:phone
+          }
+        })
+        return res
+      },
+      userLoginPhoneCaptchaFetch: async (ctx,phone) => {
+        let res = await http({
+          url: '/market/auth/sendValidCode',
           method: 'POST',
           body:{
             phoneNumber:phone
