@@ -1,3 +1,4 @@
+@import '@/assets/style/common.scss';
 .activeSettingView{
     margin: 36px 67px 0 67px;
 }
@@ -48,22 +49,22 @@
         &:nth-child(2){
             margin-bottom: 42px;
             >div{
-                &:nth-child(2),&:nth-child(3){
-                    height: 40px;
-                    border-radius: 4px;
-                    background-color: #fff;
-                    display:flex;
-                    align-items: center;
-                    margin-right: 10px;
-                    box-sizing: border-box;
-                    padding-left: 10px;
-                }
-                &:nth-child(2){
-                    width: 90px;
-                }
-                &:nth-child(3){
-                    width: 123px;
-                }
+                // &:nth-child(2),&:nth-child(3),&:nth-child(4){
+                //     height: 40px;
+                //     border-radius: 4px;
+                //     background-color: #fff;
+                //     display:flex;
+                //     align-items: center;
+                //     margin-right: 10px;
+                //     box-sizing: border-box;
+                //     padding-left: 10px;
+                // }
+                // &:nth-child(2){
+                //     width: 90px;
+                // }
+                // &:nth-child(3){
+                //     width: 123px;
+                // }
             }
         }
         &:nth-child(3){
@@ -71,11 +72,19 @@
         }
     }
 }
+.el-upload-dragger{
+    width:108px;
+    height:40px;
+}
 .activeSetting{
     min-width: 64px;
     font-size: 16px;
     margin-right: 35px;
 }
+.check-item{
+     background: white               
+}
+
 .activeSettingInfoTitle{
     height: 20px;
     line-height: 20px;
@@ -86,6 +95,11 @@
     border-bottom: 1px solid rgb(232, 232, 232);
     margin-bottom: 20px;
 }
+
+.afterTitle{
+    margin-top: 24px;
+}
+
 .el-input{
     width: 240px;
     height: 40px;
