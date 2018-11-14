@@ -31,7 +31,7 @@
               </div>
           </div>
           <el-form-item class="login-btn-container">
-            <el-button class='submit' type="primary" @click="submit">登录</el-button>
+            <el-button class='submit' type="primary" :loading="loading" @click="submit">登录</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -89,10 +89,17 @@
       },
       async submit () {
         // await this.userInfoFetch()
-        let res = await this.userLoginFetch(this.loginForm)
+        let res = null
+        this.loading = true
+        try {
+          res = await this.userLoginFetch(this.loginForm)
+        } catch (e) {
+          this.loading = false
+        }
         if (res) {
           let userInfo = await this.userInfoFetch()
           if (userInfo) {
+            this.loading = false
             this.setUserInfo(userInfo.result)
             this.remeberUserName()
             this.goUrl('/marketingUtils')

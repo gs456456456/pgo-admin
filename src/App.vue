@@ -35,7 +35,8 @@ export default {
 <style scoped lang="scss">
   @import '@/assets/style/common.scss';
   #app{
-    width: 100%
+    width: 100%;
+    font-family:'PingFang-SC-Regular'
   }
   .router-link-active {
     text-decoration: none;

@@ -7,6 +7,7 @@ import ElementUI from 'element-ui'
 import store from '@/store/index'
 import mixins from '@/mixins/index'
 import 'element-ui/lib/theme-chalk/index.css'
+import '../static/font/font.css'
 
 Vue.config.productionTip = false
 Vue.use(ElementUI)

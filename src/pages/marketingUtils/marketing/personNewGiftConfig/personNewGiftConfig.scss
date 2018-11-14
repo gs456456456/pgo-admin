@@ -13,6 +13,14 @@
     text-align: center;
     margin-top: 17px;
 }
+.upload-demo{
+    width:108px;
+    height:40px;
+}
+.el-upload-dragger,.el-upload {
+    width:108px;
+    height:40px;
+}
 .activeSettingContent{
     width: 100%;
     min-height: 649px;
@@ -72,10 +80,7 @@
         }
     }
 }
-.el-upload-dragger{
-    width:108px;
-    height:40px;
-}
+
 .activeSetting{
     min-width: 64px;
     font-size: 16px;

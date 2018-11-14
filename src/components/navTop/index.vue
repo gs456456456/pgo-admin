@@ -6,7 +6,7 @@
         <div class="select">
           <el-dropdown @command="handleCommand" v-if='!hideDrop'>
             <span class="el-dropdown-link">
-              {{getUserInfo.companyName}}<i class="el-icon-arrow-down el-icon--right"></i>
+              {{getUserInfo.companyName||''}}<i class="el-icon-arrow-down el-icon--right"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item command='exitLogin'>退出登录</el-dropdown-item>
