@@ -1,5 +1,5 @@
 <template>
-  <div class="register-container-s">
+  <div class="register-container-s" v-loading='loading'>
     <el-steps :active="1" simple class="title">
       <el-step title="验证公司邮箱" class="now-step" icon='el-icon-circle-check-outline'></el-step>
       <el-step title="注册账号" ref='stepNumber'></el-step>
@@ -71,6 +71,7 @@
           repassword: '',
           validCode: ''
         },
+        loading: false,
         rules: {
           phone: [
             { required: true, message: '请输入手机号', trigger: 'blur' },
@@ -96,15 +97,23 @@
       ...mapMutations(['setUserInfo']),
       ...mapActions(['userRegisterFetch']),
       submit () {
+        let that = this
         this.$refs.registerForm.validate(async function (result) {
           if (result) {
-            let res = await this.userRegisterFetch(this.registerParms)
+            let res = null
+            this.loading = true
+            try {
+              res = await this.userRegisterFetch(this.registerParms)
+            } catch (e) {
+              that.loading = false
+            }
             if (res) {
-              this.setUserInfo({
-                phone: this.registerParms.phoneNumber,
-                token: this.registerParms.token
-              })
-              this.goUrl('/register/secondstep')
+              that.loading = false
+              // this.setUserInfo({
+              //   phone: this.registerParms.phoneNumber,
+              //   token: this.registerParms.token
+              // })
+              this.goUrl('/signup/secondstep')
             }
           } else {
             console.log('表达验证不合法')
@@ -113,6 +122,9 @@
       }
     },
     created () {
+      if (localStorage.getItem('userInfo')) {
+        this.goUrl('/login')
+      }
       if (this.$router.currentRoute.query.token) {
         this.registerParms.token = this.$router.currentRoute.query.token
       }

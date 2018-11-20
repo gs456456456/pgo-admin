@@ -1,5 +1,5 @@
 <template>
-  <div class="login-container">
+  <div class="login-container" v-loading="loading">
     <div class="inner-box">
       <div>
         <div class="title">登录 WiStore 营销后台</div>
@@ -31,7 +31,7 @@
               </div>
           </div>
           <el-form-item class="login-btn-container">
-            <el-button class='submit' type="primary" :loading="loading" @click="submit">登录</el-button>
+            <el-button class='submit' type="primary" @click="submit">登录</el-button>
           </el-form-item>
         </el-form>
       </div>

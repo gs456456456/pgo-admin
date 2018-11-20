@@ -3,7 +3,8 @@
     <nav-top></nav-top>
     <el-alert v-if='showError'
       :title='getError'
-      type="error">
+      type="error"
+      style="position: absolute;">
     </el-alert>
     <router-view/>
   </div>

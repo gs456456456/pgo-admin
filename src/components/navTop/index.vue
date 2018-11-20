@@ -75,6 +75,8 @@
   .main {
     height: 60px;
     background: white;
+    /* position: fixed;
+    top:  */
 
     .inner-box {
       @include paddingLR(56px);

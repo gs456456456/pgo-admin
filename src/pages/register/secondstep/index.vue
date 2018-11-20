@@ -1,5 +1,5 @@
 <template>
-        <div class="register-container-s">
+        <div class="register-container-s2">
             <el-steps :active="1" simple class="title">
                 <el-step title="验证公司邮箱" class="now-step" icon='el-icon-circle-check-outline'></el-step>
                 <el-step title="注册账号" ref='stepNumber' icon='el-icon-circle-check-outline'></el-step>

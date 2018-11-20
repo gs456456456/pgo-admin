@@ -2,7 +2,7 @@ import axios from 'axios'
 import main from '@/main.js'
 
 let config = {
-  'BASEURL': 'https://dev.wisenable.com/api'
+  'BASEURL': 'http://wistoredev.wisenable.com/api'
 }
 
 const http = async (param, type) => {

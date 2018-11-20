@@ -7,7 +7,7 @@ import login from '@/pages/login/index.vue'
 import main from '@/main.js'
 Vue.use(Router)
 const router = new Router({
-  // mode: 'history',
+  mode: 'history',
   routes: [
     // {
     //   path: '/loginVerify',
@@ -36,10 +36,10 @@ const router = new Router({
       }
     },
     {
-      path: '/register',
-      name: 'register',
+      path: '/signup',
+      name: 'signup',
       component: register.parent,
-      redirect: '/register/firststep',
+      redirect: '/signup/firststep',
       children: [
         { path: 'firststep', component: register.firststep },
         { path: 'secondstep', component: register.secondstep }
