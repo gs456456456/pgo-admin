@@ -45,6 +45,10 @@ const http = async (param, type) => {
       res = await axios(paramFormat)
       if (res.data.retCode === 1) {
         main.$store.commit('setError', res.data.retMsg)
+        // 注册token过期逻辑
+        if (main.$router.currentRoute.path === '/signup/firststep') {
+          main.$router.push('/login')
+        }
         reject(res.data.retMsg)
       } else if (res.data.retCode === 0) {
         resolve(res.data, res)

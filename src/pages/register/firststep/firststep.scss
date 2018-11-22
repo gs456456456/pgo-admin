@@ -51,51 +51,51 @@
             }
         }
     }
-}
-
-
-
-.left{
-    min-width: 550px;
-    width: 550px;
+    .left{
+        min-width: 550px;
+        width: 550px;
+        .prompt{
+            font-size: 14px;
+            color:rgb(102,102,102);
+            width: 320px;
+            margin-left:114px;
+            margin-bottom: 38px;
+            margin-top: 19px;
+        }
+        .form-item{
+            display:flex;
+            span{
+                width: 5em;
+            }
+            .input{
+                width: 240px;
+                text-align: center;
+                 margin-right: 20px;
+            }
+            .btn{
+                width: 110px;
+                color:rgb(96,98,102)!important;
+            }
+            &:not(:first-child) {
+                margin-bottom: 38px
+            }
+        }
+        .last-form-item{
+            padding-bottom: 65px;
+            border-bottom:1px solid $common-border;
+        }
+        .submit{
+            color: white;
+            text-align: center; 
+            .btn{
+                background: $common-blue!important;
+            }
+        }
+    }
     .prompt{
-        font-size: 14px;
-        color:rgb(102,102,102);
-        width: 320px;
-        margin-left:114px;
-        margin-bottom: 38px;
-        margin-top: 19px;
-    }
-    .form-item{
-        display:flex;
-        span{
-            width: 5em;
-        }
-        .input{
-            width: 240px;
-            text-align: center;
-             margin-right: 20px;
-        }
-        .btn{
-            width: 110px;
-            color:rgb(96,98,102)!important;
-        }
-        &:not(:first-child) {
-            margin-bottom: 38px
-        }
-    }
-    .last-form-item{
-        padding-bottom: 65px;
-        border-bottom:1px solid $common-border;
-    }
-    .submit{
-        color: white;
-        text-align: center; 
-        .btn{
-            background: $common-blue!important;
-        }
+        text-align: left;
     }
 }
-.prompt{
-    text-align: left;
-}
+
+
+

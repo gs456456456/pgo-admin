@@ -95,7 +95,7 @@
     computed: {},
     methods: {
       ...mapMutations(['setUserInfo']),
-      ...mapActions(['userRegisterFetch']),
+      ...mapActions(['userRegisterFetch', 'userRegisterValidateTokenFetch']),
       submit () {
         let that = this
         this.$refs.registerForm.validate(async function (result) {
@@ -121,7 +121,9 @@
         }.bind(this))
       }
     },
-    created () {
+    async created () {
+      // 验证token是否过期
+      await this.userRegisterValidateTokenFetch(this.$router.currentRoute.query.token)
       if (localStorage.getItem('userInfo')) {
         this.goUrl('/login')
       }

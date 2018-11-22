@@ -80,14 +80,14 @@
     </div>
 </template>
 <script>
-import { mapActions, mapGetters, mapMutations } from "vuex";
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 export default {
-  data() {
+  data () {
     return {
       form: {
-        benefitTypeList: ["POINTS"],
+        benefitTypeList: ['POINTS'],
         enable: true,
-        activityType: "ACTIVE_CARD_GIFT",
+        activityType: 'ACTIVE_CARD_GIFT',
         cashCouponTemplateList: [],
         integral: 0,
         balance: 0
@@ -100,81 +100,78 @@ export default {
       },
       totalPage: 1,
       loading: true
-    };
-  },
-  computed: {
-    showPoint() {
-      return this.form.benefitTypeList.indexOf("POINTS") > -1;
-    },
-    showCoupon() {
-      return this.form.benefitTypeList.indexOf("CASH_COUPON") > -1;
-    },
-    showSaving(){
-      return this.form.benefitTypeList.indexOf("PRE_PAYED_MONEY") > -1;
     }
   },
-  async created() {
-    if (this.$router.currentRoute.query.id !== "null") {
-      this.form["id"] = this.$router.currentRoute.query.id;
+  computed: {
+    showPoint () {
+      return this.form.benefitTypeList.indexOf('POINTS') > -1
+    },
+    showCoupon () {
+      return this.form.benefitTypeList.indexOf('CASH_COUPON') > -1
+    },
+    showSaving () {
+      return this.form.benefitTypeList.indexOf('PRE_PAYED_MONEY') > -1
+    }
+  },
+  async created () {
+    if (this.$router.currentRoute.query.id !== 'null') {
+      this.form['id'] = this.$router.currentRoute.query.id
     }
   },
   methods: {
     ...mapActions([
-      "saveOrUpdateMarketActivityFetch",
-      "listCashCouponTemplateFetch"
+      'saveOrUpdateMarketActivityFetch',
+      'listCashCouponTemplateFetch'
     ]),
-    showCouponList() {
-      this.couponListRender();
-      this.couponIsShow = true;
+    showCouponList () {
+      this.couponListRender()
+      this.couponIsShow = true
     },
-    //请求渲染优惠券
-    async couponListRender() {
-      let that = this;
-      let res = await this.listCashCouponTemplateFetch(this.page);
+    // 请求渲染优惠券
+    async couponListRender () {
+      let that = this
+      let res = await this.listCashCouponTemplateFetch(this.page)
       if (res) {
-        this.loading = false;
-        //处理显示数据
+        this.loading = false
+        // 处理显示数据
         res.result.resultList.forEach(element => {
-            element['type'] = '代金券'
-            if(element.sillPrice===0){
-                element.sillPrice = '无'
-            }
-            else{
-                element.sillPrice = `满${element.sillPrice}元`
-            }
-            if(element.effectiveStartTime && element.effectiveEndTime){
-                element['expireTime'] = `${that.dateFormat(element.effectiveStartTime,'yyyy-mm-dd')}至
-                ${that.dateFormat(element.effectiveEndTime,'yyyy-mm-dd')}有效`
-            }
-            else if(element.effectiveEndTime){
-               element['expireTime'] =  `${that.dateFormat(element.effectiveEndTime,'yyyy-mm-dd')}之前有效`
-            }
-            else{
-                element['expireTime'] =  '永久有效' 
-            }
-        });
-        this.couponList = res.result.resultList;
-        this.totalPage = res.result.totalPage;
+          element['type'] = '代金券'
+          if (element.sillPrice === 0) {
+            element.sillPrice = '无'
+          } else {
+            element.sillPrice = `满${element.sillPrice}元`
+          }
+          if (element.effectiveStartTime && element.effectiveEndTime) {
+            element['expireTime'] = `${that.dateFormat(element.effectiveStartTime, 'yyyy-mm-dd')}至
+                ${that.dateFormat(element.effectiveEndTime, 'yyyy-mm-dd')}有效`
+          } else if (element.effectiveEndTime) {
+            element['expireTime'] = `${that.dateFormat(element.effectiveEndTime, 'yyyy-mm-dd')}之前有效`
+          } else {
+            element['expireTime'] = '永久有效'
+          }
+        })
+        this.couponList = res.result.resultList
+        this.totalPage = res.result.totalPage
       }
     },
-    chooseCoupon(val) {
-      this.form.cashCouponTemplateId.push(val.id);
-      this.couponIsShow = false;
+    chooseCoupon (val) {
+      this.form.cashCouponTemplateId.push(val.id)
+      this.couponIsShow = false
     },
-    //切换页面
-    couponPageChange(val) {
-      this.loading = true;
-      this.page.pageNumber = val;
-      this.couponListRender();
+    // 切换页面
+    couponPageChange (val) {
+      this.loading = true
+      this.page.pageNumber = val
+      this.couponListRender()
     },
-    async submit() {
-      let res = await this.saveOrUpdateMarketActivityFetch(this.form);
+    async submit () {
+      let res = await this.saveOrUpdateMarketActivityFetch(this.form)
       if (res) {
         //   this.goUrl('/marketingUtils')
       }
     }
   }
-};
+}
 </script>
 <style lang='scss'>
 @import "./personNewGiftConfig.scss";

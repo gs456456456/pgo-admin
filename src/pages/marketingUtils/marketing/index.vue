@@ -25,8 +25,8 @@
     data () {
       return {
         activityConfig: [
+          {text: '转发送礼拉新', open: false, url: '/marketingUtils/shareGift', symbol: 'SHARE_GIFT', id: null},
           {text: '新人有礼', open: false, url: '/marketingUtils/personNewGift', symbol: 'ACTIVE_CARD_GIFT', id: null},
-          {text: '分享有礼', open: false, url: '/marketingUtils/shareGift', symbol: 'SHARE_GIFT', id: null},
           {text: '买单有礼', open: false, url: '/marketingUtils/openCardGift', symbol: 'test', id: null},
           {text: '转发享好礼活动', open: false, url: '/marketingUtils/openCardGift', symbol: 'test', id: null}
         ]

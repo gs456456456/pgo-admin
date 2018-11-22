@@ -37,6 +37,13 @@ export default {
         },'formData')
         return res
       },
+      userRegisterValidateTokenFetch: async (ctx,parms) => {
+        let res = await http({
+          url: `/market/register/validateToken?token=${parms}`,
+          method: 'POST'
+        })
+        return res
+      },
       userExitLoginFetch:async (ctx) => {
         let res = await http({
           url: '/market/auth/logout'
