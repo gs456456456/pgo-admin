@@ -7,11 +7,11 @@
             <div>
                 <div class="activeSettingInfo">
                     <div class="activeSettingInfoTitle">奖品信息</div>
-                    <div>
+                    <div class="activeSettingInfoContent">
+                      <div class="activeSettingShare">
                         <div class="activeSetting">分享人</div>
                         <div class="prompt fl-col">
                             分享给好友，好友领取后可获得奖品。奖品可为积分、储值或优惠券。
-                            <el-button class="btn">添加商品</el-button>
                         </div>
                         <!-- <el-checkbox-group class="fl-row-xbtw-yctr"
                             v-model="form.benefitTypeList">
@@ -20,11 +20,33 @@
                             <el-checkbox label="PRE_PAYED_MONEY" class="s2 check-item" border>送优惠券</el-checkbox>
                         </el-checkbox-group> -->
                     </div>
-                    <div>
+                    <el-button class="btn">添加商品</el-button>
+                    </div>
+                    <div class="activeSettingInfoContent">
+                      <div class="activeSettingShare">
                         <div class="activeSetting">新用户</div>
                         <div class="prompt fl-col">
                             新用户注册后领取奖品。奖品可为积分、储值或优惠券。
-                            <el-button class="btn">添加商品</el-button>
+                        </div>
+                        <!-- <el-checkbox-group class="fl-row-xbtw-yctr"
+                            v-model="form.benefitTypeList">
+                            <el-checkbox label="POINTS" border class="check-item">送积分</el-checkbox>
+                            <el-checkbox label="CASH_COUPON" class="s1 check-item" border>送储值</el-checkbox>
+                            <el-checkbox label="PRE_PAYED_MONEY" class="s2 check-item" border>送优惠券</el-checkbox>
+                        </el-checkbox-group> -->
+                      </div>
+                      <div class="activeSettingIntegration">
+                        <div class="activeSetting">积分</div>
+                        <el-input  placeholder="请填写奖品积分值"></el-input>
+                        <span class="activeSettingDelete">删除</span>
+                      </div>
+                      <el-button class="btn">添加商品</el-button>
+                    </div>
+                    <div class="activeSettingInfoContent">
+                      <div class="activeSettingShare">
+                        <div class="activeSetting">分享人</div>
+                        <div class="prompt fl-col">
+                            老用户也可领取 1 次奖品。奖品可为积分、储值或优惠券。
                         </div>
                         <!-- <el-checkbox-group class="fl-row-xbtw-yctr"
                             v-model="form.benefitTypeList">
@@ -33,22 +55,21 @@
                             <el-checkbox label="PRE_PAYED_MONEY" class="s2 check-item" border>送优惠券</el-checkbox>
                         </el-checkbox-group> -->
                     </div>
-                    <!-- <div v-if="form.benefitType==='POINTS'"> -->
-                    <div v-if='showPoint'>
+                    <el-button class="btn">添加商品</el-button>
+                    </div>
+                    <!-- <div v-if='showPoint'>
                         <div class="activeSetting">积分额</div>
                         <el-input placeholder="请输入内容" type='number' v-model="form.integral"></el-input>
-                        <!-- <el-input placeholder="请输入内容" type='number' onkeyup="form.integral=form.integral.replace(/[^\d]/g,'');" ></el-input> -->
                     </div>
                     <div v-if='showSaving'>
                         <div class="activeSetting">储值</div>
                         <el-input placeholder="请输入内容" type='number' v-model="form.balance"></el-input>
                     </div>
-                    <!-- <div v-else> -->
                     <div v-if='showCoupon'>
                         <div class="activeSetting">优惠券</div>
                         <div @click="showCouponList">选择优惠券</div>
-                    </div>
-                    <div class="activeSettingInfoTitle afterTitle">活动信息</div>
+                    </div> -->
+                    <!-- <div class="activeSettingInfoTitle afterTitle">活动信息</div>
                     <div class="fl-row-yctr">
                         <div class="activeSetting">
                             活动图片
@@ -59,11 +80,8 @@
                         action="https://jsonplaceholder.typicode.com/posts/"
                         multiple>
                         上传图片
-                        <!-- <i class="el-icon-upload"></i>
-                        <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div> -->
-                        <!-- <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div> -->
                         </el-upload>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="activeSettingButton" @click="submit">提交</div>
             </div>
@@ -91,14 +109,14 @@
     </div>
 </template>
 <script>
-import { mapActions, mapGetters, mapMutations } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from "vuex";
 export default {
-  data () {
+  data() {
     return {
       form: {
-        benefitTypeList: ['POINTS'],
+        benefitTypeList: ["POINTS"],
         enable: true,
-        activityType: 'ACTIVE_CARD_GIFT',
+        activityType: "ACTIVE_CARD_GIFT",
         cashCouponTemplateList: [],
         integral: 0,
         balance: 0
@@ -111,78 +129,84 @@ export default {
       },
       totalPage: 1,
       loading: true
-    }
+    };
   },
   computed: {
-    showPoint () {
-      return this.form.benefitTypeList.indexOf('POINTS') > -1
+    showPoint() {
+      return this.form.benefitTypeList.indexOf("POINTS") > -1;
     },
-    showCoupon () {
-      return this.form.benefitTypeList.indexOf('CASH_COUPON') > -1
+    showCoupon() {
+      return this.form.benefitTypeList.indexOf("CASH_COUPON") > -1;
     },
-    showSaving () {
-      return this.form.benefitTypeList.indexOf('PRE_PAYED_MONEY') > -1
+    showSaving() {
+      return this.form.benefitTypeList.indexOf("PRE_PAYED_MONEY") > -1;
     }
   },
-  async created () {
-    if (this.$router.currentRoute.query.id !== 'null') {
-      this.form['id'] = this.$router.currentRoute.query.id
+  async created() {
+    if (this.$router.currentRoute.query.id !== "null") {
+      this.form["id"] = this.$router.currentRoute.query.id;
     }
   },
   methods: {
     ...mapActions([
-      'saveOrUpdateMarketActivityFetch',
-      'listCashCouponTemplateFetch'
+      "saveOrUpdateMarketActivityFetch",
+      "listCashCouponTemplateFetch"
     ]),
-    showCouponList () {
-      this.couponListRender()
-      this.couponIsShow = true
+    showCouponList() {
+      this.couponListRender();
+      this.couponIsShow = true;
     },
     // 请求渲染优惠券
-    async couponListRender () {
-      let that = this
-      let res = await this.listCashCouponTemplateFetch(this.page)
+    async couponListRender() {
+      let that = this;
+      let res = await this.listCashCouponTemplateFetch(this.page);
       if (res) {
-        this.loading = false
+        this.loading = false;
         // 处理显示数据
         res.result.resultList.forEach(element => {
-          element['type'] = '代金券'
+          element["type"] = "代金券";
           if (element.sillPrice === 0) {
-            element.sillPrice = '无'
+            element.sillPrice = "无";
           } else {
-            element.sillPrice = `满${element.sillPrice}元`
+            element.sillPrice = `满${element.sillPrice}元`;
           }
           if (element.effectiveStartTime && element.effectiveEndTime) {
-            element['expireTime'] = `${that.dateFormat(element.effectiveStartTime, 'yyyy-mm-dd')}至
-                ${that.dateFormat(element.effectiveEndTime, 'yyyy-mm-dd')}有效`
+            element["expireTime"] = `${that.dateFormat(
+              element.effectiveStartTime,
+              "yyyy-mm-dd"
+            )}至
+                ${that.dateFormat(element.effectiveEndTime, "yyyy-mm-dd")}有效`;
           } else if (element.effectiveEndTime) {
-            element['expireTime'] = `${that.dateFormat(element.effectiveEndTime, 'yyyy-mm-dd')}之前有效`
+            element["expireTime"] = `${that.dateFormat(
+              element.effectiveEndTime,
+              "yyyy-mm-dd"
+            )}之前有效`;
           } else {
-            element['expireTime'] = '永久有效'
+            element["expireTime"] = "永久有效";
           }
-        })
-        this.couponList = res.result.resultList
-        this.totalPage = res.result.totalPage
+        });
+        this.couponList = res.result.resultList;
+        this.totalPage = res.result.totalPage;
       }
     },
-    chooseCoupon (val) {
-      this.form.cashCouponTemplateId.push(val.id)
-      this.couponIsShow = false
+    chooseCoupon(val) {
+      this.form.cashCouponTemplateId.push(val.id);
+      this.couponIsShow = false;
     },
     // 切换页面
-    couponPageChange (val) {
-      this.loading = true
-      this.page.pageNumber = val
-      this.couponListRender()
+    couponPageChange(val) {
+      this.loading = true;
+      this.page.pageNumber = val;
+      this.couponListRender();
     },
-    async submit () {
-      let res = await this.saveOrUpdateMarketActivityFetch(this.form)
+    async submit() {
+      let res = await this.saveOrUpdateMarketActivityFetch(this.form);
       if (res) {
         //   this.goUrl('/marketingUtils')
       }
     }
   }
-}
+};
 </script>
 <style lang='scss'>
 @import "./shareGiftConfig.scss";
