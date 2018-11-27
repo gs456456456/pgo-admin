@@ -1,5 +1,5 @@
 @import '@/assets/style/common.scss';
-.activeSettingView{
+.shareGiftConfig{
     margin: 36px 67px 0 67px;
     .activeSettingTitle{
         height: 37px;
@@ -104,6 +104,7 @@
     }
     .activeSettingInfoContent{
         padding-top:28px;
+        padding-bottom: 40px;
     }
     .afterTitle{
         margin-top: 24px;

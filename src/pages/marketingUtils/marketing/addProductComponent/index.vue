@@ -26,12 +26,12 @@
             <el-input  placeholder="请填写储值" v-model="form.balance"></el-input>
             <span class="activeSettingDelete" @click='delSelect("balance")'>删除</span>
             </div>
-            <div class="activeSettingIntegration coupon" v-if='showCoupon' @click='showCouponList()'>
-            <div class="activeSetting">优惠券</div>
-            <el-button class="selectCoupon">
-                请选择优惠券<i class="el-icon-arrow-down el-icon--right"></i>
-            </el-button>
-            <span class="activeSettingDelete" @click='delSelect("coupon")'>删除</span>
+            <div class="activeSettingIntegration coupon" v-for='(item,index) in couponConfig.multipleSelection' @click='showCouponList(index)'>
+                <div class="activeSetting">优惠券</div>
+                <el-button class="selectCoupon">
+                    {{couponConfig.couponTextList[index]||'请选择优惠券'}}<i class="el-icon-arrow-down el-icon--right"></i>
+                </el-button>
+                <span class="activeSettingDelete" @click.stop='delSelect("coupon")'>删除</span>
             </div>
         </div>
         <el-dialog :visible.sync="couponConfig.couponIsShow" class="coupondialog">
@@ -53,7 +53,7 @@
                         @current-change="couponPageChange">
                     </el-pagination>
                 </div>
-                <el-button type="primary" class="confirm-btn">确定</el-button>
+                <el-button type="primary" @click="submitCoupon" class="confirm-btn">确定</el-button>
                 <el-button class="cancel-btn" @click="closeCoupon">取消</el-button>
             </el-dialog>
             <el-dialog
@@ -76,8 +76,9 @@ export default {
       couponConfig: {
         couponIsShow: false,
         couponList: [],
-        couponNow: '',
-        multipleSelection: []
+        multipleSelection: [],
+        couponNow: 0,
+        couponTextList: []
       },
       page: {
         pageNumber: 1,
@@ -113,7 +114,7 @@ export default {
   mounted () {
   },
   methods: {
-    ...mapMutations(['setShareUserForm']),
+    ...mapMutations(['setShareUserForm', 'setOldUserForm', 'setNewUserForm', 'setOpenCardForm']),
     ...mapActions([
       'listCashCouponTemplateFetch'
     ]),
@@ -124,9 +125,8 @@ export default {
       } else if (props === 'balance') {
         this.form.benefitTypeList = this.removeArray(that.form.benefitTypeList, 'PRE_PAYED_MONEY')
       } else if (props === 'coupon') {
-        this.form.benefitTypeList = this.removeArray(that.form.benefitTypeList, 'CASH_COUPON')
+        this.couponConfig.multipleSelection.splice(this.couponConfig.couponNow, 1)
       } else {
-
       }
     },
     closeCoupon () {
@@ -148,17 +148,18 @@ export default {
           this.form.benefitTypeList.push('PRE_PAYED_MONEY')
         }
       } else if (props === 'coupon') {
-        if (this.showCoupon) {
-          this.errorDialog.errorType = '卡券'
-          this.errorDialog.repeatError = true
-        } else {
+        this.couponConfig.multipleSelection.push([])
+
+        if (!this.showCoupon) {
           this.form.benefitTypeList.push('CASH_COUPON')
         }
       } else {
 
       }
     },
-    showCouponList (whichForm) {
+    showCouponList (index) {
+      this.couponConfig.couponNow = index
+      console.log(index)
       this.couponListRender()
       this.couponConfig.couponIsShow = true
     },
@@ -196,14 +197,33 @@ export default {
       }
     },
     submitCoupon () {
-      this.shareUserForm.cashCouponTemplateId.push()
+      let that = this
+      this.form.cashCouponTemplateList = []
+      this.couponConfig.couponTextList = []
+      this.couponConfig.multipleSelection.forEach((v1, i1, a1) => {
+        let _couponText = ''
+        v1.forEach((v2, i2, a2) => {
+          // 处理给后端的数据
+          let postObj = {
+            cashCouponTemplateId: 0,
+            count: 1
+          }
+          postObj['cashCouponTemplateId'] = v2.id
+          that.form.cashCouponTemplateList.push(postObj)
+
+          // 处理显示文本
+          _couponText += `${v2.title} `
+          if (i2 === a2.length - 1) {
+            that.couponConfig.couponTextList.push(_couponText)
+          }
+        })
+      })
       this.couponConfig.couponIsShow = false
     },
     chooseCoupon (val) {
-      console.log(val)
-      this.couponConfig.multipleSelection = val
-      // this.shareUserForm.cashCouponTemplateId.push(val.id)
-      // this.couponConfig.couponIsShow = false
+      // 储存优惠券
+      let couponNow = this.couponConfig.couponNow
+      this.couponConfig.multipleSelection[couponNow] = val
     },
     // 切换页面
     couponPageChange (val) {
@@ -213,12 +233,27 @@ export default {
     }
   },
   watch: {
-    form (cv, pv) {
-      let that = this
-      switch (that.type) {
-        case 'SHARE_USER':
-          that.setShareUserForm(cv)
-      }
+    form: {
+      handler (cv, pv) {
+        let that = this
+        switch (that.type) {
+          case 'SHARE_USER':
+            that.setShareUserForm(cv)
+            break
+          case 'OLD_USER':
+            that.setOldUserForm(cv)
+            break
+          case 'NEW_USER':
+            that.setNewUserForm(cv)
+            break
+          case 'SHARE_GIFT':
+            that.setOpenCardForm(cv)
+            break
+          default:
+            break
+        }
+      },
+      deep: true
     }
   }
 }

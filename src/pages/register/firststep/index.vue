@@ -56,13 +56,32 @@
           callback(new Error('请输入正确的手机格式'))
         }
       }
-      let repasswordVerify = (rule, value, callback) => {
-        if (this.registerParms.password != this.registerParms.repassword) {
-          callback(new Error('密码不一致'))
+      var validatePass = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('请输入密码'))
+        } else {
+          if (this.registerParms.password !== '') {
+            this.$refs.registerForm.validateField('repassword')
+          }
+          callback()
+        }
+      }
+      var validatePass2 = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('请再次输入密码'))
+        } else if (value !== this.registerParms.password) {
+          callback(new Error('两次输入密码不一致!'))
         } else {
           callback()
         }
       }
+      // let repasswordVerify = (rule, value, callback) => {
+      //   if (this.registerParms.password != this.registerParms.repassword) {
+      //     callback(new Error('密码不一致'))
+      //   } else {
+      //     callback()
+      //   }
+      // }
       return {
         registerParms: {
           token: '',
@@ -84,10 +103,11 @@
           validCode: [
             { required: true, message: '请输入验证码', trigger: 'blur' }
           ],
-          password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
+          password: [
+            { required: true, validator: validatePass, trigger: ['blur', 'change']}
+          ],
           repassword: [
-            { required: true, message: '请输入密码', trigger: 'blur' },
-            { validator: repasswordVerify, message: '密码不一致', trigger: ['blur', 'change'] }
+            { required: true, validator: validatePass2, trigger: ['blur', 'change'] }
           ]
         }
       }

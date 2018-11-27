@@ -1,8 +1,9 @@
 <template>
-    <div class="activeSettingView">
+    <div class="shareGiftConfig">
         <div class="activeSettingTitle">转发送礼拉新 - 活动配置</div>
         <div class="activeSettingContent">
             <div>
+
             </div>
             <div>
                 <div class="activeSettingInfo">
@@ -70,25 +71,49 @@ export default {
       shareUserForm: state => state.marketingUtils.shareUserForm,
       oldUserForm: state => state.marketingUtils.oldUserForm,
       newUserForm: state => state.marketingUtils.newUserForm
-    })
+    }),
+    ...mapGetters(['getUserInfo'])
   },
-  async created () {
+  mounted () {
+    this.shareUserForm['companyId'] = this.getUserInfo.companyId
+    this.oldUserForm['companyId'] = this.getUserInfo.companyId
+    this.newUserForm['companyId'] = this.getUserInfo.companyId
     if (this.$router.currentRoute.query.id !== 'null') {
       this.shareUserForm['id'] = this.$router.currentRoute.query.id
+      this.oldUserForm['id'] = this.$router.currentRoute.query.id
+      this.newUserForm['id'] = this.$router.currentRoute.query.id
     }
+  },
+  created () {
   },
   methods: {
     ...mapActions([
-      'saveOrUpdateMarketActivityFetch'
+      'saveOrUpdateBenefitMarketActivity'
     ]),
+    judgeIfEmptyConfig (form) {
+      if (form.benefitTypeList.length === 0) {
+        return false
+      } else {
+        return true
+      }
+    },
     async submit () {
-      let configMixin = {}
-      configMixin['SHARE_USER'] = this.shareUserForm
-      configMixin['OLD_USER'] = this.oldUserForm
-      configMixin['NEW_USER'] = this.newUserForm
-      let res = await this.saveOrUpdateMarketActivityFetch(configMixin)
+      let configMixin = []
+      if (this.judgeIfEmptyConfig(this.shareUserForm)) {
+        configMixin.push(this.shareUserForm)
+      }
+      if (this.judgeIfEmptyConfig(this.oldUserForm)) {
+        configMixin.push(this.oldUserForm)
+      }
+      if (this.judgeIfEmptyConfig(this.newUserForm)) {
+        configMixin.push(this.newUserForm)
+      }
+      // configMixin['SHARE_USER'] = this.shareUserForm
+      // configMixin['OLD_USER'] = this.oldUserForm
+      // configMixin['NEW_USER'] = this.newUserForm
+      let res = await this.saveOrUpdateBenefitMarketActivity(configMixin)
       if (res) {
-        //   this.goUrl('/marketingUtils')
+        this.goUrl('/marketingUtils')
       }
     }
   }
