@@ -1,7 +1,33 @@
 import http from '@/utils/http.js'
 export default {
   state: {
-
+    shareUserForm: {
+      benefitTypeList: [],
+      enable: true,
+      activityType: 'ACTIVE_CARD_GIFT',
+      cashCouponTemplateList: [],
+      integral: 0,
+      balance: 0
+      // type: 'SHARE_USER'
+    },
+    oldUserForm: {
+      benefitTypeList: [],
+      enable: true,
+      activityType: 'ACTIVE_CARD_GIFT',
+      cashCouponTemplateList: [],
+      integral: 0,
+      balance: 0
+      // type: 'OLD_USER'
+    },
+    newUserForm: {
+      benefitTypeList: [],
+      enable: true,
+      activityType: 'ACTIVE_CARD_GIFT',
+      cashCouponTemplateList: [],
+      integral: 0,
+      balance: 0
+      // type: 'NEW_USER'
+    }
   },
   getters: {
 
@@ -31,6 +57,8 @@ export default {
     }
   },
   mutations: {
-
+    setShareUserForm (state, form) {
+      state.shareUserForm = form
+    }
   }
 }

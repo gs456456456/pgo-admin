@@ -8,6 +8,7 @@
 </template>
 <script>
   import leftBarNavMixin from '@/components/leftBarNavMixin'
+  import { mapActions } from 'vuex'
   export default {
     name: 'parent',
     components: {
@@ -43,6 +44,7 @@
     computed: {
     },
     methods: {
+      ...mapActions(['userInfoFetch']),
       judgeNavStatus (path) {
         if (this.noNavUrl.indexOf(path) > -1) {
           this.showNav = false
@@ -53,6 +55,8 @@
     },
     created () {
       this.judgeNavStatus(this.$router.currentRoute.path)
+      // 请求用户信息 防止登录过期
+      this.userInfoFetch()
     },
     mounted () {
     },
