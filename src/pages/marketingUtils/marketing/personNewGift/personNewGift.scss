@@ -86,8 +86,12 @@
           }
         }
       }
+      
       .content-content-right {
         font-size: 14px;
+        .benefit-list{
+          margin-bottom: 20px;
+        }
         .right-top {
           margin-bottom: 18px;
         }
@@ -95,7 +99,7 @@
           margin-bottom: 12px;
         }
         .right-content {
-          width: 100%;
+          // width: 100%;
           p {
             display: inline-block;
             margin-bottom: 22px;
@@ -110,6 +114,9 @@
               font-size: 13px;
               color: rgb(80, 124, 252);
             }
+          }
+          .second-coupon{
+            margin-bottom: 3px;
           }
         }
       }

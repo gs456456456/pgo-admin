@@ -36,7 +36,7 @@
                         <div class="right-bot">
                             <p class="right-title">奖励设置</p>
                             <!-- <div v-for='item in marketActivityConfig'></div> -->
-                            <div v-for='item in marketActivityConfig.benefitTypeList'>
+                            <div v-for='item in marketActivityConfig.benefitTypeList' class="benefit-list">
                                 <div class="right-content">
                                     <p class="first">奖励类型</p>
                                     <p class="second" v-if='item==="POINTS"'>送积分</p>
@@ -51,12 +51,14 @@
                                     <p class="first">奖励内容</p>
                                     <p class="second">{{marketActivityConfig.balance}}</p>
                                 </div>
-                                <div class="right-content" v-if='item==="CASH_COUPON"'>
+                                <div class="right-content fl" v-if='item==="CASH_COUPON"'>
                                     <p class="first">奖励内容</p>
-                                    <p class="second" v-for='item in marketActivityConfig.cashCouponTemplateList'>
-                                        {{item.title}} 
-                                        <!-- 满300减30通用券 <span>查看</span> -->
-                                    </p>
+                                    <div>
+                                        <div class="second second-coupon" v-for='item in marketActivityConfig.cashCouponTemplateList'>
+                                            {{item.title}} 
+                                            <!-- 满300减30通用券 <span>查看</span> -->
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <!-- <div class="right-content">

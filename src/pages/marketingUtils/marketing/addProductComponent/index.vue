@@ -79,10 +79,7 @@ export default {
         couponIsShow: false,
         couponList: [],
         // multipleSelection: [],
-        couponNow: 0,
-        couponObj: {
-
-        }
+        couponNow: 0
         // couponTextList: []
       },
       page: {
@@ -166,7 +163,7 @@ export default {
       }
     },
     showCouponList (index) {
-      // this.couponConfig.couponNow = index
+      this.couponConfig.couponNow = index
       // console.log(index)
       this.couponListRender()
       this.couponConfig.couponIsShow = true
