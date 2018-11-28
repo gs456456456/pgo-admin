@@ -26,20 +26,22 @@
             <el-input  placeholder="请填写储值" v-model="form.balance"></el-input>
             <span class="activeSettingDelete" @click='delSelect("balance")'>删除</span>
             </div>
-            <div class="activeSettingIntegration coupon" v-for='(item,index) in couponConfig.multipleSelection' @click='showCouponList(index)'>
+            <!-- <div class="activeSettingIntegration coupon" v-for='(item,index) in couponConfig.multipleSelection' @click='showCouponList(index)'> -->
+            <div class="activeSettingIntegration coupon" v-for='(item,index) in form.cashCouponTemplateList' @click='showCouponList(index)'>
                 <div class="activeSetting">优惠券</div>
                 <el-button class="selectCoupon">
-                    {{couponConfig.couponTextList[index]||'请选择优惠券'}}<i class="el-icon-arrow-down el-icon--right"></i>
+                    <!-- {{couponConfig.couponTextList[index]||'请选择优惠券'}}<i class="el-icon-arrow-down el-icon--right"></i> -->
+                    {{item.title||'请选择优惠券'}}<i class="el-icon-arrow-down el-icon--right"></i>
                 </el-button>
-                <span class="activeSettingDelete" @click.stop='delSelect("coupon")'>删除</span>
+                <span class="activeSettingDelete" @click.stop='delSelect("coupon",index)'>删除</span>
             </div>
         </div>
         <el-dialog :visible.sync="couponConfig.couponIsShow" class="coupondialog">
-                <el-table :data="couponConfig.couponList" @selection-change='chooseCoupon' v-loading="loading">
-                    <el-table-column
+                <el-table :data="couponConfig.couponList" @current-change='chooseCoupon' v-loading="loading" highlight-current-row>
+                    <!-- <el-table-column
                         type="selection"
                         width="55">
-                    </el-table-column>
+                    </el-table-column> -->
                     <el-table-column property="type" label="卡券类别" width="150"></el-table-column>
                     <el-table-column property="title" label="卡券标题" width="200"></el-table-column>
                     <el-table-column property="sillPrice" label="使用门槛"></el-table-column>
@@ -76,9 +78,12 @@ export default {
       couponConfig: {
         couponIsShow: false,
         couponList: [],
-        multipleSelection: [],
+        // multipleSelection: [],
         couponNow: 0,
-        couponTextList: []
+        couponObj: {
+
+        }
+        // couponTextList: []
       },
       page: {
         pageNumber: 1,
@@ -118,15 +123,18 @@ export default {
     ...mapActions([
       'listCashCouponTemplateFetch'
     ]),
-    delSelect (props) {
+    delSelect (props, index) {
       let that = this
       if (props === 'integral') {
         this.form.benefitTypeList = this.removeArray(that.form.benefitTypeList, 'POINTS')
       } else if (props === 'balance') {
         this.form.benefitTypeList = this.removeArray(that.form.benefitTypeList, 'PRE_PAYED_MONEY')
       } else if (props === 'coupon') {
-        this.couponConfig.multipleSelection.splice(this.couponConfig.couponNow, 1)
+        // this.couponConfig.multipleSelection.splice(this.couponConfig.couponNow, 1)
+        this.form.cashCouponTemplateList.splice(index, 1)
+        this.couponConfig.couponTextList = []
       } else {
+
       }
     },
     closeCoupon () {
@@ -148,8 +156,8 @@ export default {
           this.form.benefitTypeList.push('PRE_PAYED_MONEY')
         }
       } else if (props === 'coupon') {
-        this.couponConfig.multipleSelection.push([])
-
+        // this.couponConfig.multipleSelection.push([])
+        this.form.cashCouponTemplateList.push({})
         if (!this.showCoupon) {
           this.form.benefitTypeList.push('CASH_COUPON')
         }
@@ -158,8 +166,8 @@ export default {
       }
     },
     showCouponList (index) {
-      this.couponConfig.couponNow = index
-      console.log(index)
+      // this.couponConfig.couponNow = index
+      // console.log(index)
       this.couponListRender()
       this.couponConfig.couponIsShow = true
     },
@@ -197,33 +205,43 @@ export default {
       }
     },
     submitCoupon () {
-      let that = this
-      this.form.cashCouponTemplateList = []
-      this.couponConfig.couponTextList = []
-      this.couponConfig.multipleSelection.forEach((v1, i1, a1) => {
-        let _couponText = ''
-        v1.forEach((v2, i2, a2) => {
-          // 处理给后端的数据
-          let postObj = {
-            cashCouponTemplateId: 0,
-            count: 1
-          }
-          postObj['cashCouponTemplateId'] = v2.id
-          that.form.cashCouponTemplateList.push(postObj)
+      // this.form.cashCouponTemplateList = []
+      // this.couponConfig.couponTextList = []
+      this.form.cashCouponTemplateList.forEach((v1, i1, a1) => {
+        v1['cashCouponTemplateId'] = v1.id
+        v1['count'] = 1
+        // postObj['cashCouponTemplateId'] = v1.id
+        // that.form.cashCouponTemplateList.push(postObj)
+        // that.couponConfig.couponTextList.push(v1.title)
+        // this.couponConfig.multipleSelection.forEach((v1, i1, a1) => {
+        // 多选逻辑
+        // let _couponText = ''
+        // v1.forEach((v2, i2, a2) => {
+        //   // 处理给后端的数据
+        //   let postObj = {
+        //     cashCouponTemplateId: 0,
+        //     count: 1
+        //   }
+        //   postObj['cashCouponTemplateId'] = v2.id
+        //   that.form.cashCouponTemplateList.push(postObj)
 
-          // 处理显示文本
-          _couponText += `${v2.title} `
-          if (i2 === a2.length - 1) {
-            that.couponConfig.couponTextList.push(_couponText)
-          }
-        })
+        //   // 处理显示文本
+        //   _couponText += `${v2.title} `
+        //   if (i2 === a2.length - 1) {
+        //     that.couponConfig.couponTextList.push(_couponText)
+        //   }
+        // })
+        // }
       })
       this.couponConfig.couponIsShow = false
     },
     chooseCoupon (val) {
       // 储存优惠券
+      // console.log(couponNow)
+      // console.log(val)
       let couponNow = this.couponConfig.couponNow
-      this.couponConfig.multipleSelection[couponNow] = val
+      this.form.cashCouponTemplateList[couponNow] = val
+      // this.couponConfig.multipleSelection[couponNow] = val
     },
     // 切换页面
     couponPageChange (val) {

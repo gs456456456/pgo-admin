@@ -3,17 +3,17 @@
         <div class="previewShare-inner">
             <el-breadcrumb separator="/">
                 <el-breadcrumb-item :to="{ path: '/' }">营销活动</el-breadcrumb-item>
-                <el-breadcrumb-item><a href="/">新人礼活动</a></el-breadcrumb-item>
+                <el-breadcrumb-item><a href="/">分享礼活动</a></el-breadcrumb-item>
             </el-breadcrumb>
             <!-- 营销活动 <span>/转发享好礼活动</span> -->
         </div>
         <div class="previewShare-content">
             <div class="content-title">
-                <p>转发享好礼 - 未开启</p>
+                <p>转发享好礼 - {{marketActivityConfig.enable?'已开启':'未开启'}}</p>
                 <div class="btns">
                     <div class="shareGiftButton">
-                        <el-button>开启活动</el-button>
-                        <el-button @click="goUrl('/marketingUtils/shareGiftConfig')">修改</el-button>
+                        <el-button @click="toggleActivityStatus">{{marketActivityConfig.enable?'关闭活动':'开启活动'}}</el-button>
+                        <el-button @click="modifyConfig">修改</el-button>
                     </div>
                 </div>
             </div>
@@ -26,7 +26,7 @@
                         <p class="right-title">活动信息</p>
                         <div class="right-content">
                             <p class="first">活动状态</p>
-                            <p class="second">未开启</p>
+                            <p class="second">{{marketActivityConfig.enable?'已开启':'未开启'}}</p>
                         </div>
                         <div class="right-content">
                             <p class="first">活动类型</p>
@@ -35,18 +35,31 @@
                     </div>
                     <div class="right-bot">
                         <p class="right-title">奖励设置</p>
-                        <div class="right-content">
-                            <p class="first">奖励类型</p>
-                            <p class="second">送积分</p>
+                        <!-- <div v-for='item in marketActivityConfig'></div> -->
+                        <div v-for='item in marketActivityConfig.benefitTypeList'>
+                            <div class="right-content">
+                                <p class="first">奖励类型</p>
+                                <p class="second" v-if='item==="POINTS"'>送积分</p>
+                                <p class="second" v-if='item==="PRE_PAYED_MONEY"'>送储值</p>
+                                <p class="second" v-if='item==="CASH_COUPON"'>送卡券</p>
+                            </div>
+                            <div class="right-content" v-if='item==="POINTS"'>
+                                <p class="first">奖励内容</p>
+                                <p class="second">500积分</p>
+                            </div>
+                            <div class="right-content" v-if='item==="PRE_PAYED_MONEY"'>
+                                <p class="first">奖励内容</p>
+                                <p class="second">500</p>
+                            </div>
+                            <div class="right-content" v-if='item==="CASH_COUPON"'>
+                                <p class="first">奖励内容</p>
+                                <p class="second">满300减30通用券 <span>查看</span></p>
+                            </div>
                         </div>
-                        <div class="right-content">
-                            <p class="first">奖励内容</p>
-                            <p class="second">500积分</p>
-                        </div>
-                        <div class="right-content">
+                        <!-- <div class="right-content">
                             <p class="first">奖励内容</p>
                             <p class="second">满300减30通用券 <span>查看</span></p>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -55,7 +68,58 @@
 </template>
 
 <script>
+import { mapActions, mapGetters, mapMutations, mapState } from 'vuex'
+export default {
+  data () {
+    return {
+      marketActivityConfig: {
+        balance: 0,
+        benefitTypeList: [],
+        cashCouponTemplateList: [],
+        enable: false,
+        integral: 0,
+        id: 0
+      }
+    }
+  },
+  computed: {
+    ...mapGetters(['getUserInfo'])
+  },
+  mounted () {
 
+  },
+  async created () {
+    // 给具体配置页面传值
+    let that = this
+    let res = await this.marketActivityFetch(that.getUserInfo.companyId)
+    if (res) {
+      res.result.forEach(element => {
+        if (element.activityType === 'SHARE_GIFT') {
+          that.marketActivityConfig = element
+           // 读取配置设置vuex
+          that.setShareUserTotalForm(element)
+        }
+      })
+    }
+  },
+  methods: {
+    ...mapActions(['marketActivityFetch', 'saveOrUpdateBenefitMarketActivity']),
+    ...mapMutations(['setSuccess', 'closeError', 'setShareUserTotalForm']),
+    modifyConfig () {
+      this.goUrl(`/marketingUtils/shareGiftConfig?activityId=${this.marketActivityConfig.id}`)
+    },
+    async toggleActivityStatus () {
+      this.closeError()
+      this.loading = true
+      this.marketActivityConfig.enable = !this.marketActivityConfig.enable
+      let res = await this.saveOrUpdateBenefitMarketActivity(this.marketActivityConfig)
+      if (res) {
+        this.loading = false
+        this.setSuccess('修改成功')
+      }
+    }
+  }
+}
 </script>
 
 <style lang='scss' scoped>

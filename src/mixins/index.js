@@ -13,6 +13,9 @@ export default Vue.mixin({
       }
       return arr
     },
+    deepCopyObj: function (obj) {
+      return JSON.parse(JSON.stringify(obj))
+    },
     isEmptyObj: function (obj) {
       var t
       for (t in obj) { return false }

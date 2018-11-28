@@ -3,7 +3,7 @@ export default {
   state: {
     shareUserForm: {
       benefitTypeList: [],
-      enable: true,
+      // enable: true,
       activityType: 'SHARE_GIFT',
       cashCouponTemplateList: [],
       integral: 0,
@@ -12,7 +12,7 @@ export default {
     },
     oldUserForm: {
       benefitTypeList: [],
-      enable: true,
+      // enable: true,
       activityType: 'SHARE_GIFT',
       cashCouponTemplateList: [],
       integral: 0,
@@ -21,7 +21,7 @@ export default {
     },
     newUserForm: {
       benefitTypeList: [],
-      enable: true,
+      // enable: true,
       activityType: 'SHARE_GIFT',
       cashCouponTemplateList: [],
       integral: 0,
@@ -30,7 +30,7 @@ export default {
     },
     openCardForm: {
       benefitTypeList: [],
-      enable: true,
+      // enable: true,
       activityType: 'ACTIVE_CARD_GIFT',
       cashCouponTemplateList: [],
       integral: 0,
@@ -76,6 +76,11 @@ export default {
   mutations: {
     setShareUserForm (state, form) {
       state.shareUserForm = form
+    },
+    setShareUserTotalForm (state, shareUser, newUser, oldUser) {
+      state.shareUserForm = shareUser
+      state.newUserForm = newUser
+      state.oldUserForm = oldUser
     },
     setNewUserForm (state, form) {
       state.newUserForm = form

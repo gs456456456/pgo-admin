@@ -7,11 +7,16 @@ Vue.use(Vuex)
 const error = {
   state: {
     errorText: '',
-    showError: false
+    showError: false,
+    successText: '',
+    showSuccess: false
   },
   getters: {
     getError (state) {
       return state.errorText
+    },
+    getSuccess (state) {
+      return state.successText
     }
   },
   actions: {
@@ -22,8 +27,14 @@ const error = {
       state.showError = true
       state.errorText = errorText
     },
+    // 关闭所有提示
     closeError (state) {
       state.showError = false
+      state.showSuccess = false
+    },
+    setSuccess (state, successText) {
+      state.showSuccess = true
+      state.successText = successText
     }
   }
 }

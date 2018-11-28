@@ -53,9 +53,6 @@ export default {
     })
   },
   mounted () {
-    if (this.$router.currentRoute.query.id !== 'null') {
-      this.openCardForm['id'] = this.$router.currentRoute.query.id
-    }
   },
   methods: {
     ...mapActions([
@@ -63,9 +60,14 @@ export default {
     ]),
     async submit () {
       let that = this
+      // 判断是更新还是第一次进活动
+      let activityId = this.$router.currentRoute.query.activityId
+      if (activityId) {
+        this.openCardForm['id'] = activityId
+      }
       let res = await this.saveOrUpdateMarketActivityFetch(that.openCardForm)
       if (res) {
-        //   this.goUrl('/marketingUtils')
+        this.goUrl('/marketingUtils')
       }
     }
   }

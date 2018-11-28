@@ -78,13 +78,9 @@ export default {
     this.shareUserForm['companyId'] = this.getUserInfo.companyId
     this.oldUserForm['companyId'] = this.getUserInfo.companyId
     this.newUserForm['companyId'] = this.getUserInfo.companyId
-    if (this.$router.currentRoute.query.id !== 'null') {
-      this.shareUserForm['id'] = this.$router.currentRoute.query.id
-      this.oldUserForm['id'] = this.$router.currentRoute.query.id
-      this.newUserForm['id'] = this.$router.currentRoute.query.id
-    }
   },
   created () {
+
   },
   methods: {
     ...mapActions([
@@ -99,6 +95,13 @@ export default {
     },
     async submit () {
       let configMixin = []
+      // 判断是更新还是第一次进活动
+      let activityId = this.$router.currentRoute.query.activityId
+      if (activityId) {
+        this.shareUserForm['id'] = activityId
+        this.oldUserForm['id'] = activityId
+        this.newUserForm['id'] = activityId
+      }
       if (this.judgeIfEmptyConfig(this.shareUserForm)) {
         configMixin.push(this.shareUserForm)
       }
@@ -108,9 +111,6 @@ export default {
       if (this.judgeIfEmptyConfig(this.newUserForm)) {
         configMixin.push(this.newUserForm)
       }
-      // configMixin['SHARE_USER'] = this.shareUserForm
-      // configMixin['OLD_USER'] = this.oldUserForm
-      // configMixin['NEW_USER'] = this.newUserForm
       let res = await this.saveOrUpdateBenefitMarketActivity(configMixin)
       if (res) {
         this.goUrl('/marketingUtils')

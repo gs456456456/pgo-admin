@@ -6,6 +6,11 @@
       type="error"
       style="position: absolute;">
     </el-alert>
+    <el-alert v-if='showSuccess'
+      :title='getSuccess'
+      type="success"
+      style="position: absolute;">
+    </el-alert>
     <router-view/>
   </div>
 </template>
@@ -19,11 +24,14 @@ export default {
     navTop: navTop
   },
   computed: {
-    ...mapState({showError: state => state.error.showError}),
-    ...mapGetters(['getError'])
+    ...mapState({
+      showError: state => state.error.showError,
+      showSuccess: state => state.error.showSuccess
+    }),
+    ...mapGetters(['getError', 'getSuccess'])
   },
   methods: {
-    ...mapMutations(['closeError', 'setUserInfo'])
+    ...mapMutations(['setUserInfo'])
   },
   created () {
     if (localStorage.getItem('userInfo')) {
