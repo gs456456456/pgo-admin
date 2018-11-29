@@ -1,5 +1,5 @@
 <template>
-    <div class="personNewConfig">
+    <div class="personNewConfig" v-loading='loading'>
         <div class="activeSettingTitle">新人送礼 - 活动配置</div>
         <div class="activeSettingContent">
             <div>
@@ -41,7 +41,8 @@ export default {
         title: '开卡礼品',
         description: '新用户开卡填写手机号即送礼品',
         type: 'SHARE_USER'
-      }
+      },
+      loading: false
     }
   },
   components: {
@@ -62,11 +63,13 @@ export default {
       let that = this
       // 判断是更新还是第一次进活动
       let activityId = this.$router.currentRoute.query.activityId
+      this.loading = true
       if (activityId) {
         this.openCardForm['id'] = activityId
       }
       let res = await this.saveOrUpdateMarketActivityFetch(that.openCardForm)
       if (res) {
+        this.loading = false
         this.goUrl('/marketingUtils')
       }
     }

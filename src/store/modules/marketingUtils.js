@@ -3,7 +3,7 @@ export default {
   state: {
     shareUserForm: {
       benefitTypeList: [],
-      // enable: true,
+      enable: true,
       activityType: 'SHARE_GIFT',
       cashCouponTemplateList: [],
       integral: 0,
@@ -12,7 +12,7 @@ export default {
     },
     oldUserForm: {
       benefitTypeList: [],
-      // enable: true,
+      enable: true,
       activityType: 'SHARE_GIFT',
       cashCouponTemplateList: [],
       integral: 0,
@@ -21,7 +21,7 @@ export default {
     },
     newUserForm: {
       benefitTypeList: [],
-      // enable: true,
+      enable: true,
       activityType: 'SHARE_GIFT',
       cashCouponTemplateList: [],
       integral: 0,
@@ -30,7 +30,7 @@ export default {
     },
     openCardForm: {
       benefitTypeList: [],
-      // enable: true,
+      enable: true,
       activityType: 'ACTIVE_CARD_GIFT',
       cashCouponTemplateList: [],
       integral: 0,
@@ -39,12 +39,24 @@ export default {
     }
   },
   getters: {
-
+    getShareUserForm (state) {
+      return state.shareUserForm
+    },
+    getNewUserForm (state) {
+      return state.newUserForm
+    },
+    getOldUserForm (state) {
+      return state.oldUserForm
+    },
+    getOpenCardForm (state) {
+      return state.openCardForm
+    }
   },
   actions: {
     marketActivityFetch: async (ctx, companyId) => {
       let res = await http({
-        url: `/market/activity/findMarketActivity?companyId=${companyId}`
+        url: `/market/activity/findMarketActivity?companyId=${companyId}`,
+        method: 'POST'
       })
       return res
     },

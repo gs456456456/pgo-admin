@@ -1,5 +1,5 @@
 <template>
-    <div class="shareGiftConfig">
+    <div class="shareGiftConfig" v-loading='loading'>
         <div class="activeSettingTitle">转发送礼拉新 - 活动配置</div>
         <div class="activeSettingContent">
             <div>
@@ -60,7 +60,8 @@ export default {
         title: '老用户',
         description: '新用户注册后领取奖品。奖品可为积分、储值或优惠券。',
         type: 'OLD_USER'
-      }
+      },
+      loading: false
     }
   },
   components: {
@@ -93,15 +94,20 @@ export default {
         return true
       }
     },
+    urlParmFunc (urlParm) {
+      if (this.$router.currentRoute.query.hasOwnProperty(urlParm)) {
+        this.shareUserForm[urlParm] = this.$router.currentRoute.query[urlParm]
+        this.oldUserForm[urlParm] = this.$router.currentRoute.query[urlParm]
+        this.newUserForm[urlParm] = this.$router.currentRoute.query[urlParm]
+      }
+    },
     async submit () {
       let configMixin = []
+      this.loading = true
       // 判断是更新还是第一次进活动
-      let activityId = this.$router.currentRoute.query.activityId
-      if (activityId) {
-        this.shareUserForm['id'] = activityId
-        this.oldUserForm['id'] = activityId
-        this.newUserForm['id'] = activityId
-      }
+      this.urlParmFunc('id')
+      this.urlParmFunc('eventsList')
+
       if (this.judgeIfEmptyConfig(this.shareUserForm)) {
         configMixin.push(this.shareUserForm)
       }
@@ -111,8 +117,11 @@ export default {
       if (this.judgeIfEmptyConfig(this.newUserForm)) {
         configMixin.push(this.newUserForm)
       }
+      console.log(JSON.stringify(configMixin))
+
       let res = await this.saveOrUpdateBenefitMarketActivity(configMixin)
       if (res) {
+        this.loading = false
         this.goUrl('/marketingUtils')
       }
     }

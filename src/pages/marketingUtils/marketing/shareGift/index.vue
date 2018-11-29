@@ -9,10 +9,10 @@
         </div>
         <div class="previewShare-content">
             <div class="content-title">
-                <p>转发享好礼 - {{marketActivityConfig.enable?'已开启':'未开启'}}</p>
+                <p>转发享好礼 - {{activityEnable?'已开启':'未开启'}}</p>
                 <div class="btns">
                     <div class="shareGiftButton">
-                        <el-button @click="toggleActivityStatus">{{marketActivityConfig.enable?'关闭活动':'开启活动'}}</el-button>
+                        <el-button @click="toggleActivityStatus">{{activityEnable?'关闭活动':'开启活动'}}</el-button>
                         <el-button @click="modifyConfig">修改</el-button>
                     </div>
                 </div>
@@ -26,7 +26,7 @@
                         <p class="right-title">活动信息</p>
                         <div class="right-content">
                             <p class="first">活动状态</p>
-                            <p class="second">{{marketActivityConfig.enable?'已开启':'未开启'}}</p>
+                            <p class="second">{{activityEnable?'已开启':'未开启'}}</p>
                         </div>
                         <div class="right-content">
                             <p class="first">活动类型</p>
@@ -36,24 +36,89 @@
                     <div class="right-bot">
                         <p class="right-title">奖励设置</p>
                         <!-- <div v-for='item in marketActivityConfig'></div> -->
-                        <div v-for='item in marketActivityConfig.benefitTypeList'>
-                            <div class="right-content">
-                                <p class="first">奖励类型</p>
-                                <p class="second" v-if='item==="POINTS"'>送积分</p>
-                                <p class="second" v-if='item==="PRE_PAYED_MONEY"'>送储值</p>
-                                <p class="second" v-if='item==="CASH_COUPON"'>送卡券</p>
+
+                        <div class="user-type-container">
+                            <div class="user-type">分享用户</div>
+                            <div v-for='item in getShareUserForm.benefitTypeList'>
+                                <div class="right-content">
+                                    <p class="first">奖励类型</p>
+                                    <p class="second" v-if='item==="POINTS"'>送积分</p>
+                                    <p class="second" v-if='item==="PRE_PAYED_MONEY"'>送储值</p>
+                                    <p class="second" v-if='item==="CASH_COUPON"'>送卡券</p>
+                                </div>
+                                <div class="right-content" v-if='item==="POINTS"'>
+                                    <p class="first">奖励内容</p>
+                                    <p class="second">{{getShareUserForm.integral}}积分</p>
+                                </div>
+                                <div class="right-content" v-if='item==="PRE_PAYED_MONEY"'>
+                                    <p class="first">奖励内容</p>
+                                    <p class="second">{{getShareUserForm.balance}}</p>
+                                </div>
+                                <div class="right-content fl" v-if='item==="CASH_COUPON"'>
+                                    <p class="first">奖励内容</p>
+                                    <div>
+                                        <div class="second second-coupon" v-for='item in getShareUserForm.cashCouponTemplateList'>
+                                            {{item.title}} 
+                                            <!-- 满300减30通用券 <span>查看</span> -->
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="right-content" v-if='item==="POINTS"'>
-                                <p class="first">奖励内容</p>
-                                <p class="second">500积分</p>
-                            </div>
-                            <div class="right-content" v-if='item==="PRE_PAYED_MONEY"'>
-                                <p class="first">奖励内容</p>
-                                <p class="second">500</p>
-                            </div>
-                            <div class="right-content" v-if='item==="CASH_COUPON"'>
-                                <p class="first">奖励内容</p>
-                                <p class="second">满300减30通用券 <span>查看</span></p>
+                        </div>
+                        <div  class="user-type-container">
+                                <div class="user-type">新用户</div>
+                                <div v-for='item in getNewUserForm.benefitTypeList'>
+                                    <div class="right-content">
+                                            <p class="first">奖励类型</p>
+                                            <p class="second" v-if='item==="POINTS"'>送积分</p>
+                                            <p class="second" v-if='item==="PRE_PAYED_MONEY"'>送储值</p>
+                                            <p class="second" v-if='item==="CASH_COUPON"'>送卡券</p>
+                                    </div>
+                                    <div class="right-content" v-if='item==="POINTS"'>
+                                        <p class="first">奖励内容</p>
+                                        <p class="second">{{getNewUserForm.integral}}积分</p>
+                                    </div>
+                                    <div class="right-content" v-if='item==="PRE_PAYED_MONEY"'>
+                                        <p class="first">奖励内容</p>
+                                        <p class="second">{{getNewUserForm.balance}}</p>
+                                    </div>
+                                    <div class="right-content fl" v-if='item==="CASH_COUPON"'>
+                                        <p class="first">奖励内容</p>
+                                        <div>
+                                            <div class="second second-coupon" v-for='item in getNewUserForm.cashCouponTemplateList'>
+                                                {{item.title}} 
+                                                <!-- 满300减30通用券 <span>查看</span> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="user-type-container">
+                            <div class="user-type">老用户</div>
+                            <div v-for='item in getOldUserForm.benefitTypeList' >
+                                <div class="right-content">
+                                    <p class="first">奖励类型</p>
+                                    <p class="second" v-if='item==="POINTS"'>送积分</p>
+                                    <p class="second" v-if='item==="PRE_PAYED_MONEY"'>送储值</p>
+                                    <p class="second" v-if='item==="CASH_COUPON"'>送卡券</p>
+                                </div>
+                                <div class="right-content" v-if='item==="POINTS"'>
+                                    <p class="first">奖励内容</p>
+                                    <p class="second">{{getOldUserForm.integral}}积分</p>
+                                </div>
+                                <div class="right-content" v-if='item==="PRE_PAYED_MONEY"'>
+                                    <p class="first">奖励内容</p>
+                                    <p class="second">{{getOldUserForm.balance}}</p>
+                                </div>
+                                <div class="right-content fl" v-if='item==="CASH_COUPON"'>
+                                    <p class="first">奖励内容</p>
+                                    <div>
+                                        <div class="second second-coupon" v-for='item in getOldUserForm.cashCouponTemplateList'>
+                                            {{item.title}} 
+                                            <!-- 满300减30通用券 <span>查看</span> -->
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <!-- <div class="right-content">
@@ -72,18 +137,22 @@ import { mapActions, mapGetters, mapMutations, mapState } from 'vuex'
 export default {
   data () {
     return {
-      marketActivityConfig: {
-        balance: 0,
-        benefitTypeList: [],
-        cashCouponTemplateList: [],
-        enable: false,
-        integral: 0,
-        id: 0
-      }
+    //   marketActivityConfig: {
+    //     balance: 0,
+    //     benefitTypeList: [],
+    //     cashCouponTemplateList: [],
+    //     enable: false,
+    //     integral: 0,
+    //     id: 0
+    //   },
+      activityEnable: false,
+      activityEventList: null,
+      activityId: null,
+      marketActivityConfig: []
     }
   },
   computed: {
-    ...mapGetters(['getUserInfo'])
+    ...mapGetters(['getUserInfo', 'getNewUserForm', 'getOldUserForm', 'getShareUserForm'])
   },
   mounted () {
 
@@ -95,25 +164,37 @@ export default {
     if (res) {
       res.result.forEach(element => {
         if (element.activityType === 'SHARE_GIFT') {
-          that.marketActivityConfig = element
+          that.activityId = element.id
+          that.activityEnable = element.enable
+          that.activityEventList = element.eventsList ? element.eventsList : null
+          that.marketActivityConfig.push(element)
+          if (element.benefitUserType === 'NEW_USER') {
+            that.setNewUserForm(element)
+          } else if (element.benefitUserType === 'OLD_USER') {
+            that.setOldUserForm(element)
+          } else if (element.benefitUserType === 'SHARE_USER') {
+            that.setShareUserForm(element)
+          }
            // 读取配置设置vuex
-          that.setShareUserTotalForm(element)
         }
       })
     }
   },
   methods: {
     ...mapActions(['marketActivityFetch', 'saveOrUpdateBenefitMarketActivity']),
-    ...mapMutations(['setSuccess', 'closeError', 'setShareUserTotalForm']),
+    ...mapMutations(['setSuccess', 'closeError', 'setShareUserForm', 'setNewUserForm', 'setOldUserForm']),
     modifyConfig () {
-      this.goUrl(`/marketingUtils/shareGiftConfig?activityId=${this.marketActivityConfig.id}`)
+      this.goUrl(`/marketingUtils/shareGiftConfig?id=${this.activityId}&eventsList=${this.activityEventList}`)
     },
     async toggleActivityStatus () {
       this.closeError()
       this.loading = true
-      this.marketActivityConfig.enable = !this.marketActivityConfig.enable
+      this.marketActivityConfig.forEach((element) => {
+        element.enable = !element.enable
+      })
       let res = await this.saveOrUpdateBenefitMarketActivity(this.marketActivityConfig)
       if (res) {
+        this.activityEnable = !this.activityEnable
         this.loading = false
         this.setSuccess('修改成功')
       }

@@ -15,6 +15,12 @@
       color: rgb(105, 105, 105);
     }
   }
+  .user-type-container{
+    margin-bottom: 10px;
+    .user-type{
+      margin-bottom: 10px
+    }
+  }
   .previewShare-content {
     min-width: 870px;
     background-color: $bg-white;
@@ -79,11 +85,11 @@
             margin-bottom: 12px;
         }
         .right-content {
-            width: 100%;
-            p {
-                display: inline-block;
-                margin-bottom: 22px;
-            }
+          // width: 100%;
+          p {
+            display: inline-block;
+            margin-bottom: 22px;
+          }
           .first {
             color: rgb(186, 186, 186);
             margin-right: 54px;
@@ -91,9 +97,12 @@
           .second {
             color: rgb(88, 88, 88);
             span {
-                font-size: 13px;
-                color: rgb(80, 124, 252)
+              font-size: 13px;
+              color: rgb(80, 124, 252);
             }
+          }
+          .second-coupon{
+            margin-bottom: 3px;
           }
         }
         
