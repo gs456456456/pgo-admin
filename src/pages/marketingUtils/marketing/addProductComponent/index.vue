@@ -7,6 +7,25 @@
                     {{description}}
                 </div>
             </div>
+            <div class="activeSettingIntegration" v-if='showPoint'>
+                <div class="activeSetting">积分</div>
+                <el-input  placeholder="请填写奖品积分值" v-model="form.integral"></el-input>
+                <span class="activeSettingDelete" @click='delSelect("integral")'>删除</span>
+                </div>
+                <div class="activeSettingIntegration" v-if='showBalance'>
+                <div class="activeSetting">储值</div>
+                <el-input  placeholder="请填写储值" v-model="form.balance"></el-input>
+                <span class="activeSettingDelete" @click='delSelect("balance")'>删除</span>
+                </div>
+                <!-- <div class="activeSettingIntegration coupon" v-for='(item,index) in couponConfig.multipleSelection' @click='showCouponList(index)'> -->
+                <div class="activeSettingIntegration coupon" v-for='(item,index) in form.cashCouponTemplateList' @click='showCouponList(index)'>
+                    <div class="activeSetting">优惠券</div>
+                    <el-button class="selectCoupon">
+                        <!-- {{couponConfig.couponTextList[index]||'请选择优惠券'}}<i class="el-icon-arrow-down el-icon--right"></i> -->
+                        {{item.title||'请选择优惠券'}}<i class="el-icon-arrow-down el-icon--right"></i>
+                    </el-button>
+                    <span class="activeSettingDelete" @click.stop='delSelect("coupon",index)'>删除</span>
+                </div>
             <el-dropdown class="drop-down" trigger="click" @command="showSelect">
             <el-button class="btn">添加商品
             </el-button>
@@ -16,25 +35,6 @@
                 <el-dropdown-item command="coupon">送优惠券</el-dropdown-item>
             </el-dropdown-menu>
             </el-dropdown>
-            <div class="activeSettingIntegration" v-if='showPoint'>
-            <div class="activeSetting">积分</div>
-            <el-input  placeholder="请填写奖品积分值" v-model="form.integral"></el-input>
-            <span class="activeSettingDelete" @click='delSelect("integral")'>删除</span>
-            </div>
-            <div class="activeSettingIntegration" v-if='showBalance'>
-            <div class="activeSetting">储值</div>
-            <el-input  placeholder="请填写储值" v-model="form.balance"></el-input>
-            <span class="activeSettingDelete" @click='delSelect("balance")'>删除</span>
-            </div>
-            <!-- <div class="activeSettingIntegration coupon" v-for='(item,index) in couponConfig.multipleSelection' @click='showCouponList(index)'> -->
-            <div class="activeSettingIntegration coupon" v-for='(item,index) in form.cashCouponTemplateList' @click='showCouponList(index)'>
-                <div class="activeSetting">优惠券</div>
-                <el-button class="selectCoupon">
-                    <!-- {{couponConfig.couponTextList[index]||'请选择优惠券'}}<i class="el-icon-arrow-down el-icon--right"></i> -->
-                    {{item.title||'请选择优惠券'}}<i class="el-icon-arrow-down el-icon--right"></i>
-                </el-button>
-                <span class="activeSettingDelete" @click.stop='delSelect("coupon",index)'>删除</span>
-            </div>
         </div>
         <el-dialog :visible.sync="couponConfig.couponIsShow" class="coupondialog">
                 <el-table :data="couponConfig.couponList" @current-change='chooseCoupon' v-loading="loading" highlight-current-row>

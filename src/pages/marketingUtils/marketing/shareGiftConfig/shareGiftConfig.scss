@@ -1,6 +1,7 @@
 @import '@/assets/style/common.scss';
 .shareGiftConfig{
-    margin: 36px 67px 0 67px;
+    margin: 36px auto;
+    max-width: 1146px;
     .activeSettingTitle{
         height: 37px;
         line-height: 37px;
@@ -59,6 +60,7 @@
     .activeSettingShare,.activeSettingIntegration{
         display: flex;
         align-items: center;
+        margin-bottom: 20px
     }
     .activeSettingIntegration{
         height: 40px;
@@ -79,7 +81,6 @@
     }
     .btn{
         color: rgb(126,126,126);
-        margin-top: 12px;
         width: 123px;
         height: 40px;;
         font-size: 14px;
