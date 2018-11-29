@@ -15,21 +15,17 @@
     }
   }
   .previewShare-content {
-    min-width: 870px;
+    min-width: 700px;
     background-color: $bg-white;
-    height: 779px;
+    min-height: 733px;
     margin-top: 32px;
     border-radius: 6px;
-    position: relative;
+    padding-top: 42px;
     .content-title {
-      width: 808px;
       height: 56px;
       background-color: rgb(250, 251, 253);
       border-radius: 4px;
-      position: absolute;
-      left: 29px;
-      top: 42px;
-      margin-bottom: 36px;
+      margin: 0 29px 36px 29px;
       p {
         line-height: 56px;
         font-size: 14px;
@@ -52,51 +48,30 @@
       }
     }
     .content-content {
-      width: 100%;
-      padding-top: 134px;
+      width:calc(100% - 29px);
       padding-left: 29px;
+      display: flex;
       .content-content-left {
-        float: left;
-        margin-right: 37px;
         width: 317px;
-        height: 608px;
-        .content-content-left-top {
+        height: 564px;
+        background-color: $bg-common;
+        margin-right: 37px;
+        position: relative;
+        p {
           width: 100%;
-          height: 564px;
-          background-color: $bg-common;         
-          position: relative;
-          p {
-            width: 100%;
-            text-align: center;
-            position: absolute;
-            bottom: 240px;
-          }
-        }
-        .content-content-left-btn {
-          font-size: 14px;
           text-align: center;
-          margin-top: 22px;
-          .el-icon-arrow-right {
-            color: rgb(235, 235, 235);
-            font-weight: 500;
-            padding: 0 10px;
-          }
-          span {
-            color: rgb(80, 124, 252);
-          }
+          position: absolute;
+          bottom: 240px;
         }
       }
-      
       .content-content-right {
         font-size: 14px;
-        .benefit-list{
-          margin-bottom: 20px;
-        }
+        flex: 1;
         .right-top {
-          margin-bottom: 18px;
+           margin-bottom: 18px;  
         }
         .right-title {
-          margin-bottom: 12px;
+            margin-bottom: 12px;
         }
         .right-content {
           // width: 100%;
@@ -119,33 +94,34 @@
             margin-bottom: 3px;
           }
         }
+        
       }
     }
   }
   .shareGiftButton{
-      min-width: 94px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-right: 18px;
-      .el-button{
-          width: 94px;
-          height: 32px;
-          padding:0;
-          text-align: center;
-          line-height: 32px;
-          border: 1px solid rgb(165, 165, 165);
-          box-sizing: border-box;
-          font-weight: 400;
-          color: rgb(0, 0, 0);
-          &:first-child{
-              color: white;
-              background-color: $common-blue;
-              margin-right: 14px;
-          }
-          &:last-child{
-              margin: 0;
-          }
-      }
-  }
+    min-width: 94px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-right: 18px;
+    .el-button{
+        width: 94px;
+        height: 32px;
+        padding:0;
+        text-align: center;
+        line-height: 32px;
+        border: 1px solid rgb(165, 165, 165);
+        box-sizing: border-box;
+        font-weight: 400;
+        color: rgb(0, 0, 0);
+        &:first-child{
+            color: white;
+            background-color: $common-blue;
+            margin-right: 14px;
+        }
+        &:last-child{
+            margin: 0;
+        }
+    }
+}
 }
