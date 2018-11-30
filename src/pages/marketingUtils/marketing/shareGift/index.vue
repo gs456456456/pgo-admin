@@ -38,7 +38,7 @@
                         <!-- <div v-for='item in marketActivityConfig'></div> -->
 
                         <div class="user-type-container">
-                            <div class="user-type">分享用户</div>
+                            <div class="user-type" v-if='getShareUserForm.benefitTypeList.length>=1'>分享用户</div>
                             <div v-for='item in getShareUserForm.benefitTypeList'>
                                 <div class="right-content">
                                     <p class="first">奖励类型</p>
@@ -66,7 +66,7 @@
                             </div>
                         </div>
                         <div  class="user-type-container">
-                                <div class="user-type">新用户</div>
+                                <div class="user-type" v-if='getNewUserForm.benefitTypeList.length>=1'>新用户</div>
                                 <div v-for='item in getNewUserForm.benefitTypeList'>
                                     <div class="right-content">
                                             <p class="first">奖励类型</p>
@@ -94,7 +94,7 @@
                                 </div>
                         </div>
                         <div class="user-type-container">
-                            <div class="user-type">老用户</div>
+                            <div class="user-type" v-if='getOldUserForm.benefitTypeList.length>=1'>老用户</div>
                             <div v-for='item in getOldUserForm.benefitTypeList' >
                                 <div class="right-content">
                                     <p class="first">奖励类型</p>

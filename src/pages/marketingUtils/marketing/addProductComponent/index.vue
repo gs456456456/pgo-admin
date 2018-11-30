@@ -130,6 +130,10 @@ export default {
         // this.couponConfig.multipleSelection.splice(this.couponConfig.couponNow, 1)
         this.form.cashCouponTemplateList.splice(index, 1)
         this.couponConfig.couponTextList = []
+        // 判断是否是最后张优惠券
+        if (this.form.cashCouponTemplateList.length < 1) {
+          this.form.benefitTypeList = this.removeArray(that.form.benefitTypeList, 'CASH_COUPON')
+        }
       } else {
 
       }
