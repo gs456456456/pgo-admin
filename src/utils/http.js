@@ -2,8 +2,8 @@ import axios from 'axios'
 import main from '@/main.js'
 
 let config = {
-  // 'BASEURL': 'http://wistoredev.wisenable.com/api'
-  'BASEURL': 'http://192.168.1.10:8023/api'
+  'BASEURL': 'http://wistoredev.wisenable.com/api'
+  // 'BASEURL': 'http://192.168.1.10:8023/api'
 }
 
 const http = async (param, type) => {

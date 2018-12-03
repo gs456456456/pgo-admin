@@ -20,11 +20,11 @@
           <div class="btn"></div>
         </el-form-item>
         <el-form-item label="密码" class="form-item" prop="password" :rules="rules.password">
-          <el-input class="input" placeholder="请输入密码" type='password' v-model='registerParms.password'></el-input>
+          <el-input class="input" placeholder="请输入密码" type='password' v-model='registerParms.password' @keyup.native='replaceSpace'></el-input>
           <div class="btn"></div>
         </el-form-item>
         <el-form-item label="确认密码" class="form-item last-form-item" prop="repassword" :rules="rules.repassword">
-          <el-input class="input" placeholder="请输入密码" type='password' v-model='registerParms.repassword'></el-input>
+          <el-input class="input" placeholder="请输入密码" type='password' v-model='registerParms.repassword' @keyup.native='replaceSpace'></el-input>
           <div class="btn"></div>
         </el-form-item>
         <div class="submit">
@@ -75,13 +75,13 @@
           callback()
         }
       }
-      // let repasswordVerify = (rule, value, callback) => {
-      //   if (this.registerParms.password != this.registerParms.repassword) {
-      //     callback(new Error('密码不一致'))
-      //   } else {
-      //     callback()
-      //   }
-      // }
+      let repasswordVerify = (rule, value, callback) => {
+        if (this.registerParms.password != this.registerParms.repassword) {
+          callback(new Error('密码不一致'))
+        } else {
+          callback()
+        }
+      }
       return {
         registerParms: {
           token: '',
@@ -116,6 +116,11 @@
     methods: {
       ...mapMutations(['setUserInfo']),
       ...mapActions(['userRegisterFetch', 'userRegisterValidateTokenFetch']),
+      replaceSpace () {
+        this.registerParms.password = this.registerParms.password.trim()
+        this.registerParms.repassword = this.registerParms.repassword.trim()
+        return 0
+      },
       submit () {
         let that = this
         this.$refs.registerForm.validate(async function (result) {
@@ -151,8 +156,7 @@
         this.registerParms.token = this.$router.currentRoute.query.token
       }
     },
-    mounted () { },
-    watch: {}
+    mounted () { }
   }
 </script>
 <style lang="scss">

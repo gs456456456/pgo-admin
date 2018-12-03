@@ -12,7 +12,6 @@
       },
       methods: {
         createdStepNumber () {
-          console.log(this.$refs)
         }
       },
       created () {
