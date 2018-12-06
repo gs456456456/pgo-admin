@@ -19,7 +19,7 @@
             </div>
             <div class="content-content">
                 <div class="content-content-left">
-                    <p>10元代金券</p>
+                    <!-- <p>10元代金券</p> -->
                 </div>
                 <div class="content-content-right">
                     <div class="right-top">
@@ -147,7 +147,11 @@ export default {
     //   },
       activityEnable: false,
       activityEventList: null,
-      activityId: null,
+      activityId: {
+        new: '',
+        share: '',
+        old: ''
+      },
       marketActivityConfig: []
     }
   },
@@ -163,8 +167,19 @@ export default {
     let res = await this.marketActivityFetch(that.getUserInfo.companyId)
     if (res) {
       res.result.forEach(element => {
+        console.log(element.id)
         if (element.activityType === 'SHARE_GIFT') {
-          that.activityId = element.id
+          switch (element.benefitUserType) {
+            case 'SHARE_USER':
+              that.activityId.share = element.id
+              break
+            case 'OLD_USER':
+              that.activityId.old = element.id
+              break
+            case 'NEW_USER':
+              that.activityId.new = element.id
+              break
+          }
           that.activityEnable = element.enable
           that.activityEventList = element.eventsList ? element.eventsList : null
           that.marketActivityConfig.push(element)
@@ -178,13 +193,14 @@ export default {
            // 读取配置设置vuex
         }
       })
+      console.log(this.activityId)
     }
   },
   methods: {
     ...mapActions(['marketActivityFetch', 'saveOrUpdateBenefitMarketActivity']),
     ...mapMutations(['setSuccess', 'closeError', 'setShareUserForm', 'setNewUserForm', 'setOldUserForm']),
     modifyConfig () {
-      this.goUrl(`/marketingUtils/shareGiftConfig?id=${this.activityId}&eventsList=${this.activityEventList}`)
+      this.goUrl(`/marketingUtils/shareGiftConfig?new=${this.activityId.new}&old=${this.activityId.old}&share=${this.activityId.share}&eventsList=${this.activityEventList}`)
     },
     async toggleActivityStatus () {
       this.closeError()

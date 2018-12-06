@@ -96,16 +96,26 @@ export default {
     },
     urlParmFunc (urlParm) {
       if (this.$router.currentRoute.query.hasOwnProperty(urlParm)) {
-        this.shareUserForm[urlParm] = this.$router.currentRoute.query[urlParm]
-        this.oldUserForm[urlParm] = this.$router.currentRoute.query[urlParm]
-        this.newUserForm[urlParm] = this.$router.currentRoute.query[urlParm]
+        if (urlParm === 'old') {
+          this.oldUserForm[urlParm] = this.$router.currentRoute.query[urlParm]
+        } else if (urlParm === 'new') {
+          this.newUserForm[urlParm] = this.$router.currentRoute.query[urlParm]
+        } else if (urlParm === 'share') {
+          this.shareUserForm[urlParm] = this.$router.currentRoute.query[urlParm]
+        } else {
+          this.shareUserForm[urlParm] = this.$router.currentRoute.query[urlParm]
+          this.oldUserForm[urlParm] = this.$router.currentRoute.query[urlParm]
+          this.newUserForm[urlParm] = this.$router.currentRoute.query[urlParm]
+        }
       }
     },
     async submit () {
       let configMixin = []
       this.loading = true
       // 判断是更新还是第一次进活动
-      this.urlParmFunc('id')
+      this.urlParmFunc('old')
+      this.urlParmFunc('new')
+      this.urlParmFunc('share')
       this.urlParmFunc('eventsList')
 
       if (this.judgeIfEmptyConfig(this.shareUserForm)) {

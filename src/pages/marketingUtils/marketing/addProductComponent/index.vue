@@ -22,7 +22,7 @@
                     <div class="activeSetting">优惠券</div>
                     <el-button class="selectCoupon">
                         <!-- {{couponConfig.couponTextList[index]||'请选择优惠券'}}<i class="el-icon-arrow-down el-icon--right"></i> -->
-                        {{item.title||'请选择优惠券'}}<i class="el-icon-arrow-down el-icon--right"></i>
+                        {{item&&item.hasOwnProperty('title')?item.title:'请选择优惠券'}}<i class="el-icon-arrow-down el-icon--right"></i>
                     </el-button>
                     <span class="activeSettingDelete" @click.stop='delSelect("coupon",index)'>删除</span>
                 </div>
@@ -37,7 +37,7 @@
             </el-dropdown>
         </div>
         <el-dialog :visible.sync="couponConfig.couponIsShow" class="coupondialog">
-                <el-table :data="couponConfig.couponList" @current-change='chooseCoupon' v-loading="loading" highlight-current-row>
+                <el-table ref="couponTable" :data="couponConfig.couponList" @current-change='chooseCoupon' v-loading="loading" highlight-current-row>
                     <!-- <el-table-column
                         type="selection"
                         width="55">
@@ -79,7 +79,9 @@ export default {
         couponIsShow: false,
         couponList: [],
         // multipleSelection: [],
-        couponNow: 0
+        couponNow: 0,
+        couponNowText: '',
+        couponNowObj: null
         // couponTextList: []
       },
       page: {
@@ -139,6 +141,7 @@ export default {
       }
     },
     closeCoupon () {
+      // this.setCurrentCoupon(this.couponConfig.couponList[this.couponConfig.couponNow])
       this.couponConfig.couponIsShow = false
     },
     showSelect (props) {
@@ -166,9 +169,14 @@ export default {
 
       }
     },
+    setCurrentCoupon (row) {
+      this.$refs.couponTable.setCurrentRow(row)
+    },
     showCouponList (index) {
       this.couponConfig.couponNow = index
       // console.log(index)
+      // 第一次进入配置页面
+      // couponNowObj
       this.couponListRender()
       this.couponConfig.couponIsShow = true
     },
@@ -240,9 +248,10 @@ export default {
       // 储存优惠券
       // console.log(couponNow)
       // console.log(val)
-      let couponNow = this.couponConfig.couponNow
-      this.form.cashCouponTemplateList[couponNow] = val
-      // this.couponConfig.multipleSelection[couponNow] = val
+      if (val) {
+        let couponNow = this.couponConfig.couponNow
+        this.form.cashCouponTemplateList[couponNow] = val
+      }
     },
     // 切换页面
     couponPageChange (val) {

@@ -149,9 +149,9 @@
     async created () {
       // 验证token是否过期
       await this.userRegisterValidateTokenFetch(this.$router.currentRoute.query.token)
-      if (localStorage.getItem('userInfo')) {
-        this.goUrl('/login')
-      }
+      // if (localStorage.getItem('userInfo')) {
+      //   this.goUrl('/login')
+      // }
       if (this.$router.currentRoute.query.token) {
         this.registerParms.token = this.$router.currentRoute.query.token
       }

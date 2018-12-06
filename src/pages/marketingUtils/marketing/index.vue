@@ -33,7 +33,9 @@
       }
     },
     computed: {
-      ...mapGetters(['getUserInfo'])
+      ...mapGetters(
+        ['getUserInfo', 'getShareUserForm', 'getOpenCardForm']
+      )
     },
     methods: {
       ...mapActions(['marketActivityFetch']),
@@ -54,13 +56,11 @@
         let res = await this.marketActivityFetch(this.getUserInfo.companyId)
         if (res.result.length > 0) {
           res.result.forEach(element => {
-            if (element.enable) {
-              this.activityConfig.forEach(ele2 => {
-                if (ele2.symbol === element.activityType) {
-                  ele2.open = true
-                }
-              })
-            }
+            this.activityConfig.forEach(ele2 => {
+              if (ele2.symbol === element.activityType) {
+                ele2.open = element.enable
+              }
+            })
             this.activityConfig.forEach(ele2 => {
               if (ele2.symbol === element.activityType) {
                 ele2.id = element.id
