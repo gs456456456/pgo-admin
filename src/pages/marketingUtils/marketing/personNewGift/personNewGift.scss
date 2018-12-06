@@ -75,15 +75,18 @@
         }
         .right-content {
           // width: 100%;
+          display: flex;
           p {
-            display: inline-block;
+            // display: inline-block;
             margin-bottom: 22px;
           }
           .first {
+            width: 60px;
             color: rgb(186, 186, 186);
             margin-right: 54px;
           }
           .second {
+            flex: 1;
             color: rgb(88, 88, 88);
             span {
               font-size: 13px;
