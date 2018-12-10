@@ -63,11 +63,16 @@ export default {
       let that = this
       // 判断是更新还是第一次进活动
       let activityId = this.$router.currentRoute.query.activityId
+      let res = null
       this.loading = true
       if (activityId) {
         this.openCardForm['id'] = activityId
       }
-      let res = await this.saveOrUpdateMarketActivityFetch(that.openCardForm)
+      try {
+        res = await this.saveOrUpdateMarketActivityFetch(that.openCardForm)
+      } catch (e) {
+        this.loading = false
+      }
       if (res) {
         this.loading = false
         this.goUrl('/marketingUtils')

@@ -9,12 +9,14 @@
             </div>
             <div class="activeSettingIntegration" v-if='showPoint'>
                 <div class="activeSetting">积分</div>
-                <el-input  placeholder="请填写奖品积分值" v-model="form.integral"></el-input>
+                <el-input type="number" @keyup.native='checkNo("integral")' placeholder="请填写奖品积分值" v-model="form.integral"></el-input>
+                <!-- <el-input type="number" placeholder="请填写奖品积分值" v-model="form.integral"></el-input> -->
                 <span class="activeSettingDelete" @click='delSelect("integral")'>删除</span>
                 </div>
                 <div class="activeSettingIntegration" v-if='showBalance'>
                 <div class="activeSetting">储值</div>
-                <el-input  placeholder="请填写储值" v-model="form.balance"></el-input>
+                <el-input type="number" @keyup.native='checkNo("balance")' placeholder="请填写储值" v-model="form.balance"></el-input>
+                <!-- <el-input type="number" placeholder="请填写储值" v-model="form.balance"></el-input> -->
                 <span class="activeSettingDelete" @click='delSelect("balance")'>删除</span>
                 </div>
                 <!-- <div class="activeSettingIntegration coupon" v-for='(item,index) in couponConfig.multipleSelection' @click='showCouponList(index)'> -->
@@ -122,6 +124,26 @@ export default {
     ...mapActions([
       'listCashCouponTemplateFetch'
     ]),
+    checkNo (parms) {
+      let that = this
+      let value = 0
+      // let reg = /^[+]{0,1}(\d+)$/
+      if (parms === 'integral') {
+        value = this.form.integral
+      } else if (parms === 'balance') {
+        value = this.form.balance
+      }
+      if (value) {
+        console.log(value)
+        if (value >= 1000) {
+          if (parms === 'integral') {
+            that.form.integral = 999
+          } else if (parms === 'balance') {
+            that.form.balance = 999
+          }
+        }
+      }
+    },
     delSelect (props, index) {
       let that = this
       if (props === 'integral') {

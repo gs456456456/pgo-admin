@@ -111,6 +111,7 @@ export default {
     },
     async submit () {
       let configMixin = []
+      let res = null
       this.loading = true
       // 判断是更新还是第一次进活动
       this.urlParmFunc('old')
@@ -118,18 +119,21 @@ export default {
       this.urlParmFunc('share')
       this.urlParmFunc('eventsList')
 
-      if (this.judgeIfEmptyConfig(this.shareUserForm)) {
-        configMixin.push(this.shareUserForm)
+      // if (this.judgeIfEmptyConfig(this.shareUserForm)) {
+      configMixin.push(this.shareUserForm)
+      // }
+      // if (this.judgeIfEmptyConfig(this.oldUserForm)) {
+      configMixin.push(this.oldUserForm)
+      // }
+      // if (this.judgeIfEmptyConfig(this.newUserForm)) {
+      configMixin.push(this.newUserForm)
+      // }
+      // console.log(JSON.stringify(configMixin))
+      try {
+        res = await this.saveOrUpdateBenefitMarketActivity(configMixin)
+      } catch (e) {
+        this.loading = false
       }
-      if (this.judgeIfEmptyConfig(this.oldUserForm)) {
-        configMixin.push(this.oldUserForm)
-      }
-      if (this.judgeIfEmptyConfig(this.newUserForm)) {
-        configMixin.push(this.newUserForm)
-      }
-      console.log(JSON.stringify(configMixin))
-
-      let res = await this.saveOrUpdateBenefitMarketActivity(configMixin)
       if (res) {
         this.loading = false
         this.goUrl('/marketingUtils')
