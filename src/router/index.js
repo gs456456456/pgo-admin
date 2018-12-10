@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import marketingUtils from '@/pages/marketingUtils'
+import openScreenAdvertisement from '@/pages/openScreenAdvertisement'
 import register from '@/pages/register'
 // import loginVerify from '@/pages/loginVerify/index.vue'
 import login from '@/pages/login/index.vue'
@@ -18,6 +19,19 @@ const router = new Router({
       path: '/login',
       name: 'login',
       component: login
+    },
+    {
+      path: '/openScreenAdvertisement',
+      name: 'openScreenAdvertisement',
+      component: openScreenAdvertisement.description,
+      redirect: '/openScreenAdvertisement/description',
+      children: [
+        { path: 'description', component: openScreenAdvertisement.description },
+        { path: 'config', component: openScreenAdvertisement.config }
+      ],
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/marketingUtils',

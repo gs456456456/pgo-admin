@@ -6,7 +6,8 @@
                 <div class="title">
                     {{modulesTitle}}
                 </div>
-                <inner-nav-top :navTitle='innerNavTitle' class="inner-nav">
+                <inner-nav-top :navTitle='innerNavTitle' class="inner-nav" v-if="showInnerNav">
+                                <!-- :style="showInnerNav?'':'border:none'"> -->
                 </inner-nav-top>
             </div>
             <div class="clearfix slot-outer">
@@ -21,13 +22,26 @@
     import { mapActions, mapMutations } from 'vuex'
     export default {
       name: 'leftBarNavMixin',
+      data () {
+        return {
+        //   navContent: [
+        //         { name: '线上商城', url: '/', active: false, open: false },
+        //         { name: '门店导购', url: '/', active: false, open: false },
+        //         { name: '营销工具', url: '/marketingUtils/marketing', active: true, open: true },
+        //         { name: '数据报表', url: '/', active: false, open: false },
+        //         { name: '设置', url: '/', active: false, open: false }
+        //   ]
+        }
+      },
       components: {
         leftBar: leftBar,
         innerNavTop: innerNavTop
       },
       props: {
         modulesTitle: String,
-        innerNavTitle: Array
+        innerNavTitle: Array,
+        showInnerNav: Boolean,
+        // leftBarActive: String
       },
       mounted () {
 

@@ -1,0 +1,129 @@
+.configTemplate {
+    width: 100%;
+    p {
+      margin: 0;
+    }
+    .previewShare-inner {
+      font-size: 14px;
+      color: $common-blue;
+      line-height: 20px;
+      text-align: left;
+      span {
+        color: rgb(105, 105, 105);
+      }
+    }
+    .previewShare-content {
+      min-width: 700px;
+      background-color: $bg-white;
+      min-height: 733px;
+      margin-top: 32px;
+      border-radius: 6px;
+      padding-top: 42px;
+      .content-title {
+        height: 56px;
+        background-color: rgb(250, 251, 253);
+        border-radius: 4px;
+        margin: 0 29px 36px 29px;
+        p {
+          line-height: 56px;
+          font-size: 14px;
+          padding-left: 18px;
+          float: left;
+        }
+        .btns {
+          float: right;
+          padding-right: 18px;
+          padding-top: 12px;
+          .el-button {
+            width: 94px;
+            height: 32px;
+            border-radius: 2px;
+            line-height: 10px;
+          }
+          .el-button--primary {
+            background-color: $common-blue;
+          }
+        }
+      }
+      .content-content {
+        width:calc(100% - 29px);
+        padding-left: 29px;
+        display: flex;
+        .content-content-left {
+          width: 317px;
+          height: 564px;
+          background-color: $bg-common;
+          margin-right: 37px;
+          position: relative;
+          p {
+            width: 100%;
+            text-align: center;
+            position: absolute;
+            bottom: 240px;
+          }
+        }
+        .content-content-right {
+          font-size: 14px;
+          flex: 1;
+          .right-top {
+             margin-bottom: 18px;  
+          }
+          .right-title {
+              margin-bottom: 12px;
+          }
+          .right-content {
+            // width: 100%;
+            display: flex;
+            p {
+              // display: inline-block;
+              margin-bottom: 22px;
+            }
+            .first {
+              width: 60px;
+              color: rgb(186, 186, 186);
+              margin-right: 54px;
+            }
+            .second {
+              flex: 1;
+              color: rgb(88, 88, 88);
+              span {
+                font-size: 13px;
+                color: rgb(80, 124, 252);
+              }
+            }
+            .second-coupon{
+              margin-bottom: 3px;
+            }
+          }
+          
+        }
+      }
+    }
+    .shareGiftButton{
+      min-width: 94px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-right: 18px;
+      .el-button{
+          width: 94px;
+          height: 32px;
+          padding:0;
+          text-align: center;
+          line-height: 32px;
+          border: 1px solid rgb(165, 165, 165);
+          box-sizing: border-box;
+          font-weight: 400;
+          color: rgb(0, 0, 0);
+          &:first-child{
+              color: white;
+              background-color: $common-blue;
+              margin-right: 14px;
+          }
+          &:last-child{
+              margin: 0;
+          }
+      }
+  }
+  }
+  

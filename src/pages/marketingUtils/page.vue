@@ -1,6 +1,9 @@
 <template>
   <div>
-    <left-bar-nav-mixin :innerNavTitle='innerNavTitle' :modulesTitle='modulesTitle' v-if='showNav'>
+    <left-bar-nav-mixin :innerNavTitle='innerNavTitle'
+                        :modulesTitle='modulesTitle'
+                        :showInnerNav='showInnerNav'
+                        v-if='showNav'>
       <router-view></router-view>
     </left-bar-nav-mixin>
     <router-view v-else></router-view>
@@ -33,6 +36,7 @@
           {name: '微主页', url: '/', active: false, open: false},
           {name: '公众号', url: '/', active: false, open: false}
         ],
+        showInnerNav: true,
         noNavUrl: [
           '/marketingUtils/personNewGiftConfig',
           '/marketingUtils/shareGiftConfig'
