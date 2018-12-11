@@ -1,0 +1,65 @@
+@import "@/assets/style/common.scss";
+.inventory-allPro{
+    width: 100%;
+    p {
+      margin: 0;
+    }
+    .el-icon-success{
+        color:rgb(9,186,6);
+        font-size:26px;
+        margin-right: 17px;
+    }
+    .qrcode-success-text{
+        color:rgb(108,108,108);
+        font-size: 14px;
+    }
+    .previewShare-inner {
+      font-size: 14px;
+      color: $common-blue;
+      line-height: 20px;
+      text-align: left;
+      span {
+        // color: rgb(105, 105, 105);
+      }
+    }
+    .previewShare-content {
+      min-width: 700px;
+      background-color: $bg-white;
+      min-height: 733px;
+      margin-top: 32px;
+      border-radius: 6px;
+    }
+    .container{
+       padding: 18px 29px;
+       .title-container{
+           .title{
+              font-size: 20px;
+              color: black
+           }
+           .description{
+              margin-left: 34px;
+              font-size: 14px;
+              color:rgb(154,154,154)
+           }
+           .right{
+               color:white
+           }
+       }
+       .table{
+        margin-top: 22px;
+        .el-table th{
+            background-color:rgb(247,247,247);
+            border:none
+            // background: rgb(245,245,245)
+        }
+        //修改element-ui hover颜色
+        .el-table--enable-row-hover .el-table__body tr:hover>td{
+            background-color: white !important;
+        }
+        .operation{
+            color:$common-blue;
+            cursor: pointer;
+        }
+       }
+    }
+}

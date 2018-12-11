@@ -1,14 +1,20 @@
 <template>
   <div class="main">
     <div class='tab-content' v-for='(item,index) in getNavConfig'>
-      <div class="tab-li-big" @click='changeTab(item)' :class="item.active?'active':''">
-        {{item.name}}
+      <div class="tab-li-big" @click='changeTab(item,"big",index)' :class="item.noActive?'':'tab-hover'">
+        <span :class="item.active?'active':''" >
+            {{item.name}}
+        </span>                  
       </div>
-      <div v-for='(item2,index2) in item.sub' class="tab-li" v-if='item.showTabLi'
+      <!-- <div v-for='(item2,index2) in item.sub' class="tab-li" v-if='item.showTabLi'
            @click='changeTab(item2)' :class="item.subActiveList[index2]?'active':''">
         {{item2.name}}
+      </div> -->
+        <div v-for='(item2,index2) in getSubNavConfig' class="tab-li"
+           @click='changeTab(item2,"sub",index2)' :class="item2.noActive?'':'tab-hover'" v-if='item2.extends===item.name'>
+          <span :class="item2.active?'active':''">{{item2.name}}</span>
       </div>
-      <!-- <div class='line'></div> -->
+      <div class='line'></div>
     </div>
     <el-dialog title="提示" :visible.sync="dialogVisible" width="30%">
       <span>功能暂未开放</span>
@@ -28,34 +34,46 @@
       }
     },
     computed: {
-      ...mapGetters(['getNavConfig'])
+      ...mapGetters(['getNavConfig', 'getSubNavConfig'])
     },
     created () {
     },
     mounted () {
     },
     methods: {
-      ...mapMutations(['setNavConfig']),
-      tabDataFunc (item) {
-        // item.active = true
-        this.getNavConfig.forEach(it => {
+      ...mapMutations(['setNavConfig', 'setSubNavConfig']),
+      tabDataFunc (item, which) {
+        let obj = null
+        let anotherObj = null
+        obj = which === 'sub' ? this.getSubNavConfig : this.getNavConfig
+        anotherObj = which === 'sub' ? this.getNavConfig : this.getSubNavConfig
+        anotherObj.forEach(it => {
+          it.active = false
+        })
+        obj.forEach(it => {
           it.active = false
           if (item.name === it.name) {
-            it.showTabLi = !it.showTabLi
+            // it.showTabLi = !it.showTabLi
             it.active = true
           } else {
-            it.showTabLi = false
+            // it.showTabLi = false
           }
         })
       },
-      changeTab (item, orgItem) {
+      changeTab (item, which, index) {
         if (!item.open) {
           this.dialogVisible = true
           return
         }
-        this.tabDataFunc(item, orgItem)
+        // 判断是否可以点击
+        if (!item.noActive) {
+          this.tabDataFunc(item, which)
+        }
+        // this.setNavConfig(this.getNavConfig)
         // 页面跳转
         item.url ? this.$router.push(item.url) : 0
+        // 保存选项卡设置在本地
+        localStorage.setItem('leftBar', which + index)
       }
     }
   }
@@ -72,7 +90,6 @@
   .tab-content {
     /* border-bottom: 1px solid rgb(232,232,232); */
     color: black !important;
-    cursor: pointer;
     font-size: 17px;
     .line{
       width:76px;
@@ -80,7 +97,8 @@
       background-color:rgb(232,232,232)
     }
     .tab-li-big{
-      padding-bottom: 30px
+      padding-bottom: 20px;
+      padding-top: 20px
     }
     .tab-li{
       font-size: 14px;
@@ -89,11 +107,17 @@
     .tab-li:last-child{
       margin-bottom: 20px;
     }
-    .tab-li:hover {
+    /* .tab-li:hover {
       color: $common-blue !important;
-    }
-    .tab-li-big:hover{
+    } */
+    /* .tab-li-big:hover{
       color: $common-blue !important;
+    } */
+    .tab-hover{
+      cursor: pointer;
+      &:hover{
+        color: $common-blue !important;
+      }
     }
     /* &:hover {
       color: $common-blue !important;

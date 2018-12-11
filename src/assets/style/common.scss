@@ -3,6 +3,8 @@ $bg-common:rgb(247,249,252);
 $common-blue:rgb(69,119,199);
 $common-border:rgb(229,229,229);
 
+//element-ui主题色
+$--color-primary: rgb(69,119,199);
 
 //块级元素居中
 @mixin center-block($extend: true) {

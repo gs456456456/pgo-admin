@@ -2,12 +2,11 @@
     <div class="leftBarNavMixin fl">
         <left-bar class="left"></left-bar>
         <div class="right">
-            <div class="right-inner">
+            <div class="right-inner" :class="showInnerNav?'bottom-border':''">
                 <div class="title">
                     {{modulesTitle}}
                 </div>
                 <inner-nav-top :navTitle='innerNavTitle' class="inner-nav" v-if="showInnerNav">
-                                <!-- :style="showInnerNav?'':'border:none'"> -->
                 </inner-nav-top>
             </div>
             <div class="clearfix slot-outer">
@@ -40,8 +39,7 @@
       props: {
         modulesTitle: String,
         innerNavTitle: Array,
-        showInnerNav: Boolean,
-        // leftBarActive: String
+        showInnerNav: Boolean
       },
       mounted () {
 

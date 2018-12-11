@@ -26,17 +26,44 @@ export default {
   computed: {
     ...mapState({
       showError: state => state.error.showError,
-      showSuccess: state => state.error.showSuccess
+      showSuccess: state => state.error.showSuccess,
+      navConfig: state => state.config.navConfig,
+      subNavConfig: state => state.config.subNavConfig
     }),
     ...mapGetters(['getError', 'getSuccess'])
   },
   methods: {
-    ...mapMutations(['setUserInfo'])
+    ...mapMutations(['setUserInfo', 'setNavConfig', 'setSubNavConfig']),
+    // 初始化本地设置
+    initLocalConfig () {
+      this.initUserInfo()
+      this.initLeftBarConfig()
+    },
+    initUserInfo () {
+      if (localStorage.getItem('userInfo')) {
+        this.setUserInfo(JSON.parse(localStorage.getItem('userInfo')))
+      }
+    },
+    initLeftBarConfig () {
+      if (localStorage.getItem('leftBar')) {
+        let whichLeftBar = localStorage.getItem('leftBar').slice(0, 3)
+        let index = localStorage.getItem('leftBar').substring(3, 4)
+        if (whichLeftBar === 'sub') {
+          this.subNavConfig.forEach(element => {
+            element.active = false
+          })
+          this.subNavConfig[index].active = true
+        } else {
+          this.navConfig.forEach(element => {
+            element.active = false
+          })
+          this.navConfig[index].active = true
+        }
+      }
+    }
   },
   created () {
-    if (localStorage.getItem('userInfo')) {
-      this.setUserInfo(JSON.parse(localStorage.getItem('userInfo')))
-    }
+    this.initLocalConfig()
   }
 }
 </script>

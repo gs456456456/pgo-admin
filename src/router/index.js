@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import marketingUtils from '@/pages/marketingUtils'
 import openScreenAdvertisement from '@/pages/openScreenAdvertisement'
+import inventoryManagement from '@/pages/inventoryManagement'
 import register from '@/pages/register'
 // import loginVerify from '@/pages/loginVerify/index.vue'
 import login from '@/pages/login/index.vue'
@@ -28,6 +29,18 @@ const router = new Router({
       children: [
         { path: 'description', component: openScreenAdvertisement.description },
         { path: 'config', component: openScreenAdvertisement.config }
+      ],
+      meta: {
+        requireAuth: true
+      }
+    },
+    {
+      path: '/inventoryManagement',
+      name: 'inventoryManagement',
+      component: inventoryManagement.parent,
+      redirect: '/inventoryManagement/allProduct',
+      children: [
+        { path: 'allProduct', component: inventoryManagement.allProduct }
       ],
       meta: {
         requireAuth: true
