@@ -148,8 +148,10 @@ export default {
       let that = this
       if (props === 'integral') {
         this.form.benefitTypeList = this.removeArray(that.form.benefitTypeList, 'POINTS')
+        this.form.integral = 0
       } else if (props === 'balance') {
         this.form.benefitTypeList = this.removeArray(that.form.benefitTypeList, 'PRE_PAYED_MONEY')
+        this.form.balance = 0
       } else if (props === 'coupon') {
         // this.couponConfig.multipleSelection.splice(this.couponConfig.couponNow, 1)
         this.form.cashCouponTemplateList.splice(index, 1)

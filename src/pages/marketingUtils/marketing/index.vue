@@ -1,5 +1,5 @@
 <template>
-    <div class="marketing-inner">
+    <div class="marketing-inner" v-loading='loading'>
         <div class="marketing-inner-inner">
           <div class="content-title">开启以下活动，帮助拉新客户、转化付费</div>
           <div class="content fl wrap">
@@ -29,7 +29,8 @@
           {text: '新人有礼', open: false, url: '/marketingUtils/personNewGift', symbol: 'ACTIVE_CARD_GIFT', id: null}
           // {text: '买单有礼', open: false, url: '/marketingUtils/openCardGift', symbol: 'test', id: null},
           // {text: '转发享好礼活动', open: false, url: '/marketingUtils/openCardGift', symbol: 'test', id: null}
-        ]
+        ],
+        loading: true
       }
     },
     computed: {
@@ -53,7 +54,9 @@
         this.marketActivityFunc()
       },
       async marketActivityFunc () {
+        this.loading = true
         let res = await this.marketActivityFetch(this.getUserInfo.companyId)
+        this.loading = false
         if (res.result.length > 0) {
           res.result.forEach(element => {
             this.activityConfig.forEach(ele2 => {
