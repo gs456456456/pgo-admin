@@ -239,8 +239,11 @@ export default {
       // this.form.cashCouponTemplateList = []
       // this.couponConfig.couponTextList = []
       this.form.cashCouponTemplateList.forEach((v1, i1, a1) => {
-        v1['cashCouponTemplateId'] = v1.id
-        v1['count'] = 1
+        // 判断是否是新增或修改的卡劵
+        if (v1.hasOwnProperty('id')) {
+          v1['cashCouponTemplateId'] = v1.id
+          v1['count'] = 1
+        }
         // postObj['cashCouponTemplateId'] = v1.id
         // that.form.cashCouponTemplateList.push(postObj)
         // that.couponConfig.couponTextList.push(v1.title)
@@ -264,12 +267,13 @@ export default {
         // })
         // }
       })
+
       this.couponConfig.couponIsShow = false
     },
     chooseCoupon (val) {
       // 储存优惠券
       // console.log(couponNow)
-      // console.log(val)
+      console.log(val)
       if (val) {
         let couponNow = this.couponConfig.couponNow
         this.form.cashCouponTemplateList[couponNow] = val
