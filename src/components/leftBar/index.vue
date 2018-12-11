@@ -1,11 +1,11 @@
 <template>
   <div class="main">
-    <div class='tab-content' v-for='(item,index) in navContent'>
+    <div class='tab-content' v-for='(item,index) in getNavConfig'>
       <div class="tab-li-big" @click='changeTab(item)' :class="item.active?'active':''">
         {{item.name}}
       </div>
       <div v-for='(item2,index2) in item.sub' class="tab-li" v-if='item.showTabLi'
-           @click='changeTab(item2,item)' :class="item2.active?'active':''">
+           @click='changeTab(item2)' :class="item.subActiveList[index2]?'active':''">
         {{item2.name}}
       </div>
       <!-- <div class='line'></div> -->
@@ -19,60 +19,32 @@
   </div>
 </template>
 <script>
+  import { mapActions, mapGetters, mapMutations, mapState } from 'vuex'
   export default {
     name: 'leftBar',
     data () {
       return {
-        navContent: [
-          { name: '线上商城',
-            sub: [{
-              name: '精选专场',
-              active: false,
-              url: '/',
-              open: false
-            }, {
-              name: '开屏广告',
-              active: false,
-              url: '/openScreenAdvertisement/description',
-              open: true
-            }],
-            url: false,
-            active: false,
-            open: true,
-            showTabLi: false},
-          { name: '门店导购', sub: [], url: '/', active: false, open: false, showTabLi: false },
-          { name: '营销工具', sub: [], url: '/marketingUtils/marketing', active: true, open: true, showTabLi: false },
-          { name: '数据报表', sub: [], url: '/', active: false, open: false, showTabLi: false },
-          { name: '设置', sub: [], url: '/', active: false, open: false, showTabLi: false }
-        ],
         dialogVisible: false
       }
     },
     computed: {
-      // showTabLi () {
-      //   return this.navContent.filter((item) => {
-      //     return item.showTabLi
-      //   })
-      // }
+      ...mapGetters(['getNavConfig'])
     },
     created () {
     },
     mounted () {
     },
     methods: {
-      tabDataFunc (item, orgItem) {
-        // 判断是否是一级目录
-        // obj = orgItem ? this.navContent : orgItem.sub
-        this.navContent.forEach(it => {
+      ...mapMutations(['setNavConfig']),
+      tabDataFunc (item) {
+        // item.active = true
+        this.getNavConfig.forEach(it => {
           it.active = false
           if (item.name === it.name) {
-            console.log(item.name)
-            // 如果没有子路由
-            console.log(it)
-            if (it.sub.length > 0) {
-              it.showTabLi = !it.showTabLi
-            }
+            it.showTabLi = !it.showTabLi
             it.active = true
+          } else {
+            it.showTabLi = false
           }
         })
       },
@@ -82,6 +54,7 @@
           return
         }
         this.tabDataFunc(item, orgItem)
+        // 页面跳转
         item.url ? this.$router.push(item.url) : 0
       }
     }
