@@ -30,27 +30,27 @@
                 </el-table>
             </div>
         </div>
-        <el-dialog title="添加货品" :visible.sync="showAddProduct">
-            <el-form :model="form">
-                <el-form-item label="货物名称" :label-width="formLabelWidth">
+        <el-dialog title="添加货品" :visible.sync="showAddProduct" width="25%" class="add-pro-form">
+            <el-form :model="form" label-position="left">
+                <el-form-item label="货物名称">
                     <el-input v-model="form.name" autocomplete="off" placeholder="请填写货品名称"></el-input>
                 </el-form-item>
-                <el-form-item label="系列" :label-width="formLabelWidth">
+                <el-form-item label="系列">
                     <el-input v-model="form.series" autocomplete="off" placeholder="MENICON"></el-input>
                 </el-form-item>
-                <el-form-item label="品牌" :label-width="formLabelWidth">
+                <el-form-item label="品牌">
                     <el-input v-model="form.brand" autocomplete="off" placeholder="Miru"></el-input>
                 </el-form-item>
-                <el-form-item label="编号" :label-width="formLabelWidth">
+                <el-form-item label="编号">
                     <el-input v-model="form.numId" autocomplete="off" placeholder="Miru"></el-input>
                 </el-form-item>
-                <el-form-item label="规格" :label-width="formLabelWidth">
+                <el-form-item label="规格">
                     <el-select v-model="form.standards" placeholder="包装数量">
                         <el-option label="区域一" value="shanghai"></el-option>
                         <el-option label="区域二" value="beijing"></el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item label="周期" :label-width="formLabelWidth">
+                <el-form-item label="周期">
                     <el-select v-model="form.period" placeholder="日抛">
                         <el-option label="区域一" value="shanghai"></el-option>
                         <el-option label="区域二" value="beijing"></el-option>
@@ -58,16 +58,16 @@
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
-                <el-button @click="showAddProduct = false">取 消</el-button>
                 <el-button type="primary" @click="showAddProduct = false">确 定</el-button>
+                <el-button @click="showAddProduct = false">取 消</el-button>
             </div>
         </el-dialog>
-        <el-dialog title="选择二维码参数" :visible.sync="showSelectQrCode">
-            <el-form :model="qrCodeForm">
-                <el-form-item label="生成数量" :label-width="qrCodeFormLabelWidth">
+        <el-dialog title="选择二维码参数" :visible.sync="showSelectQrCode" width="25%" class="select-qrcode-form">
+            <el-form :model="qrCodeForm" label-position="left">
+                <el-form-item label="生成数量">
                     <el-input v-model="qrCodeForm.num" autocomplete="off" placeholder="请填写货品名称"></el-input>
                 </el-form-item>
-                <el-form-item label="扫码操作" :label-width="qrCodeFormLabelWidth">
+                <el-form-item label="扫码操作">
                     <el-select v-model="qrCodeForm.operation" placeholder="日抛">
                         <!-- <el-option label="区域一" value="shanghai"></el-option>
                         <el-option label="区域二" value="beijing"></el-option> -->
@@ -75,18 +75,18 @@
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
-                <el-button @click="showSelectQrCode = false">取 消</el-button>
                 <el-button type="primary" @click="showSelectQrCode = false">确 定</el-button>
+                <el-button @click="showSelectQrCode = false">取 消</el-button>
             </div>
         </el-dialog>
-        <el-dialog title="导出成功" :visible.sync="showExportSucess">
+        <el-dialog title="导出成功" :visible.sync="showExportSucess" class="export-success-form">
             <div class="fl-row-yctr">
                 <i class="el-icon-success"></i>
                 <span class="qrcode-success-text">二维码链接导出成功,点击下载导出Excel文件.</span>
             </div>
             <div slot="footer" class="dialog-footer">
-                <el-button @click="showExportSucess = false">关 闭</el-button>
                 <el-button type="primary" @click="showExportSucess = false">下 载</el-button>
+                <el-button @click="showExportSucess = false">关 闭</el-button>
             </div>
         </el-dialog>
     </div>
@@ -120,9 +120,9 @@
           qrCodeForm: {
             num: 0,
             operation: []
-          },
-          formLabelWidth: '120px',
-          qrCodeFormLabelWidth: '200px'
+          }
+        //   formLabelWidth: '64px',
+        //   qrCodeFormLabelWidth: '200px'
         }
       },
       components: {
