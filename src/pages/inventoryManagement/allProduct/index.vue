@@ -23,7 +23,7 @@
                     <el-table-column prop="period" label="使用周期">
                     </el-table-column>
                     <el-table-column prop="operation" label="操作" width="200">
-                        <template scope="scope">
+                        <template slot-scope="scope">
                             <span class="operation" @click="selectQrCode()">{{ scope.row.operation }}</span>
                         </template>
                     </el-table-column>
@@ -36,13 +36,13 @@
                     <el-input v-model="form.name" autocomplete="off" placeholder="请填写货品名称"></el-input>
                 </el-form-item>
                 <el-form-item label="系列">
-                    <el-input v-model="form.series" autocomplete="off" placeholder="MENICON"></el-input>
+                    <el-input v-model="form.series" autocomplete="off" placeholder="请填写系列名称"></el-input>
                 </el-form-item>
                 <el-form-item label="品牌">
-                    <el-input v-model="form.brand" autocomplete="off" placeholder="Miru"></el-input>
+                    <el-input v-model="form.brand" autocomplete="off" placeholder="请填写品牌名称"></el-input>
                 </el-form-item>
                 <el-form-item label="编号">
-                    <el-input v-model="form.numId" autocomplete="off" placeholder="Miru"></el-input>
+                    <el-input v-model="form.numId" autocomplete="off" type="number" placeholder="请填写编号"></el-input>
                 </el-form-item>
                 <el-form-item label="规格">
                     <el-select v-model="form.standards" placeholder="包装数量">
@@ -65,7 +65,7 @@
         <el-dialog title="选择二维码参数" :visible.sync="showSelectQrCode" width="25%" class="select-qrcode-form">
             <el-form :model="qrCodeForm" label-position="left">
                 <el-form-item label="生成数量">
-                    <el-input v-model="qrCodeForm.num" autocomplete="off" placeholder="请填写货品名称"></el-input>
+                    <el-input v-model="qrCodeForm.num" type="number" autocomplete="off" placeholder="请填写货品名称"></el-input>
                 </el-form-item>
                 <el-form-item label="扫码操作">
                     <el-select v-model="qrCodeForm.operation" placeholder="日抛">
@@ -75,7 +75,7 @@
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
-                <el-button type="primary" @click="showSelectQrCode = false">确 定</el-button>
+                <el-button type="primary" @click="exportQrCode">确 定</el-button>
                 <el-button @click="showSelectQrCode = false">取 消</el-button>
             </div>
         </el-dialog>
@@ -108,7 +108,7 @@
           }],
           showAddProduct: false,
           showSelectQrCode: false,
-          showExportSucess: true,
+          showExportSucess: false,
           form: {
             name: '',
             numId: '',
@@ -118,7 +118,7 @@
             period: []
           },
           qrCodeForm: {
-            num: 0,
+            num: 1,
             operation: []
           }
         //   formLabelWidth: '64px',
@@ -135,6 +135,10 @@
         },
         selectQrCode () {
           this.showSelectQrCode = true
+        },
+        exportQrCode () {
+          this.showExportSucess = true
+          this.showSelectQrCode = false
         }
       },
       created () {

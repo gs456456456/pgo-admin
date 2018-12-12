@@ -27,6 +27,9 @@ const error = {
     setError (state, errorText) {
       state.showError = true
       state.errorText = errorText
+      setTimeout(() => {
+        state.showError = false
+      }, 3000)
     },
     // 关闭所有提示
     closeError (state) {

@@ -61,7 +61,7 @@ const http = async (param, type) => {
         reject(res.data.retMsg)
       }
     } catch (e) {
-      main.$store.commit('setError', e)
+      main.$store.commit('setError', '网络连接错误')
       reject(e)
     }
   })

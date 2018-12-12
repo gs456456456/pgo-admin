@@ -40,7 +40,7 @@
 
 </template>
 <script>
-  import { mapGetters, mapMutations, mapActions } from 'vuex'
+  import { mapGetters, mapMutations, mapActions, mapState } from 'vuex'
   import smsBtn from '@/components/smsBtn'
   export default {
     name: 'login',
@@ -61,14 +61,29 @@
       }
     },
     computed: {
-      ...mapGetters(['getUserInfo'])
+      ...mapGetters(['getUserInfo']),
+      ...mapState({
+        navConfig: state => state.config.navConfig,
+        subNavConfig: state => state.config.subNavConfig
+      })
     },
     methods: {
       ...mapActions(['userLoginFetch', 'userInfoFetch']),
       ...mapMutations(['setUserInfo']),
       hasLoginFunc (v) {
+        // 登陆状态未消失默认跳转
         if (v && v !== 'null') {
-          this.goUrl('/marketingUtils')
+          if (localStorage.getItem('leftBar')) {
+            let whichLeftBar = localStorage.getItem('leftBar').slice(0, 3)
+            let index = localStorage.getItem('leftBar').substring(3, 4)
+            if (whichLeftBar === 'sub') {
+              this.goUrl(this.subNavConfig[index].url)
+            } else {
+              this.goUrl(this.navConfig[index].url)
+            }
+          } else {
+            this.goUrl('/marketingUtils')
+          }
         }
       },
       changeLoginMethod () {

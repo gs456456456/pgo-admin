@@ -34,7 +34,7 @@ export default {
   },
   methods: {
     ...mapMutations(['setUserInfo', 'setNavConfig', 'setSubNavConfig']),
-    // 初始化本地设置
+    // 初始化本地存储设置
     initLocalConfig () {
       this.initUserInfo()
       this.initLeftBarConfig()
@@ -43,6 +43,9 @@ export default {
       if (localStorage.getItem('userInfo')) {
         this.setUserInfo(JSON.parse(localStorage.getItem('userInfo')))
       }
+    },
+    initUrl () {
+
     },
     initLeftBarConfig () {
       if (localStorage.getItem('leftBar')) {
