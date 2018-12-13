@@ -1,0 +1,169 @@
+@import '@/assets/style/common.scss';
+.configDescription{
+    margin: 36px auto;
+    max-width: 1146px;
+    .activeSettingTitle{
+        height: 37px;
+        line-height: 37px;
+        font-size: 26px;
+        font-weight: 400;
+        margin-bottom: 36px;
+    }
+    .pagination{
+        text-align: center;
+        margin-top: 17px;
+    }
+    .upload-demo{
+        width:108px;
+        height:40px;
+    }
+    .el-upload-dragger,.el-upload {
+        width:108px;
+        height:40px;
+        color:rgb(160,160,160);
+        font-size: 14px;
+        line-height: 39px;
+    }
+    .activeSettingContent{
+        width: 100%;
+        min-height: 649px;
+        box-sizing: border-box;
+        padding: 42px 63px 38px 29px;
+        background-color: #fff;
+        display: flex;
+        >div{
+            &:first-child{
+                box-sizing: border-box;
+                width: 316px;
+                height: 563px;
+                border: 1px solid #ccc;
+            }
+            &:last-child{
+                margin-left: 37px;
+                flex: 1
+            }
+        }
+    }
+    .activeSettingInfo{
+        width: 100%;
+        min-height: 328px;
+        background-color: rgb(239, 242, 247);
+        box-sizing: border-box;
+        padding:0 25px 0 22px;
+        .prompt{
+            color:rgb(126,126,126)
+        }
+    }
+    .activeSettingInfoContent{
+        border-top: 1px solid rgb(232, 232, 232);
+    }
+    .activeSettingShare,.activeSettingIntegration{
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px
+    }
+    .activeSettingIntegration{
+        height: 40px;
+        margin-bottom: 20px;
+    }
+    .el-input{
+        width: 240px;
+        height: 40px;
+        margin-right: 22px;
+    }
+    .activeSettingDelete{
+        font-size: 16px;
+        color: rgb(69, 119, 199);
+        cursor: pointer;
+    }
+    .drop-down{
+        margin-bottom: 46px;
+    }
+    .btn{
+        color: rgb(126,126,126);
+        width: 123px;
+        height: 40px;;
+        font-size: 14px;
+        margin-left: 100px;
+    }
+    .activeSetting{
+        min-width: 64px;
+        font-size: 16px;
+        margin-right: 35px;
+    }
+    .check-item{
+         background: white               
+    }
+    
+    .activeSettingInfoTitle{
+        height: 20px;
+        line-height: 20px;
+        font-size: 14px;
+        width: 100%;
+        padding-top: 34px;
+        padding-bottom: 12px;
+    }
+    .activeSettingInfoContent{
+        padding-top:28px;
+        padding-bottom: 40px;
+    }
+    .afterTitle{
+        margin-top: 24px;
+    }
+    
+    .el-input{
+        width: 240px;
+        height: 40px;
+    }
+    .el-input>input{
+        font-size: 14px;
+        color: rgb(144, 147, 153);
+    }
+    .activeSettingButton{
+        width: 94px;
+        height: 32px;
+        line-height: 32px;
+        text-align: center;
+        border-radius: 2px;
+        background-color: rgb(69, 119, 199);
+        border: 1px solid rgb(165, 165, 165);
+        font-size: 14px;
+        color: #fff;
+        font-weight: 400;
+        margin: 28px 0 0 127px;
+        cursor: pointer;
+    }
+    .selectCoupon{
+        cursor: pointer;
+        width: 238px;
+        font-size: 14px;
+        color: #b2b2b2;
+        text-align: left;
+        position: relative;
+        .el-icon-arrow-down{
+            position: absolute;
+            right: 10px;
+        }
+    }
+    .coupon{
+        .activeSettingDelete{
+            margin-left: 23px;
+        }
+    }
+    .coupondialog{
+        .el-dialog__body{
+            position: relative;
+        }
+        .confirm-btn{
+            position: absolute;
+            bottom: 22px;
+            right: 117px;
+            color:white
+        }
+        .cancel-btn{
+            bottom: 22px;
+            right: 30px;
+            position: absolute;
+        }
+    }
+}

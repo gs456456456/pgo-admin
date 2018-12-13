@@ -1,5 +1,5 @@
 <template>
-    <div class="personNewConfig" v-loading='loading'>
+    <div class="personNewConfig configDescription" v-loading='loading'>
         <div class="activeSettingTitle">新人送礼 - 活动配置</div>
         <div class="activeSettingContent">
             <div>
@@ -82,6 +82,7 @@ export default {
 }
 </script>
 <style lang='scss'>
+@import "@/assets/style/configDescription.scss";
 @import "./personNewGiftConfig.scss";
 </style>
 

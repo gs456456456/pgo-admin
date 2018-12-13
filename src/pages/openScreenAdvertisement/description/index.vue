@@ -1,6 +1,7 @@
 <template>
-    <div class="openScreenDescription">
-        <div class="previewShare-content">
+    <div class="openScreenDescription modifyConfig">
+        <div class="previewShare-inner">
+            <div class="previewShare-content">
                 <div class="content-title">
                     <p>裂变活动20180912</p>
                     <div class="btns">
@@ -43,6 +44,7 @@
                     </div>
                 </div>
             </div>
+        </div>
     </div>
 </template>
     

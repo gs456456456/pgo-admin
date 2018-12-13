@@ -1,5 +1,5 @@
 <template>
-        <div class="personNew" v-loading="loading">
+        <div class="personNew modifyConfig" v-loading="loading">
             <div class="previewShare-inner">
                 <el-breadcrumb separator="/">
                     <el-breadcrumb-item :to="{ path: '/' }">营销活动</el-breadcrumb-item>

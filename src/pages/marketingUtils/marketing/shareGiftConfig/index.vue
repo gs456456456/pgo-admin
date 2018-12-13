@@ -1,5 +1,5 @@
 <template>
-    <div class="shareGiftConfig" v-loading='loading'>
+    <div class="shareGiftConfig configDescription" v-loading='loading'>
         <div class="activeSettingTitle">转发送礼拉新 - 活动配置</div>
         <div class="activeSettingContent">
             <div>
@@ -143,6 +143,7 @@ export default {
 }
 </script>
 <style lang='scss'>
+@import "@/assets/style/configDescription.scss";
 @import "./shareGiftConfig.scss";
 </style>
 

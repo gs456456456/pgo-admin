@@ -1,5 +1,5 @@
 <template>
-    <div class="ShareGift">
+    <div class="ShareGift modifyConfig">
         <div class="previewShare-inner">
             <el-breadcrumb separator="/">
                 <el-breadcrumb-item :to="{ path: '/' }">营销活动</el-breadcrumb-item>

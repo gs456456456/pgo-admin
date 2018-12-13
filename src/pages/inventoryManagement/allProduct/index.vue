@@ -1,6 +1,6 @@
 <template>
     <div class="inventory-allPro">
-        <div class="previewShare-inner previewShare-content container">
+        <div class="previewShare-inner-d">
             <div class="title-container fl-row-xbtw-yctr">
                 <div class="left fl">
                     <div class="title">货品列表</div>
@@ -8,7 +8,7 @@
                 </div>
                 <el-button class="right" type="primary" @click="addProduct">添加货品</el-button>
             </div>
-            <div class="table">
+            <div class="sptable">
                 <el-table :data="productList" style="width: 100%">
                     <el-table-column prop="name" label="货品名称" width="175">
                         <template slot-scope="scope">
@@ -176,5 +176,6 @@
 </script>
 
 <style lang='scss'>
+    @import "@/assets/style/sptable.scss";
     @import './allProduct.scss'
 </style>
