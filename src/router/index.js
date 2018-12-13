@@ -24,8 +24,8 @@ const router = new Router({
     {
       path: '/openScreenAdvertisement',
       name: 'openScreenAdvertisement',
-      component: openScreenAdvertisement.description,
-      redirect: '/openScreenAdvertisement/description',
+      component: openScreenAdvertisement.parent,
+      redirect: '/openScreenAdvertisement/config',
       children: [
         { path: 'description', component: openScreenAdvertisement.description },
         { path: 'config', component: openScreenAdvertisement.config }

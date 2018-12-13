@@ -57,29 +57,26 @@
         }
       }
       var validatePass = (rule, value, callback) => {
+        const PASS_REGEXP = /^(?=.*[a-z,A-Z])(?=.*\d)[^]{8,16}$/
         if (value === '') {
           callback(new Error('请输入密码'))
-        } else {
-          if (this.registerParms.password !== '') {
-            this.$refs.registerForm.validateField('repassword')
-          }
+        }
+        if (!PASS_REGEXP.test(value)) {
+          callback(new Error('密码长度为8～16位,必须包含1个数字和1个字母'))
+        }
+        if (this.registerParms.password !== '') {
+          this.$refs.registerForm.validateField('repassword')
           callback()
         }
       }
       var validatePass2 = (rule, value, callback) => {
+        const PASS_REGEXP = /^(?=.*[a-z,A-Z])(?=.*\d)[^]{8,16}$/
         if (value === '') {
           callback(new Error('请再次输入密码'))
         } else if (value !== this.registerParms.password) {
           callback(new Error('两次输入密码不一致!'))
-        } else {
-          callback()
-        }
-      }
-      let repasswordVerify = (rule, value, callback) => {
-        if (this.registerParms.password != this.registerParms.repassword) {
-          callback(new Error('密码不一致'))
-        } else {
-          callback()
+        } else if (!PASS_REGEXP.test(value)) {
+          callback(new Error('密码长度为8～16位,必须包含1个数字和1个字母'))
         }
       }
       return {

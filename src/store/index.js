@@ -39,6 +39,9 @@ const error = {
     setSuccess (state, successText) {
       state.showSuccess = true
       state.successText = successText
+      setTimeout(() => {
+        state.showSuccess = false
+      }, 3000)
     }
   }
 }

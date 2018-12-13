@@ -35,7 +35,7 @@ const http = async (param, type) => {
       url: requestUrl,
       headers: requestHeaders
     }
-    // JSON or FormData
+    // data:请求体body params:Url
     if (type) {
       paramFormat['data'] = param.body
     } else {

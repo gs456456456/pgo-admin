@@ -70,20 +70,23 @@
     methods: {
       ...mapActions(['userLoginFetch', 'userInfoFetch']),
       ...mapMutations(['setUserInfo']),
+      goLeftBar () {
+        if (localStorage.getItem('leftBar')) {
+          let whichLeftBar = localStorage.getItem('leftBar').slice(0, 3)
+          let index = localStorage.getItem('leftBar').substring(3, 4)
+          if (whichLeftBar === 'sub') {
+            this.goUrl(this.subNavConfig[index].url)
+          } else {
+            this.goUrl(this.navConfig[index].url)
+          }
+        } else {
+          this.goUrl('/marketingUtils')
+        }
+      },
       hasLoginFunc (v) {
         // 登陆状态未消失默认跳转
         if (v && v !== 'null') {
-          if (localStorage.getItem('leftBar')) {
-            let whichLeftBar = localStorage.getItem('leftBar').slice(0, 3)
-            let index = localStorage.getItem('leftBar').substring(3, 4)
-            if (whichLeftBar === 'sub') {
-              this.goUrl(this.subNavConfig[index].url)
-            } else {
-              this.goUrl(this.navConfig[index].url)
-            }
-          } else {
-            this.goUrl('/marketingUtils')
-          }
+          this.goLeftBar()
         }
       },
       changeLoginMethod () {
@@ -117,7 +120,15 @@
             this.loading = false
             this.setUserInfo(userInfo.result)
             this.remeberUserName()
-            this.goUrl('/marketingUtils')
+            this.goLeftBar()
+          }
+        }
+      },
+      keyupSubmit () {
+        document.onkeydown = e => {
+          let _key = window.event.keyCode
+          if (_key === 13) {
+            this.submit()
           }
         }
       }
@@ -128,6 +139,8 @@
       }
     },
     created () {
+      console.log(111)
+      this.keyupSubmit()
       this.hasLoginFunc(localStorage.getItem('userInfo'))
     },
     watch: {

@@ -27,7 +27,7 @@ export default {
     ],
     subNavConfig: [
       { name: '精选专场', url: false, active: false, open: false, noActive: true, extends: '线上商城', noActive: false},
-      { name: '开屏广告', url: '/openScreenAdvertisement/description', active: false, open: true, noActive: false, extends: '线上商城', noActive: false}
+      { name: '开屏广告', url: '/openScreenAdvertisement/config', active: false, open: true, noActive: false, extends: '线上商城', noActive: false}
     ]
   },
   getters: {

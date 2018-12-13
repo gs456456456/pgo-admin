@@ -1,9 +1,5 @@
 <template>
     <div class="openScreenDescription">
-        <left-bar-nav-mixin :innerNavTitle='innerNavTitle'
-                            :modulesTitle='modulesTitle'
-                            :showInnerNav='showInnerNav'
-                            >
         <div class="previewShare-content">
                 <div class="content-title">
                     <p>裂变活动20180912</p>
@@ -20,13 +16,13 @@
                     </div>
                     <div class="content-content-right">
                         <div class="right-top">
-                            <p class="right-title">活动信息</p>
+                            <p class="right-title">广告设置</p>
                             <div class="right-content">
-                                <p class="first">活动状态</p>
+                                <p class="first">广告状态</p>
                                 <p class="second"></p>
                             </div>
                             <div class="right-content">
-                                <p class="first">活动类型</p>
+                                <p class="first">广告图片</p>
                                 <p class="second">新人送礼</p>
                             </div>
                         </div>
@@ -47,7 +43,6 @@
                     </div>
                 </div>
             </div>
-        </left-bar-nav-mixin>
     </div>
 </template>
     
@@ -81,5 +76,7 @@ export default {
 </script>
 
 <style lang='scss'>
+    @import "@/assets/style/common.scss";
+    @import "@/assets/style/modifyConfig.scss";
     @import './description.scss'
 </style>

@@ -6,6 +6,12 @@ $common-border:rgb(229,229,229);
 //element-ui主题色
 $--color-primary: rgb(69,119,199);
 
+.my-ellipsis{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 //块级元素居中
 @mixin center-block($extend: true) {
     @if $extend {
