@@ -28,7 +28,8 @@ const router = new Router({
       redirect: '/openScreenAdvertisement/config',
       children: [
         { path: 'description', component: openScreenAdvertisement.description },
-        { path: 'config', component: openScreenAdvertisement.config }
+        { path: 'config', component: openScreenAdvertisement.config },
+        { path: 'add', component: openScreenAdvertisement.add }
       ],
       meta: {
         requireAuth: true

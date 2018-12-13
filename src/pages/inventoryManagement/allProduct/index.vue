@@ -1,5 +1,5 @@
 <template>
-    <div class="inventory-allPro">
+    <div class="inventory-allPro element-form">
         <div class="previewShare-inner-d">
             <div class="title-container fl-row-xbtw-yctr">
                 <div class="left fl">

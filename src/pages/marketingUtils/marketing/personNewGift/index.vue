@@ -3,7 +3,7 @@
             <div class="previewShare-inner">
                 <el-breadcrumb separator="/">
                     <el-breadcrumb-item :to="{ path: '/' }">营销活动</el-breadcrumb-item>
-                    <el-breadcrumb-item><a href="/">新人礼活动</a></el-breadcrumb-item>
+                    <el-breadcrumb-item>新人礼活动</el-breadcrumb-item>
                 </el-breadcrumb>
                 <!-- 营销活动 <span>/转发享好礼活动</span> -->
             </div>

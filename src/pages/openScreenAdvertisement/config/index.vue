@@ -87,7 +87,7 @@
           this.goUrl(`/openScreenAdvertisement/description?id=${this.nowAdvertisement.id}`)
         },
         addAdvertisement () {
-          this.goUrl(`/openScreenAdvertisement/description?id=${this.nowAdvertisement.id}`)
+          this.goUrl(`/openScreenAdvertisement/add`)
         }
       },
       created () {

@@ -9,6 +9,7 @@
     margin-top: 32px;
     border-radius: 6px;
     padding: 18px 29px;
+    margin-bottom: 30px;
     .title-container{
         .title{
            font-size: 20px;
@@ -38,36 +39,9 @@
        .el-table--enable-row-hover .el-table__body tr:hover>td{
            background-color: white !important;
        }
-       //elementui 表单
-       .el-icon-success{
-           color:rgb(9,186,6);
-           font-size:26px;
-           margin-right: 17px;
-       }
-       .add-pro-form,.select-qrcode-form{
-           .el-dialog__body{
-               padding: 15px 52px 0;
-           }
-       }
-       .el-table__body-wrapper td{
-           padding: 27px 0;
-       }
-       .export-success-form{
-           .el-dialog__body{
-               padding: 20px 20px 10px;
-           }
-       }
-       .el-form-item__content{
-           margin-left: 90px
-       }
-       // .add-pro-form{
-           .el-input__inner{
-               width: 224px;
-           }
-           .el-input{
-               width: 224px;
-           }
-       // }
     }
+    // .element-form{
+        // }
+    // }
   }
 
