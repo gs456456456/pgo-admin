@@ -1,17 +1,16 @@
 <template>
     <div>
         <left-bar-nav-mixin :innerNavTitle='innerNavTitle'
-                            :modulesTitle='modulesTitle'
                             :showInnerNav='showInnerNav'
                             v-if='showNav'>
         <router-view></router-view>
         </left-bar-nav-mixin>
-        <router-view v-else @setTitleName='setTitleName'></router-view>
+        <router-view v-else></router-view>
     </div>
 </template>
 <script>
 import leftBarNavMixin from '@/components/leftBarNavMixin'
-import { mapActions } from 'vuex'
+import { mapActions, mapMutations } from 'vuex'
 export default {
   name: 'parent',
   components: {
@@ -30,9 +29,9 @@ export default {
       innerNavTitle: [],
       showInnerNav: true,
       noNavUrl: [
-        '/openScreenAdvertisement/add'
+        '/openScreenAdvertisement/addNewOrEdit'
       ],
-      modulesTitle: '开屏广告',
+      // modulesTitle: '开屏广告',
       showNav: true
     }
   },
@@ -40,19 +39,17 @@ export default {
   },
   methods: {
     ...mapActions(['userInfoFetch']),
+    ...mapMutations(['setModuleTitle']),
     judgeNavStatus (path) {
       if (this.noNavUrl.indexOf(path) > -1) {
         this.showNav = false
       } else {
         this.showNav = true
       }
-    },
-    setTitleName (title) {
-      console.log(1)
-      this.modulesTitle = title
     }
   },
   created () {
+    this.setModuleTitle('开屏广告')
     this.judgeNavStatus(this.$router.currentRoute.path)
     // 请求用户信息 防止登录过期
     this.userInfoFetch()

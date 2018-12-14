@@ -1,7 +1,6 @@
 <template>
   <div>
     <left-bar-nav-mixin :innerNavTitle='innerNavTitle'
-                        :modulesTitle='modulesTitle'
                         :showInnerNav='showInnerNav'
                         v-if='showNav'>
       <router-view></router-view>
@@ -11,7 +10,7 @@
 </template>
 <script>
   import leftBarNavMixin from '@/components/leftBarNavMixin'
-  import { mapActions } from 'vuex'
+  import { mapActions, mapMutations } from 'vuex'
   export default {
     name: 'parent',
     components: {
@@ -41,7 +40,7 @@
           '/marketingUtils/personNewGiftConfig',
           '/marketingUtils/shareGiftConfig'
         ],
-        modulesTitle: '营销',
+        // modulesTitle: '营销',
         showNav: true
       }
     },
@@ -49,6 +48,7 @@
     },
     methods: {
       ...mapActions(['userInfoFetch']),
+      ...mapMutations(['setModuleTitle']),
       judgeNavStatus (path) {
         if (this.noNavUrl.indexOf(path) > -1) {
           this.showNav = false
@@ -58,6 +58,7 @@
       }
     },
     created () {
+      this.setModuleTitle('营销')
       this.judgeNavStatus(this.$router.currentRoute.path)
       // 请求用户信息 防止登录过期
       this.userInfoFetch()

@@ -50,12 +50,13 @@
     
 <script>
 import leftBarNavMixin from '@/components/leftBarNavMixin'
+import { mapActions, mapMutations } from 'vuex'
 export default {
   name: 'openScreenAdvertisementDescription',
   data () {
     return {
       showInnerNav: false,
-      modulesTitle: '开屏广告详情',
+    //   modulesTitle: '开屏广告详情',
       innerNavTitle: []
     //   activeLeftBar:''
     }
@@ -66,9 +67,10 @@ export default {
   computed: {
   },
   methods: {
+    ...mapMutations(['setModuleTitle'])
   },
   created () {
-
+    this.setModuleTitle('开屏广告详情')
   },
   mounted () {
   },

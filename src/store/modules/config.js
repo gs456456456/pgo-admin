@@ -1,5 +1,16 @@
 export default {
   state: {
+    activityConfig: {
+      SHARE_GIFT: {
+        configUrl: '/marketingUtils/shareGift',
+        wistoreUrl: ''
+      },
+      ACTIVE_CARD_GIFT: {
+        configUrl: '/marketingUtils/personNewGift',
+        wistoreUrl: ''
+      }
+    },
+    moduleTitle: '',
     navConfig: [
       // { name: '线上商城',
       //   sub: [{
@@ -36,6 +47,12 @@ export default {
     },
     getSubNavConfig (state) {
       return state.subNavConfig
+    },
+    getActivityConfig (state) {
+      return state.activityConfig
+    },
+    getModuleTitle (state) {
+      return state.moduleTitle
     }
   },
   actions: {
@@ -47,6 +64,9 @@ export default {
     },
     setSubNavConfig (state, navConfig) {
       state.subNavConfig = navConfig
+    },
+    setModuleTitle (state, moduleTitle) {
+      state.moduleTitle = moduleTitle
     }
   }
 }

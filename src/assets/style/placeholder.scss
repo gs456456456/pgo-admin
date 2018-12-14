@@ -1,0 +1,22 @@
+    //placeholder
+    :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+        color: rgb(144,147,153);
+        opacity:1; 
+        font-size: 5px;
+    }
+    ::-moz-placeholder { /* Mozilla Firefox 19+ */
+        color: rgb(144,147,153);
+        opacity:1;
+    }
+    /* 以上两个属性分别针对火狐浏览器不同版本 */
+
+    input:-ms-input-placeholder { /* IE */
+        color: rgb(144,147,153);
+        opacity:1; 
+    }
+
+    input::-webkit-input-placeholder{/* webkit内核的浏览器，如谷歌，edge */
+        color: rgb(144,147,153);
+        opacity:1;
+        font-size: 15px;
+    }

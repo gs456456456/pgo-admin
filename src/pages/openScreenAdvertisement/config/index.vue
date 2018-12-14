@@ -80,21 +80,16 @@
       computed: {
       },
       methods: {
-        initTitleName () {
-          this.$emit('setTitleName', '开平光噶片')
-        },
         goAdvertisementDescription () {
           this.goUrl(`/openScreenAdvertisement/description?id=${this.nowAdvertisement.id}`)
         },
         addAdvertisement () {
-          this.goUrl(`/openScreenAdvertisement/add`)
+          this.goUrl(`/openScreenAdvertisement/addNewOrEdit`)
         }
       },
       created () {
       },
       mounted () {
-        // 页面名称
-        this.initTitleName()
       },
       watch: {
       }

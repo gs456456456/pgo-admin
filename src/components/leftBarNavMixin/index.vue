@@ -4,7 +4,7 @@
         <div class="right">
             <div class="right-inner" :class="showInnerNav?'bottom-border':''">
                 <div class="title">
-                    {{modulesTitle}}
+                    {{getModuleTitle}}
                 </div>
                 <inner-nav-top :navTitle='innerNavTitle' class="inner-nav" v-if="showInnerNav">
                 </inner-nav-top>
@@ -18,7 +18,7 @@
 <script>
     import leftBar from '@/components/leftBar'
     import innerNavTop from '@/components/innerNavTop'
-    import { mapActions, mapMutations } from 'vuex'
+    import { mapActions, mapMutations, mapGetters} from 'vuex'
     export default {
       name: 'leftBarNavMixin',
       data () {
@@ -37,7 +37,7 @@
         innerNavTop: innerNavTop
       },
       props: {
-        modulesTitle: String,
+        // : String,
         innerNavTitle: Array,
         showInnerNav: Boolean
       },
@@ -45,10 +45,10 @@
 
       },
       methods: {
-        // ...mapMutations(['setUserInfo']),
-        // ...mapActions(['userInfoFetch'])
+        ...mapMutations(['setModuleTitle'])
       },
       computed: {
+        ...mapGetters(['getModuleTitle'])
       },
       created () {
         // let res = await this.userInfoFetch()

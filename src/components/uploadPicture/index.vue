@@ -10,6 +10,7 @@
     </el-upload>
 </template>
 <script>
+import { mapMutations } from 'vuex'
 export default {
   name: 'uploadPicture',
   data () {
@@ -18,20 +19,21 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(['setError']),
     handleAvatarSuccess (res, file) {
       this.imageUrl = URL.createObjectURL(file.raw)
     },
     beforeAvatarUpload (file) {
-      const isJPG = file.type === 'image/jpeg'
-      const isLt2M = file.size / 1024 / 1024 < 2
+      const isJPGOrPNG = file.type === 'image/jpeg' || 'image/png'
+      const isLt1M = file.size / 1024 / 1024 < 1
 
-      if (!isJPG) {
-        this.$message.error('上传头像图片只能是 JPG 格式!')
+      if (!isJPGOrPNG) {
+        this.setError('上传头像图片必须是 JPG 格式或 PNG 格式!')
       }
-      if (!isLt2M) {
-        this.$message.error('上传头像图片大小不能超过 2MB!')
+      if (!isLt1M) {
+        this.setError('上传头像图片大小不能超过 1MB!')
       }
-      return isJPG && isLt2M
+      return isJPGOrPNG && isLt1M
     }
   }
 }

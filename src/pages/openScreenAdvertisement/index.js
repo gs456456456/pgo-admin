@@ -1,12 +1,12 @@
 import parent from './page'
 import config from './config'
 import description from './description'
-import add from './add'
+import addNewOrEdit from './addNewOrEdit'
 
 const openScreenAdvertisement = {
   parent: parent,
   config: config,
   description: description,
-  add: add
+  addNewOrEdit: addNewOrEdit
 }
 export default openScreenAdvertisement

@@ -29,7 +29,7 @@ const router = new Router({
       children: [
         { path: 'description', component: openScreenAdvertisement.description },
         { path: 'config', component: openScreenAdvertisement.config },
-        { path: 'add', component: openScreenAdvertisement.add }
+        { path: 'addNewOrEdit', component: openScreenAdvertisement.addNewOrEdit }
       ],
       meta: {
         requireAuth: true
