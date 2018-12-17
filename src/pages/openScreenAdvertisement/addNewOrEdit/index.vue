@@ -11,7 +11,7 @@
                     <div class="activeSettingInfoContent">
                         <div class="activeSettingIntegration">
                             <div class="activeSetting">广告名称</div>
-                            <el-input placeholder="请填写奖品积分值" v-model="form.name"></el-input>
+                            <el-input placeholder="请填写广告名称" v-model="form.name"></el-input>
                         </div>
                         <div class="activeSettingIntegration activeSettingSp">
                             <div class="activeSetting">广告图片</div>

@@ -79,6 +79,9 @@
                         <el-option label="区域二" value="beijing"></el-option>
                     </el-select>
                 </el-form-item>
+                <el-form-item label="图片">
+                    <upload-picture></upload-picture>
+                </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
                 <el-button type="primary" @click="showAddProduct = false">确 定</el-button>
@@ -116,63 +119,65 @@
 </template>
 
 <script>
-    export default {
-      name: 'allProduct',
-      data () {
-        return {
-          productList: [{
-            name: 'Miru 隐形眼镜日抛30片装',
-            numId: '14787873',
-            series: 'Miru',
-            brand: 'MENICON',
-            standards: '30片装',
-            period: '日抛',
-            operation: '导出二维码链接',
-            img: '111111111111'
-          }],
-          showAddProduct: false,
-          showSelectQrCode: false,
-          showExportSucess: false,
-          newProduct: {
-            name: '',
-            numId: '',
-            series: '',
-            brand: '',
-            standards: [],
-            period: []
-          },
-          qrCodeForm: {
-            num: 1,
-            operation: []
-          }
-        //   formLabelWidth: '64px',
-        //   qrCodeFormLabelWidth: '200px'
-        }
+import uploadPicture from '@/components/uploadPicture'
+export default {
+  name: 'allProduct',
+  data () {
+    return {
+      productList: [{
+        name: 'Miru 隐形眼镜日抛30片装',
+        numId: '14787873',
+        series: 'Miru',
+        brand: 'MENICON',
+        standards: '30片装',
+        period: '日抛',
+        operation: '导出二维码链接',
+        img: '111111111111'
+      }],
+      showAddProduct: false,
+      showSelectQrCode: false,
+      showExportSucess: false,
+      newProduct: {
+        name: '',
+        numId: '',
+        series: '',
+        brand: '',
+        standards: [],
+        period: []
       },
-      components: {
-      },
-      computed: {
-      },
-      methods: {
-        addProduct () {
-          this.showAddProduct = true
-        },
-        selectQrCode () {
-          this.showSelectQrCode = true
-        },
-        exportQrCode () {
-          this.showExportSucess = true
-          this.showSelectQrCode = false
-        }
-      },
-      created () {
-
-      },
-      mounted () {
-      },
-      watch: {
+      qrCodeForm: {
+        num: 1,
+        operation: []
       }
+    //   formLabelWidth: '64px',
+    //   qrCodeFormLabelWidth: '200px'
     }
+  },
+  components: {
+    uploadPicture: uploadPicture
+  },
+  computed: {
+  },
+  methods: {
+    addProduct () {
+      this.showAddProduct = true
+    },
+    selectQrCode () {
+      this.showSelectQrCode = true
+    },
+    exportQrCode () {
+      this.showExportSucess = true
+      this.showSelectQrCode = false
+    }
+  },
+  created () {
+
+  },
+  mounted () {
+  },
+  watch: {
+  }
+}
 </script>
 
 <style lang='scss'>
