@@ -1,9 +1,17 @@
 import axios from 'axios'
 import main from '@/main.js'
+const env = process.env.NODE_ENV
+var config = null
 
-let config = {
-  'BASEURL': 'http://wistoredev.wisenable.com/api'
-  // 'BASEURL': 'http://192.168.1.10:8023/api'
+if (env === 'development') {
+  config = {
+    BASEURL: 'http://wistoredev.wisenable.com/api'
+    // 'BASEURL': 'http://192.168.1.10:8023/api'
+  }
+} else {
+  config = {
+    BASEURL: 'http://www.wisenable.com/api'
+  }
 }
 
 const http = async (param, type) => {
